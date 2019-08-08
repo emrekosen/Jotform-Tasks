@@ -6,7 +6,9 @@ import LoginPage from "./LoginPage";
 
 class HomePage extends React.Component {
   render() {
+    console.log(this.props.auth.isLoggedIn);
     if(!this.props.auth.isLoggedIn){
+      
       return (<Redirect to="/login"/>
       );
     }

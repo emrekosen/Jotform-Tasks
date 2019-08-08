@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import history from "../utils/history";
 import { LOGIN_SUCCESS, LOGIN_ERROR,  } from "../constants";
 
 export const loginHandler = data => (dispatch, getState) => {
@@ -13,9 +13,10 @@ export const loginHandler = data => (dispatch, getState) => {
     data: `username=${data.username}&password=${data.password}`
   }).then(response => {
     console.log(response.data);
-    if(response.data.responseCode === 200){
-      dispatch({LOGIN_SUCCESS, payload: {...getState.auth, isLoggedIn: true,
+    if(response.data.responseCode === 403){
+      dispatch({type:LOGIN_SUCCESS, payload: {...getState.auth, isLoggedIn: true,
       }});
+      history.push(``);
     }
 
   }).catch(e=> {

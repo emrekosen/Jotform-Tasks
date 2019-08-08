@@ -8,6 +8,7 @@ import "./App.css";
 import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage";
 import allReducers from "./reducers";
+import history from "./utils/history";
 
 class App extends React.Component {
   render() {
@@ -21,7 +22,7 @@ class App extends React.Component {
     );
     return (
       <Provider store={store}>
-        <Router>
+        <Router history = {history}>
           <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route exact path="/login" component={LoginPage}/>
