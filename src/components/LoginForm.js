@@ -28,6 +28,7 @@ class LoginForm extends Component {
 
   render() {
     const { username, password } = this.state;
+    const { authError } = this.props.auth;
     return (
       <form
         onSubmit={this.onSubmit}
@@ -35,6 +36,11 @@ class LoginForm extends Component {
         noValidate
       >
         <h1 className="h1 mb-4 font-weight-normal">Please sign in</h1>
+        {authError === null ? null : (
+          <div className="alert alert-danger" role="alert">
+            {authError}
+          </div>
+        )}
         <div className="form-group">
           <label htmlFor="validationCustomUsername">Username</label>
           <input
