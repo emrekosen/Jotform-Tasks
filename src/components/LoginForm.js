@@ -31,9 +31,10 @@ class LoginForm extends Component {
     return (
       <form
         onSubmit={this.onSubmit}
-        className="needs-validation w-50 ml-auto mr-auto"
+        className="needs-validation w-75 ml-auto mr-auto"
         noValidate
       >
+        <h1 className="h1 mb-4 font-weight-normal">Please sign in</h1>
         <div className="form-group">
           <label htmlFor="validationCustomUsername">Username</label>
           <input
@@ -62,7 +63,7 @@ class LoginForm extends Component {
           />
           <div className="invalid-feedback">Please enter a valid password</div>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary float-right">
           Submit
         </button>
       </form>

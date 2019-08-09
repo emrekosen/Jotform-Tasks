@@ -1,22 +1,18 @@
-import React from 'react'
+import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import LoginPage from "./LoginPage";
-
 
 class HomePage extends React.Component {
   render() {
-    console.log(this.props.auth.isLoggedIn);
-    if(!this.props.auth.isLoggedIn){
-      
-      return (<Redirect to="/login"/>
-      );
+    const { auth } = this.props;
+    if (!auth.isLoggedIn) {
+      return <Redirect to="/login" />;
     }
     return (
       <div>
         <h1>Home Page</h1>
       </div>
-    )
+    );
   }
 }
 
