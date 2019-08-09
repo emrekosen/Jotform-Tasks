@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
+import Container from "./Container";
+
 class HomePage extends React.Component {
   render() {
     const { auth } = this.props;
@@ -9,9 +11,11 @@ class HomePage extends React.Component {
       return <Redirect to="/login" />;
     }
     return (
-      <div>
-        <h1>Home Page</h1>
-      </div>
+      <Container>
+        <div className="container">
+          <h1 className="h1">HomePage</h1>
+        </div>
+      </Container>
     );
   }
 }

@@ -1,9 +1,8 @@
 import axios from "axios";
-import { Router } from "react-router";
 import { LOGIN_SUCCESS, LOGIN_ERROR } from "../constants";
 import history from "../utils/history";
 
-export const loginHandler = (x, data) => (dispatch, getState) => {
+export const loginHandler = data => (dispatch, getState) => {
   axios({
     url: "https://api.jotform.com/user/login",
     method: "POST",
@@ -20,6 +19,9 @@ export const loginHandler = (x, data) => (dispatch, getState) => {
           type: LOGIN_SUCCESS,
           payload: { ...getState.auth, isLoggedIn: true, authError: null }
         });
+        console.log("history push");
+        history.push("/");
+        console.log("history push completed");
       } else if (data.responseCode === 401) {
         dispatch({
           type: LOGIN_ERROR,
@@ -29,6 +31,7 @@ export const loginHandler = (x, data) => (dispatch, getState) => {
             authError: "Please check your username and password"
           }
         });
+        history.push("/");
       } else if (data.responseCode === 403) {
         dispatch({
           type: LOGIN_ERROR,
@@ -38,9 +41,6 @@ export const loginHandler = (x, data) => (dispatch, getState) => {
             authError: "Too many requests please try again later"
           }
         });
-        console.log("history push");
-        history.push("/");
-        console.log("history push completed");
       }
     })
     .catch(e => {

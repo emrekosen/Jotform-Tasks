@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 class Container extends React.Component {
   render() {
     return (
-      <div className="d-flex" id="wrapper">
+      <div className="d-flex toggled" id="wrapper">
         <Sidebar />
         <div id="page-content-wrapper">
           <Navbar />

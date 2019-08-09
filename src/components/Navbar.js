@@ -6,17 +6,17 @@ class Navbar extends Component {
   render() {
     const { toggleSidebar } = this.props;
     return (
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <button
-          class="btn btn-primary"
+          className="btn btn-primary"
           id="menu-toggle"
           onClick={toggleSidebar}
         >
-          Toggle Menu
+          Menu
         </button>
 
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -24,25 +24,25 @@ class Navbar extends Component {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon" />
+          <span className="navbar-toggler-icon" />
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                Home <span class="sr-only">(current)</span>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li className="nav-item active">
+              <a className="nav-link" href="http://">
+                Home <span className="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
+            <li className="nav-item">
+              <a className="nav-link" href="http://">
                 Link
               </a>
             </li>
-            <li class="nav-item dropdown">
+            <li className="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
-                href="#"
+                className="nav-link dropdown-toggle"
+                href="http://"
                 id="navbarDropdown"
                 role="button"
                 data-toggle="dropdown"
@@ -52,17 +52,17 @@ class Navbar extends Component {
                 Dropdown
               </a>
               <div
-                class="dropdown-menu dropdown-menu-right"
+                className="dropdown-menu dropdown-menu-right"
                 aria-labelledby="navbarDropdown"
               >
-                <a class="dropdown-item" href="#">
+                <a className="dropdown-item" href="http://">
                   Action
                 </a>
-                <a class="dropdown-item" href="#">
+                <a className="dropdown-item" href="http://">
                   Another action
                 </a>
-                <div class="dropdown-divider" />
-                <a class="dropdown-item" href="#">
+                <div className="dropdown-divider" />
+                <a className="dropdown-item" href="http://">
                   Something else here
                 </a>
               </div>
