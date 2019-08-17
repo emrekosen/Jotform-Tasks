@@ -2,6 +2,8 @@ import { GET_USER } from "../constants/index";
 
 const initalState = {
   username: null,
+  avatar: "",
+  teams: ["Apollo", "Hermes"],
 };
 
 export default function userReducer(state = initalState, action) {

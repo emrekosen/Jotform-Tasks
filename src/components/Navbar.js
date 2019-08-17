@@ -4,74 +4,49 @@ import { toggleHandler } from "../actions/sidebarActions";
 
 class Navbar extends Component {
   render() {
-    const { toggleSidebar } = this.props;
+    const { toggleSidebar, auth } = this.props;
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button
-          className="btn btn-primary"
-          id="menu-toggle"
-          onClick={toggleSidebar}
-        >
-          Menu
-        </button>
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li className="nav-item active">
-              <a className="nav-link" href="http://">
-                Home <span className="sr-only">(current)</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="http://">
-                Link
-              </a>
-            </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="http://"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <div
-                className="dropdown-menu dropdown-menu-right"
-                aria-labelledby="navbarDropdown"
-              >
-                <a className="dropdown-item" href="http://">
-                  Action
-                </a>
-                <a className="dropdown-item" href="http://">
-                  Another action
-                </a>
-                <div className="dropdown-divider" />
-                <a className="dropdown-item" href="http://">
-                  Something else here
-                </a>
-              </div>
-            </li>
-          </ul>
+          {auth.isLoggedIn ? <button type="button" id="sidebarCollapse" class="btn text-sidebar bg-turbo-yellow" onClick={toggleSidebar}>
+            Menu
+            <span></span>
+          </button> : null}
+          <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-align-justify"></i>
+
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Page</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Page</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Page</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Page</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
+
     );
   }
+}
+
+const mapStateToProps = ({ auth }) => {
+  return {
+    auth
+  };
+
 }
 
 const mapDispatchToProps = {
@@ -79,6 +54,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Navbar);
