@@ -13,8 +13,7 @@ class Container extends React.Component {
 
         <div className="wrapper">
           {auth.isLoggedIn ? <Sidebar /> : null}
-          <div id="content" class="active">
-
+          <div id="content" className="active">
             {this.props.children}
           </div>
         </div>
@@ -27,6 +26,6 @@ const mapStateToProps = ({ auth }) => {
   return {
     auth
   };
-}
+};
 
 export default connect(mapStateToProps)(Container);

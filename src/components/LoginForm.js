@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import validateLogin from "../utils/LoginValidate";
 import { loginHandler } from "../actions/authActions";
+import { getTeams } from "../actions/userActions";
+import { getTeam } from "../actions/teamActions";
 
 class LoginForm extends Component {
   state = {

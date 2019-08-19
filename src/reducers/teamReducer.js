@@ -30,6 +30,7 @@ const initalState = {
           groupName: "",
           tasks: [
             {
+              taskID: "",
               subject: "",
               description: "",
               time: "",
@@ -40,14 +41,15 @@ const initalState = {
           ]
         }
       ]
-    },
-  ],
-
+    }
+  ]
 };
 
 export default function teamReducer(state = initalState, action) {
   switch (action.type) {
     case GET_TEAM:
+      return action.payload || false;
+    case UPDATE_TEAM:
       return action.payload || false;
     default:
       return state;

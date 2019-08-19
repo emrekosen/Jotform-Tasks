@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class Boards extends Component {
-  render() {
-    return (
-      <div>
+  componentDidMount() {
+    //get team boards
+  }
 
-      </div>
-    )
+  render() {
+    return <div />;
   }
 }

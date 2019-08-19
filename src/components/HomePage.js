@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import Container from "./Container";
+import { getTeams } from "../actions/userActions";
 
 class HomePage extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class HomePage extends React.Component {
       <Container>
         <div className="container">
           <h1 className="h1">HomePage</h1>
+          <button onClick={getTeams} />
         </div>
       </Container>
     );
