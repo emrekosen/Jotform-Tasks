@@ -1,16 +1,18 @@
 import axios from "axios";
-import { API_KEY, USER_FORM, SET_TEAMS } from "../constants";
+import { API_KEY, USERS_FORM, SET_TEAMS } from "../constants";
 
-export const getTeams = data => (dispatch, getState) => {
+export const getUserTeams = data => (dispatch, getState) => {
+  console.log("getTeams");
   const state = getState().user;
   const userEmail = getState().user.email;
   let userTeams;
-  axios
+  return axios
     .get(
-      `https://api.jotform.com/form/${USER_FORM}/submissions?apiKey=${API_KEY}`
+      `https://api.jotform.com/form/${USERS_FORM}/submissions?apiKey=${API_KEY}`
     )
     .then(response => {
       const content = response.data.content;
+      console.log(content);
       for (let index = 0; index < content.length; index++) {
         const submission = content[index];
         const email = submission.answers[5].answer;

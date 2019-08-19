@@ -1,7 +1,6 @@
 import axios from "axios";
 import { LOGIN_SUCCESS, LOGIN_ERROR, SET_USER } from "../constants";
 import history from "../utils/history";
-import { getTeams } from "./userActions";
 
 export const loginHandler = data => (dispatch, getState) => {
   axios({
@@ -15,7 +14,6 @@ export const loginHandler = data => (dispatch, getState) => {
     .then(response => {
       let data = response.data;
       let content = data.content;
-      console.log(data);
       if (data.responseCode === 200) {
         dispatch({
           type: LOGIN_SUCCESS,
@@ -30,10 +28,7 @@ export const loginHandler = data => (dispatch, getState) => {
             avatarUrl: content.avatarUrl
           }
         });
-        getTeams();
-        console.log("history push");
         history.push("/");
-        console.log("history push completed");
       } else if (data.responseCode === 401) {
         dispatch({
           type: LOGIN_ERROR,
@@ -49,7 +44,7 @@ export const loginHandler = data => (dispatch, getState) => {
           type: LOGIN_ERROR,
           payload: {
             ...getState().auth,
-            isLoggedIn: false,
+            isLoggedIn: true,
             authError: "Too many requests please try again later"
           }
         });

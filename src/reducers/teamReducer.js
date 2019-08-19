@@ -1,48 +1,10 @@
 import { GET_TEAM, UPDATE_TEAM } from "../constants/index";
 
 const initalState = {
+  teamID: "",
   teamName: "",
-  boards: [
-    {
-      boardID: "",
-      boardName: "Sa",
-      taskGroups: [
-        {
-          groupName: "",
-          tasks: [
-            {
-              taskID: "",
-              subject: "",
-              description: "",
-              time: "",
-              dueDate: "",
-              assignedBy: "",
-              assignedTo: ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      boardName: "As",
-      taskGroups: [
-        {
-          groupName: "",
-          tasks: [
-            {
-              taskID: "",
-              subject: "",
-              description: "",
-              time: "",
-              dueDate: "",
-              assignedBy: "",
-              assignedTo: ""
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  users: [],
+  boards: []
 };
 
 export default function teamReducer(state = initalState, action) {

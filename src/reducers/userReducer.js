@@ -4,7 +4,7 @@ const initalState = {
   username: null,
   avatarUrl: "",
   email: "kosenemre@gmail.com",
-  teams: ["Apollo", "Hermes"]
+  teams: []
 };
 
 export default function userReducer(state = initalState, action) {

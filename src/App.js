@@ -11,6 +11,7 @@ import Board from "./components/Board";
 import Boards from "./components/Boards";
 import allReducers from "./reducers";
 import history from "./utils/history";
+import Teams from "./components/Teams";
 
 class App extends React.Component {
   render() {
@@ -28,6 +29,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/teams" component={Teams} />
             <Route path="/:teamName/" component={Boards} />
             <Route path="/:teamName/:boardID" component={Board} />
           </Switch>

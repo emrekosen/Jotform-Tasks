@@ -15,7 +15,7 @@ class HomePage extends React.Component {
       <Container>
         <div className="container">
           <h1 className="h1">HomePage</h1>
-          <button onClick={getTeams} />
+          <button />
         </div>
       </Container>
     );
