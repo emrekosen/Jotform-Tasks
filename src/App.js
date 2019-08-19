@@ -30,8 +30,8 @@ class App extends React.Component {
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/teams" component={Teams} />
-            <Route path="/:teamName/" component={Boards} />
-            <Route path="/:teamName/:boardID" component={Board} />
+            <Route path="/:teamID/boards" component={Boards} />
+            <Route path="/:teamID/:boardID" component={Board} />
           </Switch>
         </Router>
       </Provider>

@@ -1,10 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getTeam } from "../actions/teamActions";
+import Container from "./Container";
 
-export default class Boards extends Component {
-  componentDidMount() {}
+class Boards extends Component {
+  componentDidMount() {
+    const { getTeam } = this.props;
+    getTeam(this.props.match.params.teamID);
+  }
 
   render() {
-    return <div />;
+    return (<Container>
+      <h1>Boards</h1>
+    </Container>);
   }
 }
+
+const mapDispatchToProps = {
+  getTeam: getTeam
+}
+
+export default connect(null, mapDispatchToProps)(Boards)

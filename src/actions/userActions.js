@@ -2,7 +2,6 @@ import axios from "axios";
 import { API_KEY, USERS_FORM, SET_TEAMS } from "../constants";
 
 export const getUserTeams = data => (dispatch, getState) => {
-  console.log("getTeams");
   const state = getState().user;
   const userEmail = getState().user.email;
   let userTeams;
@@ -12,7 +11,6 @@ export const getUserTeams = data => (dispatch, getState) => {
     )
     .then(response => {
       const content = response.data.content;
-      console.log(content);
       for (let index = 0; index < content.length; index++) {
         const submission = content[index];
         const email = submission.answers[5].answer;
@@ -32,4 +30,4 @@ export const getUserTeams = data => (dispatch, getState) => {
     });
 };
 
-export const addTeam = data => (dispatch, getState) => {};
+export const addTeam = data => (dispatch, getState) => { };
