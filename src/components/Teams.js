@@ -10,12 +10,12 @@ class Teams extends Component {
 
   componentDidMount() {
     const { getUserTeams } = this.props;
-    getUserTeams().then(
+    getUserTeams().then(() => {
       this.setState({
         ...this.state,
         isLoaded: true
-      })
-    );
+      });
+    });
   }
 
   render() {
@@ -31,7 +31,7 @@ class Teams extends Component {
     return (
       <Container>
         {teams.map(team => {
-          return <h1 key={team.teamID}>{teams.teamName}</h1>;
+          return <h1 key={team.teamID}>{team.teamName}</h1>;
         })}
       </Container>
     );
