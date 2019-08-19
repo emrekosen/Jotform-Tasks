@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOGIN_SUCCESS, LOGIN_ERROR } from "../constants";
+import { LOGIN_SUCCESS, LOGIN_ERROR, SET_USER } from "../constants";
 import history from "../utils/history";
 
 export const loginHandler = data => (dispatch, getState) => {
@@ -13,20 +13,27 @@ export const loginHandler = data => (dispatch, getState) => {
   })
     .then(response => {
       let data = response.data;
-      console.log(data);
+      let content = data.content;
       if (data.responseCode === 200) {
         dispatch({
           type: LOGIN_SUCCESS,
           payload: { ...getState.auth, isLoggedIn: true, authError: null }
         });
-        console.log("history push");
+        dispatch({
+          type: SET_USER,
+          payload: {
+            ...getState().user,
+            username: content.username,
+            email: content.email,
+            avatarUrl: content.avatarUrl
+          }
+        });
         history.push("/");
-        console.log("history push completed");
       } else if (data.responseCode === 401) {
         dispatch({
           type: LOGIN_ERROR,
           payload: {
-            ...getState.auth,
+            ...getState().auth,
             isLoggedIn: false,
             authError: "Please check your username and password"
           }
@@ -36,8 +43,8 @@ export const loginHandler = data => (dispatch, getState) => {
         dispatch({
           type: LOGIN_ERROR,
           payload: {
-            ...getState.auth,
-            isLoggedIn: false,
+            ...getState().auth,
+            isLoggedIn: true,
             authError: "Too many requests please try again later"
           }
         });
