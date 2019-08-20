@@ -105,13 +105,26 @@ class JoinTeamModal extends Component {
                 />
               </div>
             ) : (
-              teams.map(team => {
-                if (
-                  user.teams.some(userTeam => userTeam.teamID === team.teamID)
-                ) {
+              <ListGroup>
+                {teams.map(team => {
+                  if (
+                    user.teams.some(userTeam => userTeam.teamID === team.teamID)
+                  ) {
+                    return (
+                      <ListGroupItem
+                        disabled
+                        onClick={joinTeam.bind(this, {
+                          teamID: team.teamID,
+                          teamName: team.teamName
+                        })}
+                        key={team.teamID}
+                      >
+                        {team.teamName}
+                      </ListGroupItem>
+                    );
+                  }
                   return (
                     <ListGroupItem
-                      disabled
                       onClick={joinTeam.bind(this, {
                         teamID: team.teamID,
                         teamName: team.teamName
@@ -121,19 +134,8 @@ class JoinTeamModal extends Component {
                       {team.teamName}
                     </ListGroupItem>
                   );
-                }
-                return (
-                  <ListGroupItem
-                    onClick={joinTeam.bind(this, {
-                      teamID: team.teamID,
-                      teamName: team.teamName
-                    })}
-                    key={team.teamID}
-                  >
-                    {team.teamName}
-                  </ListGroupItem>
-                );
-              })
+                })}
+              </ListGroup>
             )}
           </ModalBody>
           <ModalFooter>

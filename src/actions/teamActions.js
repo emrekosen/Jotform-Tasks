@@ -2,7 +2,6 @@ import { TEAMS_FORM, API_KEY, GET_TEAM, CREATE_TEAM } from "../constants";
 import axios from "axios";
 import uniqid from "uniqid";
 import { joinTeam } from "./userActions";
-import history from "../utils/history";
 
 export const getTeam = teamID => (dispatch, getState) => {
   return axios

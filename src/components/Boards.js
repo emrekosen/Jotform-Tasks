@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getTeam } from "../actions/teamActions";
 import { getUserTeams } from "../actions/userActions";
-import Container from "./Container";
 import { Spinner } from "reactstrap";
 
 class Boards extends Component {
@@ -36,21 +35,15 @@ class Boards extends Component {
     const { teamName } = this.props.team;
     if (!isLoaded) {
       return (
-        <Container>
-          <div className="text-center">
-            <Spinner
-              style={{ width: "5rem", height: "5rem", color: "#7386d5" }}
-              type="grow"
-            />
-          </div>
-        </Container>
+        <div className="text-center">
+          <Spinner
+            style={{ width: "5rem", height: "5rem", color: "#7386d5" }}
+            type="grow"
+          />
+        </div>
       );
     }
-    return (
-      <Container>
-        <h1>{`${teamName}'s Boards`}</h1>
-      </Container>
-    );
+    return <h1>{`${teamName}'s Boards`}</h1>;
   }
 }
 

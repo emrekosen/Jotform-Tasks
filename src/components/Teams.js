@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUserTeams } from "../actions/userActions";
-import Container from "./Container";
 import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -25,18 +24,16 @@ class Teams extends Component {
     const { isLoaded } = this.state;
     if (!isLoaded) {
       return (
-        <Container>
-          <div className="text-center">
-            <Spinner
-              style={{ width: "5rem", height: "5rem", color: "#7386d5" }}
-              type="grow"
-            />
-          </div>
-        </Container>
+        <div className="text-center">
+          <Spinner
+            style={{ width: "5rem", height: "5rem", color: "#7386d5" }}
+            type="grow"
+          />
+        </div>
       );
     }
     return (
-      <Container>
+      <div>
         {teams.map(team => {
           return (
             <h1 key={team.teamID}>
@@ -44,7 +41,7 @@ class Teams extends Component {
             </h1>
           );
         })}
-      </Container>
+      </div>
     );
   }
 }
