@@ -9,6 +9,7 @@ export const LOGIN_ERROR = "LOGIN_ERROR";
 export const GET_USER = "GET_USER";
 export const SET_USER = "SET_USER";
 export const CREATE_USER = "CREATE_USER";
+export const JOIN_TEAM = "JOIN_TEAM";
 
 export const SET_TEAMS = "SET_TEAMS";
 export const ADD_TEAM = "ADD_TEAM";

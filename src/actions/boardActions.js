@@ -8,7 +8,6 @@ export const getTeamBoards = data => (dispatch, getState) => {
     )
     .then(response => {
       const content = response.data.content;
-      console.log(content);
     });
 };
 

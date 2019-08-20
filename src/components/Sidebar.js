@@ -34,7 +34,7 @@ class Sidebar extends Component {
               {user.teams.map(team => {
                 return (
                   <li key={uniqid()}>
-                    <Link to={`/${team.teamID}`}>{team.teamName}</Link>
+                    <Link to={`/${team.teamID}/boards`}>{team.teamName}</Link>
                   </li>
                 );
               })}

@@ -27,17 +27,22 @@ class Teams extends Component {
       return (
         <Container>
           <div className="text-center">
-            <Spinner style={{ width: '5rem', height: '5rem', color: '#7386d5' }} type="grow" />
-
+            <Spinner
+              style={{ width: "5rem", height: "5rem", color: "#7386d5" }}
+              type="grow"
+            />
           </div>
-
         </Container>
       );
     }
     return (
       <Container>
         {teams.map(team => {
-          return <h1 key={team.teamID}><Link to={`/${team.teamID}/boards`}>{team.teamName}</Link></h1>;
+          return (
+            <h1 key={team.teamID}>
+              <Link to={`/${team.teamID}/boards`}>{team.teamName}</Link>
+            </h1>
+          );
         })}
       </Container>
     );

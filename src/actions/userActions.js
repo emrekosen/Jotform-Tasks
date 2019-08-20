@@ -1,5 +1,11 @@
 import axios from "axios";
-import { API_KEY, USERS_FORM, SET_TEAMS } from "../constants";
+import {
+  API_KEY,
+  USERS_FORM,
+  SET_TEAMS,
+  JOIN_TEAM,
+  TEAMS_FORM
+} from "../constants";
 
 export const getUserTeams = data => (dispatch, getState) => {
   const state = getState().user;
@@ -21,6 +27,8 @@ export const getUserTeams = data => (dispatch, getState) => {
             type: SET_TEAMS,
             payload: {
               ...state,
+              submissionID: submission.id,
+              isLoaded: true,
               teams: userTeams
             }
           });
@@ -30,4 +38,27 @@ export const getUserTeams = data => (dispatch, getState) => {
     });
 };
 
-export const addTeam = data => (dispatch, getState) => { };
+export const joinTeam = data => (dispatch, getState) => {
+  const submissionID = getState().user.submissionID;
+  const teams = getState().user.teams;
+  let newTeams = [...teams, data];
+  return axios({
+    url: `https://api.jotform.com/submission/${submissionID}?apiKey=${API_KEY}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: `submission[8]=${JSON.stringify({ teams: newTeams })}`
+  }).then(response => {
+    const data = response.data;
+    if (data.responseCode === 200) {
+      dispatch({
+        type: JOIN_TEAM,
+        payload: {
+          ...getState().user,
+          teams: newTeams
+        }
+      });
+    }
+  });
+};
