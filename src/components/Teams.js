@@ -34,11 +34,12 @@ class Teams extends Component {
     }
     return (
       <div>
+        <h1>Teams</h1>
         {teams.map(team => {
           return (
-            <h1 key={team.teamID}>
+            <h3 key={team.teamID}>
               <Link to={`/${team.teamID}/boards`}>{team.teamName}</Link>
-            </h1>
+            </h3>
           );
         })}
       </div>

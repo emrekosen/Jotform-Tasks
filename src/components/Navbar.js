@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { toggleHandler } from "../actions/sidebarActions";
+import { Link } from "react-router-dom";
+import {
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 
 class Navbar extends Component {
   render() {
-    const { toggleSidebar, auth } = this.props;
+    const { toggleSidebar, auth, user } = this.props;
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
@@ -34,25 +41,22 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="nav navbar-nav ml-auto">
               <li className="nav-item active">
-                <a className="nav-link" href="http">
-                  Page
-                </a>
+                <Link className="nav-link" to={"/teams"}>
+                  Teams
+                </Link>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="a">
-                  Page
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="a">
-                  Page
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="a">
-                  Page
-                </a>
-              </li>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret id="user">
+                  {/* {user.username} */}
+                  User
+                </DropdownToggle>
+                <DropdownMenu right>
+                  {/* <DropdownItem>Option 1</DropdownItem>
+                  <DropdownItem>Option 2</DropdownItem> */}
+                  <DropdownItem divider />
+                  <DropdownItem id="logout">Log out</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </ul>
           </div>
         </div>
@@ -61,9 +65,10 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, user }) => {
   return {
-    auth
+    auth,
+    user
   };
 };
 

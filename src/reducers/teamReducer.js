@@ -1,6 +1,7 @@
 import { GET_TEAM, UPDATE_TEAM } from "../constants/index";
 
 const initalState = {
+  isLoaded: false,
   teamID: "",
   teamName: "",
   users: [],

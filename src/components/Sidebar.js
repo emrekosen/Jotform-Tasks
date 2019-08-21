@@ -4,16 +4,23 @@ import { Link } from "react-router-dom";
 import uniqid from "uniqid";
 
 import JoinTeamModal from "./JoinTeamModal";
+import CreateBoardModal from "./CreateBoardModal";
 
 //set links and redirects
 
 class Sidebar extends Component {
   render() {
+    console.log("renderbro");
     const { user, team } = this.props;
     return (
       <nav id="sidebar" className="active">
         <div className="sidebar-header">
-          <h3>Jotform Tasks</h3>
+          <img
+            src={user.avatarUrl}
+            className="rounded mx-auto d-block"
+            alt=""
+          />
+          <h3>Welcome {user.username}</h3>
         </div>
 
         <ul className="list-unstyled components">
@@ -47,13 +54,18 @@ class Sidebar extends Component {
               aria-expanded="false"
               className="dropdown-toggle"
             >
-              Boards
+              {team.teamName} Boards
             </a>
             <ul className="collapse list-unstyled" id="pageSubmenu">
+              <li>
+                <CreateBoardModal buttonLabel="Create a Board" />
+              </li>
               {team.boards.map(board => {
                 return (
                   <li key={uniqid()}>
-                    <a href="http">{board.boardName}</a>
+                    <Link to={`/${team.teamID}/${board.boardID}`}>
+                      {board.boardName}
+                    </Link>
                   </li>
                 );
               })}

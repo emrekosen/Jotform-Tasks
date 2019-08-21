@@ -1,9 +1,9 @@
-import { GET_BOARD, UPDATE_BOARD } from "../constants/index";
+import { GET_BOARD, UPDATE_BOARD, CREATE_BOARD } from "../constants/index";
 
 const initalState = {
   boardID: "",
   boardName: "",
-  tasks: []
+  taskGroups: []
 };
 
 export default function boardReducer(state = initalState, action) {
@@ -11,6 +11,8 @@ export default function boardReducer(state = initalState, action) {
     case GET_BOARD:
       return action.payload || false;
     case UPDATE_BOARD:
+      return action.payload || false;
+    case CREATE_BOARD:
       return action.payload || false;
     default:
       return state;

@@ -155,6 +155,19 @@ a.article:hover {
   color: #fff !important;
 }
 
+#user {
+  background-color: #f8f9fa !important;
+}
+
+#logout {
+  background-color: white;
+  color: black;
+}
+
+.createTeamGroup {
+  margin-bottom: 10px;
+}
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */

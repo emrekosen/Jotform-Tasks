@@ -28,7 +28,7 @@ export const loginHandler = data => (dispatch, getState) => {
             avatarUrl: content.avatarUrl
           }
         });
-        history.push("/");
+        history.push("/teams");
       } else if (data.responseCode === 401) {
         dispatch({
           type: LOGIN_ERROR,
@@ -38,7 +38,6 @@ export const loginHandler = data => (dispatch, getState) => {
             authError: "Please check your username and password"
           }
         });
-        history.push("/");
       } else if (data.responseCode === 403) {
         dispatch({
           type: LOGIN_ERROR,

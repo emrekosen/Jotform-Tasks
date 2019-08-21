@@ -9,16 +9,20 @@ export const getTeam = teamID => (dispatch, getState) => {
       `https://api.jotform.com/form/${TEAMS_FORM}/submissions?apiKey=${API_KEY}`
     )
     .then(response => {
+      console.log(response);
       const content = response.data.content;
       for (let index = 0; index < content.length; index++) {
+        const submission = content[index];
         const answers = content[index].answers;
         if (answers[5].answer === teamID) {
           const team = JSON.parse(answers[6].answer);
           dispatch({
             type: GET_TEAM,
             payload: {
-              ...getState().team,
-              ...team
+              ...team,
+              submissionID: submission.id,
+              teamID: answers[5].answer,
+              isLoaded: true
             }
           });
         }
@@ -69,7 +73,8 @@ export const createTeam = data => (dispatch, getState) => {
         teamID: newTeamID,
         teamName: data,
         users: [userEmail],
-        boards: []
+        boards: [],
+        isLoaded: true
       }
     });
     dispatch(joinTeam({ teamID: newTeamID, teamName: data }));

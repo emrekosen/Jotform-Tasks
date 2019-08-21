@@ -86,17 +86,25 @@ class JoinTeamModal extends Component {
 
           <ModalBody>
             <h5>Create Team</h5>
-            <InputGroup>
+            <InputGroup
+              style={{
+                marginBottom: "5%"
+              }}
+            >
               <Input
+                placeholder="Team Name"
                 name="createTeamName"
                 onChange={this.handleChange}
                 value={createTeamName}
               />
               <InputGroupAddon addonType="append">
-                <Button onClick={this.onClickCreateTeam}>Create</Button>
+                <Button id="modalCreateButton" onClick={this.onClickCreateTeam}>
+                  Create
+                </Button>
               </InputGroupAddon>
             </InputGroup>
             <h5>Join Team</h5>
+            <p>Select team to join</p>
             {!isLoaded ? (
               <div className="text-center">
                 <Spinner
@@ -138,14 +146,14 @@ class JoinTeamModal extends Component {
               </ListGroup>
             )}
           </ModalBody>
-          <ModalFooter>
+          {/* <ModalFooter>
             <Button color="primary" onClick={this.toggle}>
               Do Something
             </Button>{" "}
             <Button color="secondary" onClick={this.toggle}>
               Cancel
             </Button>
-          </ModalFooter>
+          </ModalFooter> */}
         </Modal>
       </div>
     );

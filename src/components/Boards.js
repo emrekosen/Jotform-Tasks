@@ -5,9 +5,22 @@ import { getUserTeams } from "../actions/userActions";
 import { Spinner } from "reactstrap";
 
 class Boards extends Component {
-  state = {
-    isLoaded: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoaded: false
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { getTeam, match, team } = this.props;
+    if (match.params.teamID !== prevProps.match.params.teamID) {
+      getTeam(match.params.teamID).then(() => {
+        console.log("get team call");
+      });
+    }
+  }
 
   componentDidMount() {
     const { getTeam, getUserTeams, user, match } = this.props;
@@ -32,7 +45,7 @@ class Boards extends Component {
 
   render() {
     const { isLoaded } = this.state;
-    const { teamName } = this.props.team;
+    const { team } = this.props;
     if (!isLoaded) {
       return (
         <div className="text-center">
@@ -42,8 +55,16 @@ class Boards extends Component {
           />
         </div>
       );
+    } else {
+      return (
+        <div>
+          <h1>{`${team.teamName}'s Boards`}</h1>
+          {team.boards.map(board => {
+            return <h3 key={board.boardID}>{board.boardName}</h3>;
+          })}
+        </div>
+      );
     }
-    return <h1>{`${teamName}'s Boards`}</h1>;
   }
 }
 
