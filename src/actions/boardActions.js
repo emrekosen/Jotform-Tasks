@@ -4,14 +4,13 @@ import {
   BOARDS_FORM,
   GET_BOARD,
   CREATE_BOARD,
-  UPDATE_TEAM,
-  CREATE_TEAM
+  UPDATE_TEAM
 } from "../constants";
 import uniqid from "uniqid";
 import { getTeam } from "./teamActions";
 
 export const getBoard = boardID => (dispatch, getState) => {
-  axios
+  return axios
     .get(
       `https://api.jotform.com/form/${BOARDS_FORM}/submissions?apiKey=${API_KEY}`
     )
@@ -22,18 +21,19 @@ export const getBoard = boardID => (dispatch, getState) => {
         if (answers[3].answer === boardID) {
           const boardID = answers[3].answer;
           const boardName = answers[4].answer;
-          const taskGroups = JSON.parse(answers[5].answer);
+          const taskGroupsJSON = JSON.parse(answers[5].answer);
           dispatch({
             type: GET_BOARD,
             payload: {
               boardID: boardID,
               boardName: boardName,
-              taskGroups: taskGroups,
+              taskGroups: taskGroupsJSON.taskGroups,
               isLoaded: true
             }
           });
         }
       }
+      return "success";
     });
 };
 

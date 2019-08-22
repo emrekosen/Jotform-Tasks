@@ -1,11 +1,5 @@
 import axios from "axios";
-import {
-  API_KEY,
-  USERS_FORM,
-  SET_TEAMS,
-  JOIN_TEAM,
-  TEAMS_FORM
-} from "../constants";
+import { API_KEY, USERS_FORM, SET_TEAMS, JOIN_TEAM } from "../constants";
 
 export const getUserTeams = data => (dispatch, getState) => {
   const state = getState().user;

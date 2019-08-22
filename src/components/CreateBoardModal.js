@@ -4,18 +4,11 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  ListGroup,
-  ListGroupItem,
   InputGroup,
   InputGroupAddon,
-  Input,
-  Spinner,
-  Label
+  Input
 } from "reactstrap";
 import { connect } from "react-redux";
-import { getAllTeams, createTeam } from "../actions/teamActions";
-import { joinTeam } from "../actions/userActions";
 import history from "../utils/history";
 import { createBoard } from "../actions/boardActions";
 

@@ -1,6 +1,7 @@
 import { GET_BOARD, UPDATE_BOARD, CREATE_BOARD } from "../constants/index";
 
 const initalState = {
+  isLoaded: false,
   boardID: "",
   boardName: "",
   taskGroups: []

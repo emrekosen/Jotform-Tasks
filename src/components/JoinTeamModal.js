@@ -4,7 +4,6 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   ListGroup,
   ListGroupItem,
   InputGroup,
