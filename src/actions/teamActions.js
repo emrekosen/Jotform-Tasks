@@ -1,4 +1,10 @@
-import { TEAMS_FORM, API_KEY, GET_TEAM, CREATE_TEAM } from "../constants";
+import {
+  TEAMS_FORM,
+  API_KEY,
+  GET_TEAM,
+  CREATE_TEAM,
+  JOIN_TEAM
+} from "../constants";
 import axios from "axios";
 import uniqid from "uniqid";
 import { joinTeam } from "./userActions";
@@ -52,7 +58,8 @@ export const getAllTeams = () => (dispatch, getState) => {
 };
 
 export const createTeam = data => (dispatch, getState) => {
-  const userEmail = getState().user.email;
+  const userState = getState().user;
+  const userEmail = userState.email;
   const newTeamID = uniqid();
   return axios({
     url: `https://api.jotform.com/form/${TEAMS_FORM}/submissions?apiKey=${API_KEY}`,
@@ -77,7 +84,13 @@ export const createTeam = data => (dispatch, getState) => {
         isLoaded: true
       }
     });
-    dispatch(joinTeam({ teamID: newTeamID, teamName: data }));
+    dispatch({
+      type: JOIN_TEAM,
+      payload: {
+        ...getState().user,
+        teams: [...userState.teams, { teamID: newTeamID, teamName: data }]
+      }
+    });
     return newTeamID;
   });
 };
