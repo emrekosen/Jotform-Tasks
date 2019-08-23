@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import validateLogin from "../utils/LoginValidate";
 import { loginHandler } from "../actions/authActions";
 
-
 class LoginForm extends Component {
   state = {
     username: "",
@@ -33,7 +32,8 @@ class LoginForm extends Component {
     return (
       <form
         onSubmit={this.onSubmit}
-        className="needs-validation w-75 ml-auto mr-auto"
+        className="needs-validation w-50 ml-auto mr-auto"
+        id="loginForm"
         noValidate
       >
         <h1 className="h1 mb-4 font-weight-normal">Please sign in</h1>

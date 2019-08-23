@@ -7,7 +7,7 @@ import {
 } from "../constants";
 import axios from "axios";
 import uniqid from "uniqid";
-import { joinTeam } from "./userActions";
+import { getTeamBoards } from "./boardActions";
 
 export const getTeam = teamID => (dispatch, getState) => {
   return axios
@@ -15,24 +15,26 @@ export const getTeam = teamID => (dispatch, getState) => {
       `https://api.jotform.com/form/${TEAMS_FORM}/submissions?apiKey=${API_KEY}`
     )
     .then(response => {
-      console.log(response);
       const content = response.data.content;
       for (let index = 0; index < content.length; index++) {
         const submission = content[index];
         const answers = content[index].answers;
         if (answers[5].answer === teamID) {
           const team = JSON.parse(answers[6].answer);
-          dispatch({
-            type: GET_TEAM,
-            payload: {
-              ...team,
-              submissionID: submission.id,
-              teamID: answers[5].answer,
-              isLoaded: true
-            }
+          dispatch(getTeamBoards(answers[5].answer)).then(response1 => {
+            dispatch({
+              type: GET_TEAM,
+              payload: {
+                ...team,
+                boards: response1,
+                submissionID: submission.id,
+                teamID: answers[5].answer
+              }
+            });
           });
         }
       }
+      return "success";
     });
 };
 
@@ -88,7 +90,7 @@ export const createTeam = data => (dispatch, getState) => {
       type: JOIN_TEAM,
       payload: {
         ...getState().user,
-        teams: [...userState.teams, { teamID: newTeamID, teamName: data }]
+        teams: [{ teamID: newTeamID, teamName: data }, ...userState.teams]
       }
     });
     return newTeamID;

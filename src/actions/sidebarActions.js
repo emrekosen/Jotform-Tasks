@@ -11,5 +11,4 @@ export const toggleHandler = () => (dispatch, getState) => {
   } else {
     content.classList.add("active");
   }
-
 };

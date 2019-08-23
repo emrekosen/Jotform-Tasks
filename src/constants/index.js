@@ -12,12 +12,12 @@ export const SET_USER = "SET_USER";
 export const CREATE_USER = "CREATE_USER";
 export const JOIN_TEAM = "JOIN_TEAM";
 
-export const SET_TEAMS = "SET_TEAMS";
-export const ADD_TEAM = "ADD_TEAM";
-
 export const GET_TEAM = "GET_TEAM";
 export const UPDATE_TEAM = "UPDATE_TEAM";
 export const CREATE_TEAM = "CREATE_TEAM";
+export const SET_TEAMS = "SET_TEAMS";
+export const GET_TEAM_BOARDS = "GET_TEAM_BOARDS";
+export const UPDATE_TEAM_BOARDS = "UPDATE_TEAM_BOARDS";
 
 export const GET_BOARD = "GET_BOARD";
 export const CREATE_BOARD = "CREATE_BOARD";

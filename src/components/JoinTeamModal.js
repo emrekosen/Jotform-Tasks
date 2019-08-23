@@ -97,7 +97,11 @@ class JoinTeamModal extends Component {
                 value={createTeamName}
               />
               <InputGroupAddon addonType="append">
-                <Button id="modalCreateButton" onClick={this.onClickCreateTeam}>
+                <Button
+                  color="primary"
+                  id="modalCreateButton"
+                  onClick={this.onClickCreateTeam}
+                >
                   Create
                 </Button>
               </InputGroupAddon>

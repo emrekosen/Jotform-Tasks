@@ -1,7 +1,7 @@
 import { GET_TASKS, ADD_TASK, DELETE_TASK } from "../constants/index";
 
 const initalState = {
-  tasksGroups: []
+  taskGroups: []
 };
 
 export default function teamReducer(state = initalState, action) {

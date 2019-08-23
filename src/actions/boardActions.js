@@ -4,10 +4,10 @@ import {
   BOARDS_FORM,
   GET_BOARD,
   CREATE_BOARD,
-  UPDATE_TEAM
+  GET_TEAM_BOARDS,
+  UPDATE_TEAM_BOARDS
 } from "../constants";
 import uniqid from "uniqid";
-import { getTeam } from "./teamActions";
 
 export const getBoard = boardID => (dispatch, getState) => {
   return axios
@@ -16,15 +16,19 @@ export const getBoard = boardID => (dispatch, getState) => {
     )
     .then(response => {
       const content = response.data.content;
+
       for (let index = 0; index < content.length; index++) {
         const answers = content[index].answers;
         if (answers[3].answer === boardID) {
           const boardID = answers[3].answer;
           const boardName = answers[4].answer;
           const taskGroupsJSON = JSON.parse(answers[5].answer);
+          const teamID = answers[7].answer;
           dispatch({
             type: GET_BOARD,
             payload: {
+              submissionID: content[index].id,
+              teamID: teamID,
               boardID: boardID,
               boardName: boardName,
               taskGroups: taskGroupsJSON.taskGroups,
@@ -38,14 +42,8 @@ export const getBoard = boardID => (dispatch, getState) => {
 };
 
 export const createBoard = boardName => (dispatch, getState) => {
-  console.log("createBoard");
   const teamState = getState().team;
   const boardID = uniqid();
-  const teamData = {
-    teamName: teamState.teamName,
-    users: teamState.users,
-    boards: [...teamState.boards, { boardID: boardID, boardName: boardName }]
-  };
   return axios({
     url: `https://api.jotform.com/form/${BOARDS_FORM}/submissions?apiKey=${API_KEY}`,
     method: "POST",
@@ -56,44 +54,54 @@ export const createBoard = boardName => (dispatch, getState) => {
       {
         taskGroups: []
       }
-    )}`
+    )}&submission[7]=${teamState.teamID}`
   }).then(response => {
-    console.log("create board", response);
     const data = response.data;
     if (data.responseCode === 200) {
+      const newBoards = [
+        {
+          boardID: boardID,
+          boardName: boardName
+        },
+        ...teamState.boards
+      ];
       dispatch({
         type: CREATE_BOARD,
         payload: {
+          teamID: teamState.teamID,
           boardID: boardID,
           boardName: boardName,
           taskGroups: []
         }
       });
-      return axios({
-        url: `https://api.jotform.com/submission/${
-          teamState.submissionID
-        }?apiKey=${API_KEY}`,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        data: `submission[6]=${JSON.stringify(teamData)}`
-      }).then(response => {
-        console.log(boardID);
-        console.log("add board to team", response);
-        const data = response.data;
-        if (data.responseCode === 200) {
-          dispatch({
-            type: UPDATE_TEAM,
-            payload: {
-              ...getState().team,
-              ...teamData
-            }
-          });
-          dispatch(getTeam(teamState.teamID));
-          return boardID;
+      dispatch({
+        type: UPDATE_TEAM_BOARDS,
+        payload: {
+          ...getState().team,
+          boards: newBoards
         }
       });
     }
+    return boardID;
   });
+};
+
+export const getTeamBoards = teamID => (dispatch, getState) => {
+  let teamBoards = [];
+  return axios
+    .get(
+      `https://api.jotform.com/form/${BOARDS_FORM}/submissions?apiKey=${API_KEY}`
+    )
+    .then(response => {
+      const content = response.data.content;
+      for (let index = 0; index < content.length; index++) {
+        const answers = content[index].answers;
+        if (answers[7].answer === teamID) {
+          const boardID = answers[3].answer;
+          const boardName = answers[4].answer;
+          teamBoards.push({ boardID: boardID, boardName: boardName });
+        }
+      }
+      return teamBoards;
+    });
 };

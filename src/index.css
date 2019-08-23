@@ -201,12 +201,25 @@ a.article:hover {
   }
   #content {
     width: 100%;
-    padding: 0;
   }
+
+  #loginForm {
+    width: 100% !important;
+  }
+
   /* #content.active {
         width: calc(100% - 250px);
     } */
   #sidebarCollapse span {
     display: none;
   }
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+  background-color: #7386d5 !important;
+  border-color: #7386d5 !important;
 }

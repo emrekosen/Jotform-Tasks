@@ -44,7 +44,6 @@ class CreateBoardModal extends Component {
     const { createBoardName } = this.state;
     const { createBoard, team } = this.props;
     createBoard(createBoardName).then(newBoardID => {
-      console.log(newBoardID);
       this.setState({
         ...this.state,
         createBoardName: "",
@@ -78,7 +77,9 @@ class CreateBoardModal extends Component {
                 value={createBoardName}
               />
               <InputGroupAddon addonType="append">
-                <Button onClick={this.onClickCreateBoard}>Create</Button>
+                <Button color="primary" onClick={this.onClickCreateBoard}>
+                  Create
+                </Button>
               </InputGroupAddon>
             </InputGroup>
           </ModalBody>

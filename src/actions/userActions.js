@@ -45,10 +45,10 @@ export const joinTeam = data => (dispatch, getState) => {
     )
     .then(response => {
       const content = response.data.content;
-      console.log(content);
+
       for (let index = 0; index < content.length; index++) {
         const submission = content[index];
-        console.log(submission.answers[6]);
+
         const teamID = submission.answers[5].answer;
         const teamData = JSON.parse(submission.answers[6].answer);
         if (teamID === data.teamID) {
@@ -56,9 +56,9 @@ export const joinTeam = data => (dispatch, getState) => {
           newTeamData = teamData;
         }
       }
-      console.log(teamSubmissionID);
+
       newTeamData.users.push(userEmail);
-      console.log(newTeamData);
+
       return axios({
         url: `https://api.jotform.com/submission/${teamSubmissionID}?apiKey=${API_KEY}`,
         method: "POST",

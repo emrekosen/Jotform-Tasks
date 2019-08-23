@@ -3,7 +3,6 @@ import { API_KEY, TASKS_FORM, GET_TASKS } from "../constants";
 import uniqid from "uniqid";
 
 export const getTasks = taskGroups => (dispatch, getState) => {
-  console.log("get tasks");
   let taskGroupsA = [];
   return axios
     .get(
@@ -11,7 +10,6 @@ export const getTasks = taskGroups => (dispatch, getState) => {
     )
     .then(response => {
       const content = response.data.content;
-      // console.log(content);
       for (let index2 = 0; index2 < taskGroups.length; index2++) {
         const taskGroup = taskGroups[index2];
         const taskGroupID = taskGroup.id;
@@ -34,7 +32,7 @@ export const getTasks = taskGroups => (dispatch, getState) => {
           tasks: [...tasks]
         });
       }
-      console.log("get tasks dispatch");
+
       dispatch({
         type: GET_TASKS,
         payload: {

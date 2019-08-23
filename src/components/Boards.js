@@ -16,18 +16,15 @@ class Boards extends Component {
   componentDidUpdate(prevProps) {
     const { getTeam, match, team } = this.props;
     if (match.params.teamID !== prevProps.match.params.teamID) {
-      getTeam(match.params.teamID).then(() => {
-        console.log("get team call");
-      });
+      getTeam(match.params.teamID);
     }
   }
 
   componentDidMount() {
     const { getTeam, getUserTeams, user, match } = this.props;
     if (!user.isLoaded) {
-      getUserTeams().then(() => {
-        getTeam(match.params.teamID).then(() => {
-          console.log("get team called");
+      getTeam(match.params.teamID).then(() => {
+        getUserTeams().then(() => {
           this.setState({
             isLoaded: true
           });
@@ -35,7 +32,6 @@ class Boards extends Component {
       });
     } else {
       getTeam(match.params.teamID).then(() => {
-        console.log("get team called");
         this.setState({
           isLoaded: true
         });

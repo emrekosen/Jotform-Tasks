@@ -1,10 +1,4 @@
-import {
-  GET_USER,
-  SET_USER,
-  SET_TEAMS,
-  ADD_TEAM,
-  JOIN_TEAM
-} from "../constants/index";
+import { GET_USER, SET_USER, SET_TEAMS, JOIN_TEAM } from "../constants/index";
 
 const initalState = {
   isLoaded: false,
@@ -22,8 +16,6 @@ export default function userReducer(state = initalState, action) {
     case SET_USER:
       return action.payload || false;
     case SET_TEAMS:
-      return action.payload || false;
-    case ADD_TEAM:
       return action.payload || false;
     case JOIN_TEAM:
       return action.payload || false;

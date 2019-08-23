@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUserTeams } from "../actions/userActions";
+import { getTeamBoards } from "../actions/boardActions";
 import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -10,7 +11,7 @@ class Teams extends Component {
   };
 
   componentDidMount() {
-    const { getUserTeams } = this.props;
+    const { getUserTeams, getTeamBoards } = this.props;
     getUserTeams().then(() => {
       this.setState({
         ...this.state,
@@ -48,7 +49,8 @@ class Teams extends Component {
 }
 
 const mapDispatchToProps = {
-  getUserTeams: getUserTeams
+  getUserTeams: getUserTeams,
+  getTeamBoards: getTeamBoards
 };
 
 const mapStateToProps = ({ user }) => {

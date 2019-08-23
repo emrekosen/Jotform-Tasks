@@ -10,10 +10,9 @@ import CreateBoardModal from "./CreateBoardModal";
 
 class Sidebar extends Component {
   render() {
-    console.log("renderbro");
     const { user, team } = this.props;
     return (
-      <nav id="sidebar" className="active">
+      <nav id="sidebar">
         <div className="sidebar-header">
           <img
             src={user.avatarUrl}

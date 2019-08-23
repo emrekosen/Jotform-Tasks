@@ -19,7 +19,7 @@ class Navbar extends Component {
             <button
               type="button"
               id="sidebarCollapse"
-              className="btn text-sidebar bg-turbo-yellow"
+              className="btn btn-primary text-sidebar"
               onClick={toggleSidebar}
             >
               Menu
