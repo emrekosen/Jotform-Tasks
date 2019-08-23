@@ -187,6 +187,10 @@ a.article:hover {
   width: 100%;
 }
 
+#addTaskGroup {
+  width: 25%;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -194,10 +198,10 @@ a.article:hover {
 @media (max-width: 768px) {
   #sidebar {
     margin-top: 67px;
-    margin-left: -250px;
+    margin-left: 0;
   }
   #sidebar.active {
-    margin-left: 0;
+    margin-left: -250;
   }
   #content {
     width: 100%;
@@ -208,10 +212,15 @@ a.article:hover {
   }
 
   /* #content.active {
-        width: calc(100% - 250px);
-    } */
+    width: calc(100% - 250px);
+  } */
+
   #sidebarCollapse span {
     display: none;
+  }
+
+  #addTaskGroup {
+    width: 50%;
   }
 }
 

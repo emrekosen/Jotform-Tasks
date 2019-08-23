@@ -11,7 +11,7 @@ import {
 
 class Navbar extends Component {
   render() {
-    const { toggleSidebar, auth, user } = this.props;
+    const { toggleSidebar, auth } = this.props;
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">

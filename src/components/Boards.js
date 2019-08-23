@@ -14,7 +14,7 @@ class Boards extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { getTeam, match, team } = this.props;
+    const { getTeam, match } = this.props;
     if (match.params.teamID !== prevProps.match.params.teamID) {
       getTeam(match.params.teamID);
     }

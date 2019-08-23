@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   InputGroup,
   InputGroupAddon,
-  InputGroupText,
+  // InputGroupText,
   Button,
   Input
 } from "reactstrap";
@@ -10,7 +10,7 @@ import {
 export default class CreateTaskGroup extends Component {
   render() {
     return (
-      <InputGroup className="mb-3">
+      <InputGroup>
         <Input placeholder="Task group name" />
         <InputGroupAddon addonType="append">
           <Button onClick={this.props.toggleBar} color="primary">

@@ -11,7 +11,7 @@ class Teams extends Component {
   };
 
   componentDidMount() {
-    const { getUserTeams, getTeamBoards } = this.props;
+    const { getUserTeams } = this.props;
     getUserTeams().then(() => {
       this.setState({
         ...this.state,

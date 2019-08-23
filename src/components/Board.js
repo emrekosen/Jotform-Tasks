@@ -48,23 +48,31 @@ class Board extends Component {
     }
     return (
       <div>
+        <div className="mb-5">
+          {isAdding ? (
+            <CreateTaskGroup toggleBar={this.toggleTaskGroupAddBar} />
+          ) : (
+            <div className="d-flex justify-content-end align-items-end">
+              {/* <h4>Add Task Group</h4> */}
+              <button
+                id="addTaskGroup"
+                className="btn btn-primary"
+                onClick={this.toggleTaskGroupAddBar}
+              >
+                Add Task Group
+              </button>
+            </div>
+          )}
+        </div>
         {task.taskGroups.map(taskGroup => {
           return (
             <div key={taskGroup.taskGroupID}>
-              {isAdding ? (
-                <CreateTaskGroup toggleBar={this.toggleTaskGroupAddBar} />
-              ) : (
-                <div className="d-flex justify-content-between">
-                  <h5>{taskGroup.name}</h5>
-                  <button onClick={this.toggleTaskGroupAddBar}>+</button>
-                </div>
-              )}
+              <h5>{taskGroup.name}</h5>
 
               <hr
+                className="mt-3"
                 style={{
-                  border: "1px solid black",
-                  marginTop: "0.5rem",
-                  marginBottom: "0.5rem"
+                  border: "1px solid black"
                 }}
               />
               {taskGroup.tasks.map(task => {
