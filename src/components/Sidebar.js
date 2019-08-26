@@ -5,26 +5,27 @@ import uniqid from "uniqid";
 
 import JoinTeamModal from "./JoinTeamModal";
 import CreateBoardModal from "./CreateBoardModal";
+import { toggleHandler } from "../actions/sidebarActions";
 
 //set links and redirects
 
 class Sidebar extends Component {
   render() {
-    const { user, team } = this.props;
+    const { user, team, toggleSidebar } = this.props;
     return (
       <nav id="sidebar">
         <div className="sidebar-header">
+          <h3>Jotform Tasks</h3>
+        </div>
+
+        <ul className="list-unstyled components">
           <img
             src={user.avatarUrl}
             className="rounded mx-auto d-block"
             alt=""
           />
-          <h3>Welcome {user.username}</h3>
-        </div>
-
-        <ul className="list-unstyled components">
-          {/* <p>Dummy Heading</p> */}
-          <li className="active">
+          <p className="text-center">Welcome {user.username}</p>
+          <li>
             <a
               href="#homeSubmenu"
               data-toggle="collapse"
@@ -81,6 +82,10 @@ const mapStateToProps = ({ user, team }) => {
     user,
     team
   };
+};
+
+const mapDispatchToProps = {
+  toggleSidebar: toggleHandler
 };
 
 export default connect(mapStateToProps)(Sidebar);

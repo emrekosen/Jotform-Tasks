@@ -15,11 +15,15 @@ export const getUserTeams = data => (dispatch, getState) => {
         const submission = content[index];
         const teamID = submission.answers[5].answer;
         const teamsData = JSON.parse(submission.answers[6].answer);
-        if (teamsData.users.includes(userEmail)) {
-          userTeams.push({
-            teamID: teamID,
-            teamName: teamsData.teamName
-          });
+        const userList = teamsData.users;
+        for (let index = 0; index < userList.length; index++) {
+          const element = userList[index];
+          if (element.email === userEmail) {
+            userTeams.push({
+              teamID: teamID,
+              teamName: teamsData.teamName
+            });
+          }
         }
       }
       dispatch({
@@ -35,6 +39,7 @@ export const getUserTeams = data => (dispatch, getState) => {
 
 export const joinTeam = data => (dispatch, getState) => {
   const userEmail = getState().user.email;
+  const username = getState().user.username;
   let teamSubmissionID;
   let newTeamData;
   let userTeams = getState().user.teams;
@@ -57,7 +62,7 @@ export const joinTeam = data => (dispatch, getState) => {
         }
       }
 
-      newTeamData.users.push(userEmail);
+      newTeamData.users.push({ email: userEmail, username: username });
 
       return axios({
         url: `https://api.jotform.com/submission/${teamSubmissionID}?apiKey=${API_KEY}`,

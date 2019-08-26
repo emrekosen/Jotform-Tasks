@@ -3,7 +3,13 @@ import React, { Component } from "react";
 class Task extends Component {
   render() {
     const { id, task } = this.props;
-    return <p key={id}>{task}</p>;
+    return (
+      <div>
+        <li key={id} className="list-group-item">
+          {task}
+        </li>
+      </div>
+    );
   }
 }
 

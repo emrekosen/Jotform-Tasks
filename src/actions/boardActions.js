@@ -16,7 +16,6 @@ export const getBoard = boardID => (dispatch, getState) => {
     )
     .then(response => {
       const content = response.data.content;
-      console.log(content);
       for (let index = 0; index < content.length; index++) {
         const answers = content[index].answers;
         if (answers[3].answer === boardID) {

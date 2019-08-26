@@ -71,8 +71,7 @@ export const createTeam = data => (dispatch, getState) => {
     },
     data: `submission[5]=${newTeamID}&submission[6]=${JSON.stringify({
       teamName: data,
-      users: [userEmail],
-      boards: []
+      users: [{ email: userEmail, username: userState.username }]
     })}`
   }).then(response => {
     dispatch({
@@ -81,7 +80,7 @@ export const createTeam = data => (dispatch, getState) => {
         ...getState().team,
         teamID: newTeamID,
         teamName: data,
-        users: [userEmail],
+        users: [{ email: userEmail, username: userState.username }],
         boards: [],
         isLoaded: true
       }

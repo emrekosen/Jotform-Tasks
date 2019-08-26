@@ -53,7 +53,7 @@ class Navbar extends Component {
                 <DropdownMenu right>
                   {/* <DropdownItem>Option 1</DropdownItem>
                   <DropdownItem>Option 2</DropdownItem> */}
-                  <DropdownItem divider />
+                  {/* <DropdownItem divider /> */}
                   <DropdownItem id="logout">Log out</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>

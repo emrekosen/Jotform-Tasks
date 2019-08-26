@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  InputGroup,
-  InputGroupAddon,
-  // InputGroupText,
-  Button,
-  Input
-} from "reactstrap";
+import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
 import { addTaskGroup } from "../actions/taskActions";
 
 class CreateTaskGroup extends Component {
@@ -20,9 +14,16 @@ class CreateTaskGroup extends Component {
     });
   };
 
-  render() {
+  addTask = () => {
     const { addTaskGroup } = this.props;
     const { taskGroupName } = this.state;
+    addTaskGroup(taskGroupName);
+    this.setState({
+      taskGroupName: ""
+    });
+  };
+
+  render() {
     return (
       <InputGroup>
         <Input
@@ -32,10 +33,7 @@ class CreateTaskGroup extends Component {
           onChange={this.changeHandler}
         />
         <InputGroupAddon addonType="append">
-          <Button
-            onClick={addTaskGroup.bind(this, taskGroupName)}
-            color="primary"
-          >
+          <Button onClick={this.addTask} color="primary">
             Add
           </Button>
         </InputGroupAddon>

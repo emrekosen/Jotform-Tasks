@@ -68,6 +68,7 @@ class Board extends Component {
         {task.taskGroups.map(taskGroup => {
           return (
             <TaskGroup
+              key={taskGroup.taskGroupID}
               name={taskGroup.name}
               id={taskGroup.taskGroupID}
               tasks={taskGroup.tasks}

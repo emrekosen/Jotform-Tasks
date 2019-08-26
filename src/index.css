@@ -199,10 +199,10 @@ a.article:hover {
 @media (max-width: 768px) {
   #sidebar {
     margin-top: 67px;
-    margin-left: 0;
+    margin-left: -250px;
   }
   #sidebar.active {
-    margin-left: -250;
+    margin-left: 0px;
   }
   #content {
     width: 100%;
@@ -233,3 +233,11 @@ a.article:hover {
   background-color: #7386d5 !important;
   border-color: #7386d5 !important;
 }
+
+/* ---------------------------------------------------
+    TASKGROUPS
+----------------------------------------------------- */
+
+/* ---------------------------------------------------
+    TASKS
+----------------------------------------------------- */
