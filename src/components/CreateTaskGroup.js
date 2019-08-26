@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   InputGroup,
   InputGroupAddon,
@@ -6,14 +7,35 @@ import {
   Button,
   Input
 } from "reactstrap";
+import { addTaskGroup } from "../actions/taskActions";
 
-export default class CreateTaskGroup extends Component {
+class CreateTaskGroup extends Component {
+  state = {
+    taskGroupName: ""
+  };
+
+  changeHandler = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
   render() {
+    const { addTaskGroup } = this.props;
+    const { taskGroupName } = this.state;
     return (
       <InputGroup>
-        <Input placeholder="Task group name" />
+        <Input
+          placeholder="Task group name"
+          name="taskGroupName"
+          value={this.state.taskGroupName}
+          onChange={this.changeHandler}
+        />
         <InputGroupAddon addonType="append">
-          <Button onClick={this.props.toggleBar} color="primary">
+          <Button
+            onClick={addTaskGroup.bind(this, taskGroupName)}
+            color="primary"
+          >
             Add
           </Button>
         </InputGroupAddon>
@@ -21,3 +43,12 @@ export default class CreateTaskGroup extends Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  addTaskGroup: addTaskGroup
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(CreateTaskGroup);

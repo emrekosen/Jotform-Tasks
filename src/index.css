@@ -65,6 +65,7 @@ a:focus {
   position: fixed;
   top: 0;
   left: 0;
+  overflow: auto;
   height: 100vh;
   z-index: 999;
   background: #7386d5;

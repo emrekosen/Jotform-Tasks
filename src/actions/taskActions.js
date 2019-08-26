@@ -1,6 +1,6 @@
 import axios from "axios";
-import { API_KEY, TASKS_FORM, GET_TASKS } from "../constants";
-// import uniqid from "uniqid";
+import { API_KEY, TASKS_FORM, GET_TASKS, ADD_TASK_GROUP } from "../constants";
+import uniqid from "uniqid";
 
 export const getTasks = taskGroups => (dispatch, getState) => {
   let taskGroupsA = [];
@@ -41,4 +41,40 @@ export const getTasks = taskGroups => (dispatch, getState) => {
         }
       });
     });
+};
+
+export const addTaskGroup = taskGroupName => (dispatch, getState) => {
+  const board = getState().board;
+  const boardSubmission = board.submissionID;
+  const taskGroupID = uniqid();
+  const taskState = getState().task;
+  const newTaskGroups = [
+    ...board.taskGroups,
+    { id: taskGroupID, name: taskGroupName }
+  ];
+  return axios({
+    url: `https://api.jotform.com/submission/${boardSubmission}?apiKey=${API_KEY}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: `submission[5]=${JSON.stringify({
+      taskGroups: newTaskGroups
+    })}`
+  }).then(response => {
+    const data = response.data;
+    if (data.responseCode === 200) {
+      console.log(data);
+      dispatch({
+        type: ADD_TASK_GROUP,
+        payload: {
+          ...taskState,
+          taskGroups: [
+            ...taskState.taskGroups,
+            { name: taskGroupName, taskGroupID: taskGroupID, tasks: [] }
+          ]
+        }
+      });
+    }
+  });
 };

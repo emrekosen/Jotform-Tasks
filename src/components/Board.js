@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getBoard } from "../actions/boardActions";
 import { getTasks } from "../actions/taskActions";
 import CreateTaskGroup from "./CreateTaskGroup";
+import TaskGroup from "./TaskGroup";
 
 class Board extends Component {
   state = {
@@ -66,19 +67,11 @@ class Board extends Component {
         </div>
         {task.taskGroups.map(taskGroup => {
           return (
-            <div key={taskGroup.taskGroupID}>
-              <h5>{taskGroup.name}</h5>
-
-              <hr
-                className="mt-3"
-                style={{
-                  border: "1px solid black"
-                }}
-              />
-              {taskGroup.tasks.map(task => {
-                return <p key={task.taskID}>{task.task}</p>;
-              })}
-            </div>
+            <TaskGroup
+              name={taskGroup.name}
+              id={taskGroup.taskGroupID}
+              tasks={taskGroup.tasks}
+            />
           );
         })}
       </div>
