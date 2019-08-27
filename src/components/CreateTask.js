@@ -42,7 +42,7 @@ class CreateTask extends Component {
   };
 
   onAddTask = () => {
-    const { createTask, taskGroupID, addTaskHandler } = this.props;
+    const { createTask, taskGroupID } = this.props;
     const { dueDate, assignee, task } = this.state;
     const newDueDate = moment(dueDate).format("L");
     createTask({

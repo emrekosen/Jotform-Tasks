@@ -9,12 +9,15 @@ class TaskGroup extends Component {
     return (
       <div className="card mt-5 mb-5">
         <div
-          className="card-header d-flex align-items-center"
+          className="card-header d-flex align-items-center justify-content-between"
           style={{ backgroundColor: "#BAC1DD" }}
         >
           <h5 style={{ marginTop: "0.25rem", marginBottom: "0.25rem" }}>
             {name}
           </h5>
+          <button type="button" className="close">
+            <span>&times;</span>
+          </button>
         </div>
         <ul className="list-group list-group-flush">
           {false ? (

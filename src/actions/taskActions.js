@@ -31,6 +31,7 @@ export const createTask = data => (dispatch, getState) => {
     },
     data: `submission[3]=${taskID}&submission[4]=${JSON.stringify(task)}`
   }).then(response => {
+    console.log(response);
     const responseData = response.data;
     if (responseData.responseCode === 200) {
       dispatch({
@@ -54,7 +55,7 @@ export const getTasks = taskGroups => (dispatch, getState) => {
   let tasks = [];
   return axios({
     url: `https://api.jotform.com/form/${TASKS_FORM}/submissions?apiKey=${API_KEY}`,
-    method: "DELETE"
+    method: "GET"
   }).then(response => {
     const content = response.data.content;
     for (let index2 = 0; index2 < taskGroups.length; index2++) {
@@ -125,6 +126,7 @@ export const deleteTask = submissionID => (dispatch, getState) => {
       `https://api.jotform.com/submission/${submissionID}?apiKey=${API_KEY}`
     )
     .then(response => {
+      console.log(response);
       dispatch({
         type: DELETE_TASK,
         payload: {

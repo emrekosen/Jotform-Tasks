@@ -17,7 +17,7 @@ class Task extends Component {
               color: "#7386d5"
             }}
             className="fas fa-trash-alt"
-            onClick={deleteTask.bind(this.submissionID)}
+            onClick={deleteTask.bind(this, submissionID)}
           ></i>
         ) : null}
       </li>
