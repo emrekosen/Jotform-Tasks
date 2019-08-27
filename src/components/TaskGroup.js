@@ -8,8 +8,13 @@ class TaskGroup extends Component {
     const { id, name, task } = this.props;
     return (
       <div className="card mt-5 mb-5">
-        <div className="card-header">
-          <h5>{name}</h5>
+        <div
+          className="card-header d-flex align-items-center"
+          style={{ backgroundColor: "#BAC1DD" }}
+        >
+          <h5 style={{ marginTop: "0.25rem", marginBottom: "0.25rem" }}>
+            {name}
+          </h5>
         </div>
         <ul className="list-group list-group-flush">
           {false ? (
@@ -19,11 +24,18 @@ class TaskGroup extends Component {
           ) : (
             task.tasks.map(task => {
               if (id === task.taskGroupID) {
-                return <Task key={task.taskID} task={task.task} />;
+                return (
+                  <Task
+                    key={task.taskID}
+                    task={task.task}
+                    assignedBy={task.assignedBy}
+                    submissionID={task.submissionID}
+                  />
+                );
               }
             })
           )}
-          <CreateTask taskGroupID={id} addTaskHandler={this.addTask} />
+          <CreateTask taskGroupID={id} />
         </ul>
       </div>
     );

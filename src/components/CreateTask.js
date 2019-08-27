@@ -51,7 +51,10 @@ class CreateTask extends Component {
       newDueDate,
       taskGroupID
     }).then(task => {
-      // addTaskHandler(task);
+      this.setState({
+        ...this.state,
+        isAdding: false
+      });
     });
     // let x = moment(moment(dueDate).format("L")).valueOf();
   };
@@ -61,6 +64,7 @@ class CreateTask extends Component {
     const { team, taskGroupID } = this.props;
     return isAdding ? (
       <li className="card">
+        <div className="card-header">New Task</div>
         <div className="card-body">
           <form>
             <div className="form-group">

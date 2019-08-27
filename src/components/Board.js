@@ -12,7 +12,6 @@ class Board extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    console.log("component update");
     const { getBoard, match, getTasks } = this.props;
     if (prevProps.match.params.boardID !== match.params.boardID) {
       getBoard(match.params.boardID).then(response => {
@@ -60,13 +59,12 @@ class Board extends Component {
                 className="btn btn-primary"
                 onClick={this.toggleTaskGroupAddBar}
               >
-                Add Task Group
+                Create Task Group
               </button>
             </div>
           )}
         </div>
         {board.taskGroups.map(taskGroup => {
-          console.log("taskgroups render");
           return (
             <TaskGroup
               key={taskGroup.id}
