@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import DatePicker from "react-datepicker";
+import moment from "moment";
+import { createTask } from "../actions/taskActions";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -8,13 +10,21 @@ class CreateTask extends Component {
   state = {
     isAdding: false,
     dueDate: new Date(),
-    assignee: ""
+    assignee: "",
+    task: ""
   };
 
   handleChange = date => {
     this.setState({
       ...this.state,
       dueDate: date
+    });
+  };
+
+  handleTask = e => {
+    this.setState({
+      ...this.state,
+      task: e.target.value
     });
   };
 
@@ -31,16 +41,37 @@ class CreateTask extends Component {
     });
   };
 
+  onAddTask = () => {
+    const { createTask, taskGroupID, addTaskHandler } = this.props;
+    const { dueDate, assignee, task } = this.state;
+    const newDueDate = moment(dueDate).format("L");
+    createTask({
+      task,
+      assignee,
+      newDueDate,
+      taskGroupID
+    }).then(task => {
+      // addTaskHandler(task);
+    });
+    // let x = moment(moment(dueDate).format("L")).valueOf();
+  };
+
   render() {
     const { isAdding } = this.state;
     const { team, taskGroupID } = this.props;
     return isAdding ? (
-      <div className="card">
+      <li className="card">
         <div className="card-body">
           <form>
             <div className="form-group">
               <label htmlFor="task">Task</label>
-              <input id="task" type="text" className="form-control" />
+              <input
+                id="task"
+                type="text"
+                className="form-control"
+                onChange={this.handleTask}
+                value={this.state.task}
+              />
             </div>
             <div className="form-group">
               <label htmlFor="assignee">Assignee</label>
@@ -60,7 +91,9 @@ class CreateTask extends Component {
                   );
                 })}
               </select>
-              <label htmlFor="datePicker">Due Date</label>
+            </div>
+            <div>
+              {/* <label htmlFor="datePicker">Due Date</label> */}
               <DatePicker
                 id="datePicker"
                 className="form-control"
@@ -72,12 +105,12 @@ class CreateTask extends Component {
             </div>
           </form>
           <div className="d-flex justify-content-end">
-            <a href="#" className="btn btn-primary">
+            <button onClick={this.onAddTask} className="btn btn-primary">
               Add Task
-            </a>
+            </button>
           </div>
         </div>
-      </div>
+      </li>
     ) : (
       <li onClick={this.toggleAddTaskBar} className="list-group-item ">
         <i className="fas fa-plus" /> Add Task
@@ -92,4 +125,11 @@ const mapStateToProps = ({ team }) => {
   };
 };
 
-export default connect(mapStateToProps)(CreateTask);
+const mapDispatchToProps = {
+  createTask: createTask
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateTask);

@@ -1,19 +1,19 @@
 import {
   GET_TASKS,
-  ADD_TASK,
+  CREATE_TASK,
   DELETE_TASK,
   ADD_TASK_GROUP
 } from "../constants/index";
 
 const initalState = {
-  taskGroups: []
+  tasks: []
 };
 
 export default function teamReducer(state = initalState, action) {
   switch (action.type) {
     case GET_TASKS:
       return action.payload || false;
-    case ADD_TASK:
+    case CREATE_TASK:
       return action.payload || false;
     case DELETE_TASK:
       return action.payload || false;

@@ -4,11 +4,9 @@ class Task extends Component {
   render() {
     const { id, task } = this.props;
     return (
-      <div>
-        <li key={id} className="list-group-item">
-          {task}
-        </li>
-      </div>
+      <li key={id} className="list-group-item">
+        {task}
+      </li>
     );
   }
 }

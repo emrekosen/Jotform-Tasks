@@ -12,11 +12,11 @@ class Board extends Component {
   };
 
   componentDidUpdate(prevProps) {
+    console.log("component update");
     const { getBoard, match, getTasks } = this.props;
     if (prevProps.match.params.boardID !== match.params.boardID) {
       getBoard(match.params.boardID).then(response => {
         const { board } = this.props;
-
         getTasks(board.taskGroups);
       });
     }
@@ -42,7 +42,7 @@ class Board extends Component {
   };
 
   render() {
-    const { task } = this.props;
+    const { board } = this.props;
     const { isLoading, isAdding } = this.state;
     if (isLoading) {
       return <h1>Loading...</h1>;
@@ -65,13 +65,13 @@ class Board extends Component {
             </div>
           )}
         </div>
-        {task.taskGroups.map(taskGroup => {
+        {board.taskGroups.map(taskGroup => {
+          console.log("taskgroups render");
           return (
             <TaskGroup
-              key={taskGroup.taskGroupID}
+              key={taskGroup.id}
               name={taskGroup.name}
-              id={taskGroup.taskGroupID}
-              tasks={taskGroup.tasks}
+              id={taskGroup.id}
             />
           );
         })}
@@ -85,11 +85,10 @@ const mapDispatchToProps = {
   getTasks: getTasks
 };
 
-const mapStateToProps = ({ user, board, task }) => {
+const mapStateToProps = ({ user, board }) => {
   return {
     user,
-    board,
-    task
+    board
   };
 };
 

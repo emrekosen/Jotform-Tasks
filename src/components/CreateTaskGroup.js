@@ -15,12 +15,13 @@ class CreateTaskGroup extends Component {
   };
 
   addTask = () => {
-    const { addTaskGroup } = this.props;
+    const { addTaskGroup, toggleBar } = this.props;
     const { taskGroupName } = this.state;
     addTaskGroup(taskGroupName);
     this.setState({
       taskGroupName: ""
     });
+    toggleBar();
   };
 
   render() {

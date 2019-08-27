@@ -5,7 +5,7 @@ import CreateTask from "./CreateTask";
 
 class TaskGroup extends Component {
   render() {
-    const { id, name, tasks } = this.props;
+    const { id, name, task } = this.props;
     return (
       <div className="card mt-5 mb-5">
         <div className="card-header">
@@ -17,15 +17,23 @@ class TaskGroup extends Component {
               There is no task for this task group.
             </li>
           ) : (
-            tasks.map(task => {
-              return <Task key={task.taskID} task={task.task} />;
+            task.tasks.map(task => {
+              if (id === task.taskGroupID) {
+                return <Task key={task.taskID} task={task.task} />;
+              }
             })
           )}
+          <CreateTask taskGroupID={id} addTaskHandler={this.addTask} />
         </ul>
-        <CreateTask taskGroupID={id} />
       </div>
     );
   }
 }
 
-export default connect()(TaskGroup);
+const mapStateToProps = ({ task }) => {
+  return {
+    task
+  };
+};
+
+export default connect(mapStateToProps)(TaskGroup);
