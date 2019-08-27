@@ -54,10 +54,7 @@ export const getTasks = taskGroups => (dispatch, getState) => {
   let tasks = [];
   return axios({
     url: `https://api.jotform.com/form/${TASKS_FORM}/submissions?apiKey=${API_KEY}`,
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
+    method: "DELETE"
   }).then(response => {
     const content = response.data.content;
     for (let index2 = 0; index2 < taskGroups.length; index2++) {

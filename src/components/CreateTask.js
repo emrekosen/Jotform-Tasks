@@ -64,7 +64,12 @@ class CreateTask extends Component {
     const { team, taskGroupID } = this.props;
     return isAdding ? (
       <li className="card">
-        <div className="card-header">New Task</div>
+        <div className="card-header d-flex justify-content-between align-items-center">
+          <h5>New Task</h5>
+          <button type="button" class="close" onClick={this.toggleAddTaskBar}>
+            <span>&times;</span>
+          </button>
+        </div>
         <div className="card-body">
           <form>
             <div className="form-group">
