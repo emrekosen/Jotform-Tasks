@@ -241,3 +241,21 @@ a.article:hover {
 #trashIcon:hover {
   color: #7386d5;
 }
+
+#doneIconR {
+  margin-right: 0.5rem;
+  color: grey;
+}
+
+#doneIconR:hover {
+  color: green;
+}
+
+#doneIconS {
+  margin-right: 0.5rem;
+  color: green;
+}
+
+#doneIconS:hover {
+  color: grey;
+}

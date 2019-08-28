@@ -176,7 +176,6 @@ export const deleteBoard = boardID => (dispatch, getState) => {
             boards: newBoards
           }
         });
-        history.push(`/${teamState.teamID}/boards`);
       }
     });
 };

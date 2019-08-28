@@ -4,6 +4,7 @@ import { getBoard, deleteBoard } from "../actions/boardActions";
 import { getTasks } from "../actions/taskActions";
 import CreateTaskGroup from "./CreateTaskGroup";
 import TaskGroup from "./TaskGroup";
+import history from "../utils/history";
 
 class Board extends Component {
   state = {
@@ -40,6 +41,13 @@ class Board extends Component {
     });
   };
 
+  onDeleteBoard = e => {
+    const { board, team, deleteBoard } = this.props;
+    deleteBoard.bind(board.boardID).then(() => {
+      history.push(`/teams`);
+    });
+  };
+
   render() {
     const { board, deleteBoard } = this.props;
     const { isLoading, isAdding } = this.state;
@@ -63,10 +71,7 @@ class Board extends Component {
               </button>
             </div>
           )}
-          <button
-            className="btn btn-primary ml-2"
-            onClick={deleteBoard.bind(board.boardID)}
-          >
+          <button className="btn btn-primary ml-2" onClick={this.onDeleteBoard}>
             <i className="fas fa-cog"></i>
           </button>
         </div>

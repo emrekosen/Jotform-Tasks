@@ -21,7 +21,8 @@ export const createTask = data => (dispatch, getState) => {
     assignedBy: currentUser.username,
     dueDate: data.dueDate,
     createdAt: moment(Date()).format("L"),
-    labels: []
+    labels: [],
+    isDone: false
   };
   return axios({
     url: `https://api.jotform.com/form/${TASKS_FORM}/submissions?apiKey=${API_KEY}`,
