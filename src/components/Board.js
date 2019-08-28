@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getBoard } from "../actions/boardActions";
+import { getBoard, deleteBoard } from "../actions/boardActions";
 import { getTasks } from "../actions/taskActions";
 import CreateTaskGroup from "./CreateTaskGroup";
 import TaskGroup from "./TaskGroup";
@@ -12,7 +12,7 @@ class Board extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    const { getBoard, match, getTasks } = this.props;
+    const { match, getBoard, getTasks } = this.props;
     if (prevProps.match.params.boardID !== match.params.boardID) {
       getBoard(match.params.boardID).then(response => {
         const { board } = this.props;
@@ -41,18 +41,18 @@ class Board extends Component {
   };
 
   render() {
-    const { board } = this.props;
+    const { board, deleteBoard } = this.props;
     const { isLoading, isAdding } = this.state;
     if (isLoading) {
       return <h1>Loading...</h1>;
     }
     return (
       <div>
-        <div className="mb-5">
+        <div className="d-flex justify-content-end align-items-end mb-5">
           {isAdding ? (
             <CreateTaskGroup toggleBar={this.toggleTaskGroupAddBar} />
           ) : (
-            <div className="d-flex justify-content-end align-items-end">
+            <div>
               {/* <h4>Add Task Group</h4> */}
               <button
                 id="addTaskGroup"
@@ -63,6 +63,12 @@ class Board extends Component {
               </button>
             </div>
           )}
+          <button
+            className="btn btn-primary ml-2"
+            onClick={deleteBoard.bind(board.boardID)}
+          >
+            <i className="fas fa-cog"></i>
+          </button>
         </div>
         {board.taskGroups.length === 0 ? (
           <div className="text-center">
@@ -75,9 +81,9 @@ class Board extends Component {
           board.taskGroups.map(taskGroup => {
             return (
               <TaskGroup
-                key={taskGroup.id}
-                name={taskGroup.name}
-                id={taskGroup.id}
+                key={taskGroup.taskGroupID}
+                name={taskGroup.taskGroupName}
+                id={taskGroup.taskGroupID}
               />
             );
           })
@@ -89,7 +95,8 @@ class Board extends Component {
 
 const mapDispatchToProps = {
   getBoard: getBoard,
-  getTasks: getTasks
+  getTasks: getTasks,
+  deleteBoard: deleteBoard
 };
 
 const mapStateToProps = ({ user, board }) => {

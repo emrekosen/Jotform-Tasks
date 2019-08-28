@@ -3,11 +3,14 @@ import {
   API_KEY,
   GET_TEAM,
   CREATE_TEAM,
-  JOIN_TEAM
+  JOIN_TEAM,
+  DELETE_TEAM,
+  UPDATE_USER_TEAMS
 } from "../constants";
 import axios from "axios";
 import uniqid from "uniqid";
-import { getTeamBoards } from "./boardActions";
+import { getTeamBoards, deleteBoard } from "./boardActions";
+import history from "../utils/history";
 
 export const getTeam = teamID => (dispatch, getState) => {
   return axios
@@ -26,6 +29,7 @@ export const getTeam = teamID => (dispatch, getState) => {
               type: GET_TEAM,
               payload: {
                 ...team,
+                isLoaded: true,
                 boards: response1,
                 submissionID: submission.id,
                 teamID: answers[5].answer
@@ -94,4 +98,42 @@ export const createTeam = data => (dispatch, getState) => {
     });
     return newTeamID;
   });
+};
+
+export const deleteTeam = teamID => (dispatch, getState) => {
+  const teamState = getState().team;
+  const userState = getState().user;
+  const newUserTeams = userState.teams.filter(team => team.teamID !== teamID);
+  for (let i = 0; i < teamState.boards.length; i++) {
+    const element = teamState.boards[i];
+    dispatch(deleteBoard(element.boardID));
+  }
+  return axios
+    .delete(
+      `https://api.jotform.com/submission/${teamState.submissionID}?apiKey=${API_KEY}`
+    )
+    .then(response => {
+      if (response.data.responseCode === 200) {
+        dispatch({
+          type: DELETE_TEAM,
+          payload: {
+            ...teamState,
+            isLoaded: false,
+            teamName: null,
+            users: [],
+            boards: [],
+            submissionID: null,
+            teamID: null
+          }
+        });
+        dispatch({
+          type: UPDATE_USER_TEAMS,
+          payload: {
+            ...userState,
+            teams: newUserTeams
+          }
+        });
+        history.push(`/teams`);
+      }
+    });
 };

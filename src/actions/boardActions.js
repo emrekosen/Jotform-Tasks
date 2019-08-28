@@ -4,11 +4,13 @@ import {
   BOARDS_FORM,
   GET_BOARD,
   CREATE_BOARD,
+  DELETE_BOARD,
   UPDATE_TEAM_BOARDS,
   DELETE_TASK_GROUP
 } from "../constants";
 import uniqid from "uniqid";
 import { deleteTask } from "./taskActions";
+import history from "../utils/history";
 
 export const getBoard = boardID => (dispatch, getState) => {
   return axios
@@ -17,7 +19,7 @@ export const getBoard = boardID => (dispatch, getState) => {
     )
     .then(response => {
       const content = response.data.content;
-      console.log(content);
+
       for (let index = 0; index < content.length; index++) {
         const answers = content[index].answers;
         if (answers[3].answer === boardID) {
@@ -108,10 +110,11 @@ export const getTeamBoards = teamID => (dispatch, getState) => {
 };
 
 export const deleteTaskGroup = taskGroupID => (dispatch, getState) => {
+  console.log("delete task group");
   const boardState = getState().board;
   const taskState = getState().task;
   const newTaskGroups = boardState.taskGroups.filter(
-    taskGroup => taskGroup.id !== taskGroupID
+    taskGroup => taskGroup.taskGroupID !== taskGroupID
   );
   for (let i = 0; i < taskState.tasks.length; i++) {
     const element = taskState.tasks[i];
@@ -138,4 +141,42 @@ export const deleteTaskGroup = taskGroupID => (dispatch, getState) => {
       });
     }
   });
+};
+
+export const deleteBoard = boardID => (dispatch, getState) => {
+  console.log("delete board");
+  const boardState = getState().board;
+  const teamState = getState().team;
+  const newBoards = teamState.boards.filter(board => board.boardID !== boardID);
+  for (let i = 0; i < boardState.taskGroups.length; i++) {
+    const element = boardState.taskGroups[i];
+    dispatch(deleteTaskGroup(element.taskGroupID));
+  }
+  return axios
+    .delete(
+      `https://api.jotform.com/submission/${boardState.submissionID}?apiKey=${API_KEY}`
+    )
+    .then(response => {
+      if (response.data.responseCode === 200) {
+        dispatch({
+          type: DELETE_BOARD,
+          payload: {
+            isLoaded: false,
+            submissionID: null,
+            boardID: null,
+            boardName: null,
+            taskGroups: [],
+            teamID: boardState.teamID
+          }
+        });
+        dispatch({
+          type: UPDATE_TEAM_BOARDS,
+          payload: {
+            ...teamState,
+            boards: newBoards
+          }
+        });
+        history.push(`/${teamState.teamID}/boards`);
+      }
+    });
 };

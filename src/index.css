@@ -188,10 +188,6 @@ a.article:hover {
   width: 100%;
 }
 
-#addTaskGroup {
-  width: 25%;
-}
-
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -218,10 +214,6 @@ a.article:hover {
 
   #sidebarCollapse span {
     display: none;
-  }
-
-  #addTaskGroup {
-    width: 50%;
   }
 }
 

@@ -13,7 +13,7 @@ export const loginHandler = data => (dispatch, getState) => {
   })
     .then(response => {
       let data = response.data;
-      console.log(data);
+
       let content = data.content;
       if (data.responseCode === 200) {
         dispatch({

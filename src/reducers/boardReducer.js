@@ -3,7 +3,8 @@ import {
   UPDATE_BOARD,
   CREATE_BOARD,
   DELETE_TASK_GROUP,
-  ADD_TASK_GROUP
+  ADD_TASK_GROUP,
+  DELETE_BOARD
 } from "../constants/index";
 
 const initalState = {
@@ -25,6 +26,8 @@ export default function boardReducer(state = initalState, action) {
     case ADD_TASK_GROUP:
       return action.payload || false;
     case DELETE_TASK_GROUP:
+      return action.payload || false;
+    case DELETE_BOARD:
       return action.payload || false;
     default:
       return state;

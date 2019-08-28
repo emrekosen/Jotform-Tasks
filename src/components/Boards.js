@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getTeam } from "../actions/teamActions";
+import { getTeam, deleteTeam } from "../actions/teamActions";
 import { getUserTeams } from "../actions/userActions";
 import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -42,7 +42,7 @@ class Boards extends Component {
 
   render() {
     const { isLoaded } = this.state;
-    const { team } = this.props;
+    const { team, deleteTeam } = this.props;
     if (!isLoaded) {
       return (
         <div className="text-center">
@@ -55,14 +55,30 @@ class Boards extends Component {
     } else {
       return (
         <div>
-          <h1>{`${team.teamName}'s Boards`}</h1>
-          {team.boards.map(board => {
-            return (
-              <Link to={`/${team.teamID}/${board.boardID}`} key={board.boardID}>
-                {board.boardName}
-              </Link>
-            );
-          })}
+          <div className="d-flex justify-content-between align-items-center">
+            <h1>{`${team.teamName}'s Boards`}</h1>
+            <button
+              className="btn btn-primary ml-2"
+              onClick={deleteTeam.bind(this, team.teamID)}
+            >
+              <i className="fas fa-cog"></i>
+            </button>
+          </div>
+
+          <div
+            className="mt-5"
+            style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}
+          >
+            {team.boards.map(board => {
+              return (
+                <div key={board.boardID} style={{ textAlign: "center" }}>
+                  <Link to={`/${team.teamID}/${board.boardID}`}>
+                    {board.boardName}
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
         </div>
       );
     }
@@ -71,7 +87,8 @@ class Boards extends Component {
 
 const mapDispatchToProps = {
   getTeam: getTeam,
-  getUserTeams: getUserTeams
+  getUserTeams: getUserTeams,
+  deleteTeam: deleteTeam
 };
 
 const mapStateToProps = ({ user, team }) => {

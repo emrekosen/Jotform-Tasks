@@ -31,7 +31,6 @@ export const createTask = data => (dispatch, getState) => {
     },
     data: `submission[3]=${taskID}&submission[4]=${JSON.stringify(task)}`
   }).then(response => {
-    console.log(response);
     const responseData = response.data;
     if (responseData.responseCode === 200) {
       dispatch({
@@ -39,12 +38,12 @@ export const createTask = data => (dispatch, getState) => {
         payload: {
           ...currentTasks,
           tasks: [
-            ...currentTasks.tasks,
             {
               submissionID: responseData.content.submissionID,
               taskID: taskID,
               ...task
-            }
+            },
+            ...currentTasks.tasks
           ]
         }
       });
@@ -60,7 +59,7 @@ export const getTasks = taskGroups => (dispatch, getState) => {
     const content = response.data.content;
     for (let index2 = 0; index2 < taskGroups.length; index2++) {
       const taskGroup = taskGroups[index2];
-      const taskGroupID = taskGroup.id;
+      const taskGroupID = taskGroup.taskGroupID;
       for (let index = 0; index < content.length; index++) {
         const answers = content[index].answers;
         const taskID = answers[3].answer;
@@ -85,13 +84,13 @@ export const getTasks = taskGroups => (dispatch, getState) => {
   });
 };
 
-export const addTaskGroup = taskGroupName => (dispatch, getState) => {
+export const addTaskGroup = newTaskGroupName => (dispatch, getState) => {
   const board = getState().board;
   const boardSubmission = board.submissionID;
-  const taskGroupID = uniqid();
+  const newTaskGroupID = uniqid();
   const newTaskGroups = [
     ...board.taskGroups,
-    { id: taskGroupID, name: taskGroupName }
+    { taskGroupID: newTaskGroupID, taskGroupName: newTaskGroupName }
   ];
   return axios({
     url: `https://api.jotform.com/submission/${boardSubmission}?apiKey=${API_KEY}`,
@@ -111,7 +110,7 @@ export const addTaskGroup = taskGroupName => (dispatch, getState) => {
           ...board,
           taskGroups: [
             ...board.taskGroups,
-            { name: taskGroupName, id: taskGroupID }
+            { taskGroupName: newTaskGroupName, taskGroupID: newTaskGroupID }
           ]
         }
       });
@@ -120,15 +119,13 @@ export const addTaskGroup = taskGroupName => (dispatch, getState) => {
 };
 
 export const deleteTask = submissionID => (dispatch, getState) => {
-  console.log("function called");
+  console.log("delete task");
   const tasksState = getState().task;
-  console.log("request");
   return axios
     .delete(
       `https://api.jotform.com/submission/${submissionID}?apiKey=${API_KEY}`
     )
     .then(response => {
-      console.log("response", response);
       dispatch({
         type: DELETE_TASK,
         payload: {
