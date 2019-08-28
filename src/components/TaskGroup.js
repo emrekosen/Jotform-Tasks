@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Task from "./Task";
 import CreateTask from "./CreateTask";
+import { deleteTaskGroup } from "../actions/boardActions";
 
 class TaskGroup extends Component {
   render() {
-    const { id, name, task } = this.props;
+    const { id, name, task, deleteTaskGroup } = this.props;
     return (
       <div className="card mt-5 mb-5">
         <div
@@ -15,11 +16,16 @@ class TaskGroup extends Component {
           <h5 style={{ marginTop: "0.25rem", marginBottom: "0.25rem" }}>
             {name}
           </h5>
-          <button type="button" className="close">
+          <button
+            type="button"
+            className="close"
+            onClick={deleteTaskGroup.bind(this, id)}
+          >
             <span>&times;</span>
           </button>
         </div>
         <ul className="list-group list-group-flush">
+          <CreateTask taskGroupID={id} />
           {false ? (
             <li className="list-group-item">
               There is no task for this task group.
@@ -38,12 +44,15 @@ class TaskGroup extends Component {
               }
             })
           )}
-          <CreateTask taskGroupID={id} />
         </ul>
       </div>
     );
   }
 }
+
+const mapDispatchToProps = {
+  deleteTaskGroup: deleteTaskGroup
+};
 
 const mapStateToProps = ({ task }) => {
   return {
@@ -51,4 +60,7 @@ const mapStateToProps = ({ task }) => {
   };
 };
 
-export default connect(mapStateToProps)(TaskGroup);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TaskGroup);

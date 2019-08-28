@@ -13,9 +13,7 @@ class Task extends Component {
         {task}
         {user.username === assignedBy ? (
           <i
-            style={{
-              color: "#7386d5"
-            }}
+            id="trashIcon"
             className="fas fa-trash-alt"
             onClick={deleteTask.bind(this, submissionID)}
           ></i>

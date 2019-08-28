@@ -22,6 +22,7 @@ export const UPDATE_TEAM_BOARDS = "UPDATE_TEAM_BOARDS";
 export const GET_BOARD = "GET_BOARD";
 export const CREATE_BOARD = "CREATE_BOARD";
 export const UPDATE_BOARD = "UPDATE_BOARD";
+export const DELETE_TASK_GROUP = "DELETE_TASK_GROUP";
 
 export const ADD_TASK_GROUP = "ADD_TASK_GROUP";
 

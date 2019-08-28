@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Button,
+  Input
+} from "reactstrap";
 import { addTaskGroup } from "../actions/taskActions";
 
 class CreateTaskGroup extends Component {
@@ -25,8 +31,12 @@ class CreateTaskGroup extends Component {
   };
 
   render() {
+    const { toggleBar } = this.props;
     return (
       <InputGroup>
+        <InputGroupAddon addonType="prepend" onClick={toggleBar}>
+          <Button>&times;</Button>
+        </InputGroupAddon>
         <Input
           placeholder="Task group name"
           name="taskGroupName"

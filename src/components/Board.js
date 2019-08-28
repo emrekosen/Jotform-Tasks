@@ -64,15 +64,24 @@ class Board extends Component {
             </div>
           )}
         </div>
-        {board.taskGroups.map(taskGroup => {
-          return (
-            <TaskGroup
-              key={taskGroup.id}
-              name={taskGroup.name}
-              id={taskGroup.id}
-            />
-          );
-        })}
+        {board.taskGroups.length === 0 ? (
+          <div className="text-center">
+            <h4>
+              There is no task group for this board. You can create with "Create
+              Task Group" button.
+            </h4>
+          </div>
+        ) : (
+          board.taskGroups.map(taskGroup => {
+            return (
+              <TaskGroup
+                key={taskGroup.id}
+                name={taskGroup.name}
+                id={taskGroup.id}
+              />
+            );
+          })
+        )}
       </div>
     );
   }

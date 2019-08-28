@@ -52,8 +52,10 @@ class CreateTask extends Component {
       taskGroupID
     }).then(task => {
       this.setState({
-        ...this.state,
-        isAdding: false
+        isAdding: false,
+        dueDate: new Date(),
+        assignee: "",
+        task: ""
       });
     });
     // let x = moment(moment(dueDate).format("L")).valueOf();
@@ -66,7 +68,11 @@ class CreateTask extends Component {
       <li className="card">
         <div className="card-header d-flex justify-content-between align-items-center">
           <h5>New Task</h5>
-          <button type="button" class="close" onClick={this.toggleAddTaskBar}>
+          <button
+            type="button"
+            className="close"
+            onClick={this.toggleAddTaskBar}
+          >
             <span>&times;</span>
           </button>
         </div>

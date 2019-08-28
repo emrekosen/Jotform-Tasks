@@ -17,8 +17,6 @@ export default function teamReducer(state = initalState, action) {
       return action.payload || false;
     case DELETE_TASK:
       return action.payload || false;
-    case ADD_TASK_GROUP:
-      return action.payload || false;
     default:
       return state;
   }

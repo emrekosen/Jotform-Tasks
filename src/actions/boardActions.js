@@ -4,10 +4,11 @@ import {
   BOARDS_FORM,
   GET_BOARD,
   CREATE_BOARD,
-  GET_TEAM_BOARDS,
-  UPDATE_TEAM_BOARDS
+  UPDATE_TEAM_BOARDS,
+  DELETE_TASK_GROUP
 } from "../constants";
 import uniqid from "uniqid";
+import { deleteTask } from "./taskActions";
 
 export const getBoard = boardID => (dispatch, getState) => {
   return axios
@@ -16,6 +17,7 @@ export const getBoard = boardID => (dispatch, getState) => {
     )
     .then(response => {
       const content = response.data.content;
+      console.log(content);
       for (let index = 0; index < content.length; index++) {
         const answers = content[index].answers;
         if (answers[3].answer === boardID) {
@@ -103,4 +105,37 @@ export const getTeamBoards = teamID => (dispatch, getState) => {
       }
       return teamBoards;
     });
+};
+
+export const deleteTaskGroup = taskGroupID => (dispatch, getState) => {
+  const boardState = getState().board;
+  const taskState = getState().task;
+  const newTaskGroups = boardState.taskGroups.filter(
+    taskGroup => taskGroup.id !== taskGroupID
+  );
+  for (let i = 0; i < taskState.tasks.length; i++) {
+    const element = taskState.tasks[i];
+    if (element.taskGroupID === taskGroupID) {
+      dispatch(deleteTask(element.submissionID));
+    }
+  }
+  return axios({
+    url: `https://api.jotform.com/submission/${boardState.submissionID}?apiKey=${API_KEY}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: `submission[5]=${JSON.stringify({ taskGroups: newTaskGroups })}`
+  }).then(response => {
+    const rData = response.data;
+    if (rData.responseCode === 200) {
+      dispatch({
+        type: DELETE_TASK_GROUP,
+        payload: {
+          ...boardState,
+          taskGroups: newTaskGroups
+        }
+      });
+    }
+  });
 };

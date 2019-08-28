@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getTeam } from "../actions/teamActions";
 import { getUserTeams } from "../actions/userActions";
 import { Spinner } from "reactstrap";
+import { Link } from "react-router-dom";
 
 class Boards extends Component {
   constructor(props) {
@@ -56,7 +57,11 @@ class Boards extends Component {
         <div>
           <h1>{`${team.teamName}'s Boards`}</h1>
           {team.boards.map(board => {
-            return <h3 key={board.boardID}>{board.boardName}</h3>;
+            return (
+              <Link to={`/${team.teamID}/${board.boardID}`} key={board.boardID}>
+                {board.boardName}
+              </Link>
+            );
           })}
         </div>
       );
