@@ -128,7 +128,8 @@ class CreateTask extends Component {
       </li>
     ) : (
       <li onClick={this.toggleAddTaskBar} className="list-group-item ">
-        <i className="fas fa-plus" /> Add Task
+        <i id="addTaskIcon" className="fas fa-plus-circle fa-lg" />
+        Add Task
       </li>
     );
   }

@@ -138,3 +138,5 @@ export const deleteTask = submissionID => (dispatch, getState) => {
       });
     });
 };
+
+export const setDoneTask = taskSubmissionID => (dispatch, getState) => {};
