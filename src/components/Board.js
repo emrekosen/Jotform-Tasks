@@ -5,6 +5,8 @@ import { getTasks } from "../actions/taskActions";
 import CreateTaskGroup from "./CreateTaskGroup";
 import TaskGroup from "./TaskGroup";
 import history from "../utils/history";
+import { getTeam } from "../actions/teamActions";
+import { getUserTeams } from "../actions/userActions";
 
 class Board extends Component {
   state = {
@@ -23,15 +25,37 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    const { getBoard, getTasks, match } = this.props;
-    getBoard(match.params.boardID).then(response => {
-      const { board } = this.props;
-      getTasks(board.taskGroups).then(() => {
-        this.setState({
-          isLoading: false
+    const {
+      getBoard,
+      getTasks,
+      getTeam,
+      getUserTeams,
+      match,
+      user
+    } = this.props;
+    if (!user.isLoaded) {
+      getTeam(match.params.teamID).then(() => {
+        getUserTeams().then(() => {
+          getBoard(match.params.boardID).then(response => {
+            const { board } = this.props;
+            getTasks(board.taskGroups).then(() => {
+              this.setState({
+                isLoading: false
+              });
+            });
+          });
         });
       });
-    });
+    } else {
+      getBoard(match.params.boardID).then(response => {
+        const { board } = this.props;
+        getTasks(board.taskGroups).then(() => {
+          this.setState({
+            isLoading: false
+          });
+        });
+      });
+    }
   }
 
   toggleTaskGroupAddBar = () => {
@@ -43,7 +67,7 @@ class Board extends Component {
 
   onDeleteBoard = e => {
     const { board, team, deleteBoard } = this.props;
-    deleteBoard.bind(board.boardID).then(() => {
+    deleteBoard(board.boardID).then(() => {
       history.push(`/teams`);
     });
   };
@@ -101,7 +125,9 @@ class Board extends Component {
 const mapDispatchToProps = {
   getBoard: getBoard,
   getTasks: getTasks,
-  deleteBoard: deleteBoard
+  deleteBoard: deleteBoard,
+  getTeam: getTeam,
+  getUserTeams: getUserTeams
 };
 
 const mapStateToProps = ({ user, board }) => {

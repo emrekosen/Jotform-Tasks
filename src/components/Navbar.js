@@ -11,7 +11,7 @@ import {
 
 class Navbar extends Component {
   render() {
-    const { toggleSidebar, auth } = this.props;
+    const { toggleSidebar, auth, user } = this.props;
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
@@ -48,7 +48,7 @@ class Navbar extends Component {
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret id="user">
                   {/* {user.username} */}
-                  User
+                  <img id="navbarAvatar" src={user.avatarUrl} alt="" />
                 </DropdownToggle>
                 <DropdownMenu right>
                   {/* <DropdownItem>Option 1</DropdownItem>

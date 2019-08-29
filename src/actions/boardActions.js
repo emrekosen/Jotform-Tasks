@@ -110,7 +110,6 @@ export const getTeamBoards = teamID => (dispatch, getState) => {
 };
 
 export const deleteTaskGroup = taskGroupID => (dispatch, getState) => {
-  console.log("delete task group");
   const boardState = getState().board;
   const taskState = getState().task;
   const newTaskGroups = boardState.taskGroups.filter(
@@ -144,7 +143,6 @@ export const deleteTaskGroup = taskGroupID => (dispatch, getState) => {
 };
 
 export const deleteBoard = boardID => (dispatch, getState) => {
-  console.log("delete board");
   const boardState = getState().board;
   const teamState = getState().team;
   const newBoards = teamState.boards.filter(board => board.boardID !== boardID);

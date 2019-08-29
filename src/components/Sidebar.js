@@ -20,8 +20,9 @@ class Sidebar extends Component {
 
         <ul className="list-unstyled components">
           <img
+            id="avatar"
             src={user.avatarUrl}
-            className="rounded mx-auto d-block"
+            className="mx-auto d-block"
             alt=""
           />
           <p className="text-center">Welcome {user.username}</p>

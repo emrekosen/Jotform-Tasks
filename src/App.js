@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import { Router, Route, Switch } from "react-router-dom";
+import { CookiesProvider, withCookies } from "react-cookie";
 
 import "./App.css";
 import LoginPage from "./components/LoginPage";
@@ -25,21 +26,23 @@ class App extends React.Component {
       )
     );
     return (
-      <Provider store={store}>
-        <Router history={history}>
-          <Container>
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route exact path="/login" component={LoginPage} />
-              <Route exact path="/teams" component={Teams} />
-              <Route path="/:teamID/boards" component={Boards} />
-              <Route path="/:teamID/:boardID" component={Board} />
-            </Switch>
-          </Container>
-        </Router>
-      </Provider>
+      <CookiesProvider>
+        <Provider store={store}>
+          <Router history={history}>
+            <Container>
+              <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/teams" component={Teams} />
+                <Route path="/:teamID/boards" component={Boards} />
+                <Route path="/:teamID/:boardID" component={Board} />
+              </Switch>
+            </Container>
+          </Router>
+        </Provider>
+      </CookiesProvider>
     );
   }
 }
 
-export default App;
+export default withCookies(App);

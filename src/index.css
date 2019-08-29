@@ -8,6 +8,17 @@ body {
   background: #fafafa;
 }
 
+#navbarAvatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 5rem;
+}
+
+#user {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 p {
   font-family: "Poppins", sans-serif;
   font-size: 1.1em;
@@ -57,6 +68,10 @@ a:focus {
 .wrapper {
   display: flex;
   width: 100%;
+}
+
+#avatar {
+  border-radius: 3rem;
 }
 
 #sidebar {
@@ -188,6 +203,11 @@ a.article:hover {
   width: 100%;
 }
 
+#contentWrapper {
+  margin-left: 15rem;
+  margin-right: 15rem;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -202,6 +222,12 @@ a.article:hover {
   }
   #content {
     width: 100%;
+    padding: 15px;
+  }
+
+  #contentWrapper {
+    margin-left: 0;
+    margin-right: 0;
   }
 
   #loginForm {
@@ -214,6 +240,19 @@ a.article:hover {
 
   #sidebarCollapse span {
     display: none;
+  }
+}
+
+@media (max-width: 1440px) {
+  #contentWrapper {
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+}
+@media (min-width: 1440px) and (max-width: 2000px) {
+  #contentWrapper {
+    margin-left: 5rem;
+    margin-right: 5rem;
   }
 }
 
@@ -235,31 +274,46 @@ a.article:hover {
 ----------------------------------------------------- */
 
 #trashIcon {
-  color: grey;
+  color: black;
 }
 
 #trashIcon:hover {
   color: #7386d5;
 }
 
-#doneIconR {
-  margin-right: 0.5rem;
-  color: grey;
-}
-
-#doneIconR:hover {
-  color: green;
-}
-
 #doneIconS {
   margin-right: 0.5rem;
+  color: grey;
+}
+
+/* #doneIconS:hover {
+  color: green;
+} */
+
+#doneIconSDone {
+  margin-right: 0.5rem;
   color: green;
 }
 
-#doneIconS:hover {
+/* #doneIconS:hover {
   color: grey;
-}
+} */
 
 #addTaskIcon {
   margin-right: 0.5rem;
+}
+
+#dropdownMenuButton {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+#assigneeAvatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
 }

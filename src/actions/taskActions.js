@@ -5,7 +5,10 @@ import {
   GET_TASKS,
   ADD_TASK_GROUP,
   CREATE_TASK,
-  DELETE_TASK
+  DELETE_TASK,
+  TOGGLE_TASK_DONE,
+  CHANGE_TASK_GROUP,
+  USERS_FORM
 } from "../constants";
 import uniqid from "uniqid";
 import moment from "moment";
@@ -14,12 +17,13 @@ export const createTask = data => (dispatch, getState) => {
   const currentUser = getState().user;
   const currentTasks = getState().task;
   const taskID = uniqid();
+
   const task = {
     taskGroupID: data.taskGroupID,
     task: data.task,
     assignee: data.assignee,
     assignedBy: currentUser.username,
-    dueDate: data.dueDate,
+    dueDate: data.newDueDate,
     createdAt: moment(Date()).format("L"),
     labels: [],
     isDone: false
@@ -120,7 +124,6 @@ export const addTaskGroup = newTaskGroupName => (dispatch, getState) => {
 };
 
 export const deleteTask = submissionID => (dispatch, getState) => {
-  console.log("delete task");
   const tasksState = getState().task;
   return axios
     .delete(
@@ -139,4 +142,108 @@ export const deleteTask = submissionID => (dispatch, getState) => {
     });
 };
 
-export const setDoneTask = taskSubmissionID => (dispatch, getState) => {};
+export const toggleDoneTask = taskID => (dispatch, getState) => {
+  const tasksState = getState().task;
+  const tasksList = tasksState.tasks;
+  const task = tasksState.tasks.find(task => task.taskID === taskID);
+
+  return axios({
+    url: `https://api.jotform.com/submission/${task.submissionID}?apiKey=${API_KEY}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: `submission[4]=${JSON.stringify({
+      taskID: task.taskID,
+      taskGroupID: task.taskGroupID,
+      task: task.task,
+      assignee: task.assignee,
+      assignedBy: task.assignedBy,
+      dueDate: task.dueDate,
+      createdAt: task.createdAt,
+      labels: task.labels,
+      isDone: !task.isDone
+    })}`
+  }).then(response => {
+    const data = response.data;
+    if (data.responseCode === 200) {
+      for (let i = 0; i < tasksList.length; i++) {
+        const element = tasksList[i];
+        if (element.taskID === taskID) {
+          tasksList[i].isDone = !tasksList[i].isDone;
+          break;
+        }
+      }
+      dispatch({
+        type: TOGGLE_TASK_DONE,
+        payload: {
+          ...tasksState,
+          tasks: tasksList
+        }
+      });
+    }
+  });
+};
+
+export const getAvatar = assignee => (dispatch, getState) => {
+  let avatarUrl;
+  return axios
+    .get(
+      `https://api.jotform.com/form/${USERS_FORM}/submissions?apiKey=${API_KEY}`
+    )
+    .then(response => {
+      const content = response.data.content;
+
+      for (let index = 0; index < content.length; index++) {
+        const submission = content[index];
+        if (submission.answers[9].answer === assignee) {
+          avatarUrl = submission.answers[10].answer;
+          break;
+        }
+      }
+      return avatarUrl;
+    });
+};
+
+export const moveTask = data => (dispatch, getState) => {
+  const tasksState = getState().task;
+  const tasksList = tasksState.tasks;
+  const task = tasksState.tasks.find(task => task.taskID === data.taskID);
+
+  return axios({
+    url: `https://api.jotform.com/submission/${task.submissionID}?apiKey=${API_KEY}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: `submission[4]=${JSON.stringify({
+      taskID: task.taskID,
+      taskGroupID: data.taskGroupID,
+      task: task.task,
+      assignee: task.assignee,
+      assignedBy: task.assignedBy,
+      dueDate: task.dueDate,
+      createdAt: task.createdAt,
+      labels: task.labels,
+      isDone: task.isDone
+    })}`
+  }).then(response => {
+    const data = response.data;
+    if (data.responseCode === 200) {
+      for (let i = 0; i < tasksList.length; i++) {
+        const element = tasksList[i];
+        if (element.taskID === data.taskID) {
+          tasksList[i].taskGroupID = data.taskGroupID;
+          break;
+        }
+      }
+      dispatch({
+        type: CHANGE_TASK_GROUP,
+        payload: {
+          ...tasksState,
+          tasks: tasksList
+        }
+      });
+    }
+  });
+};
