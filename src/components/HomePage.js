@@ -1,20 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import cookie from "react-cookies";
+import history from "../utils/history";
 class HomePage extends React.Component {
   componentDidMount() {
-    const { user } = this.props;
-    cookie.save("username", user.username, { path: "/" });
-    cookie.save("email", user.email, { path: "/" });
-    cookie.save("avatarUrl", user.avatarUrl, { path: "/" });
+    const localUser = localStorage.getItem("user");
+    if (localUser !== null) {
+      history.push("/teams");
+    }
+    // localStorage.setItem(
+    //   "user",
+    //   JSON.stringify({
+    //     username: "ekosen",
+    //     email: "kosenemre@gmail.com",
+    //     avatarUrl: "https://www.jotform.com/images/avatars/avatar-59.png"
+    //   })
+    // );
   }
 
   render() {
-    const { auth } = this.props;
-    if (!auth.isLoggedIn) {
-      return <Redirect to="/login" />;
-    }
     return (
       <div className="container">
         <h1 className="h1">HomePage</h1>

@@ -7,13 +7,14 @@ import Sidebar from "./Sidebar";
 class Container extends React.Component {
   render() {
     const { auth } = this.props;
+    const localUser = JSON.parse(localStorage.getItem("user"));
     return (
       <div>
         <Navbar />
 
         <div className="wrapper">
-          {auth.isLoggedIn ? <Sidebar /> : null}
-          <div id="content">
+          {localUser !== null ? <Sidebar /> : null}
+          <div id="content" className={localUser === null ? "active" : ""}>
             <div id="contentWrapper">{this.props.children}</div>
           </div>
         </div>

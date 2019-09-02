@@ -8,14 +8,16 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import { logoutHandler } from "../actions/authActions";
 
 class Navbar extends Component {
   render() {
-    const { toggleSidebar, auth, user } = this.props;
+    const { toggleSidebar, logoutHandler, auth, user } = this.props;
+    const localUser = JSON.parse(localStorage.getItem("user"));
     return (
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          {auth.isLoggedIn ? (
+          {localUser !== null ? (
             <button
               type="button"
               id="sidebarCollapse"
@@ -26,6 +28,16 @@ class Navbar extends Component {
               <span />
             </button>
           ) : null}
+          <a class="navbar-brand" href="#">
+            <img
+              src="https://www.jotform.com/resources/assets/svg/jotform-icon-dark.svg"
+              width="30"
+              height="30"
+              class="d-inline-block align-top"
+              alt=""
+            ></img>
+            Tasks
+          </a>
           <button
             className="btn btn-dark d-inline-block d-lg-none ml-auto"
             type="button"
@@ -45,18 +57,27 @@ class Navbar extends Component {
                   Teams
                 </Link>
               </li>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret id="user">
-                  {/* {user.username} */}
-                  <img id="navbarAvatar" src={user.avatarUrl} alt="" />
-                </DropdownToggle>
-                <DropdownMenu right>
-                  {/* <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem> */}
-                  {/* <DropdownItem divider /> */}
-                  <DropdownItem id="logout">Log out</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              {localUser !== null ? (
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret id="user">
+                    <img id="navbarAvatar" src={localUser.avatarUrl} alt="" />
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    {/* <DropdownItem>Option 1</DropdownItem>
+                <DropdownItem>Option 2</DropdownItem> */}
+                    {/* <DropdownItem divider /> */}
+                    <DropdownItem id="logout" onClick={logoutHandler}>
+                      Log out
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              ) : (
+                <li>
+                  <Link className="nav-link" to={"/login"}>
+                    Login
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -73,7 +94,8 @@ const mapStateToProps = ({ auth, user }) => {
 };
 
 const mapDispatchToProps = {
-  toggleSidebar: toggleHandler
+  toggleSidebar: toggleHandler,
+  logoutHandler: logoutHandler
 };
 
 export default connect(

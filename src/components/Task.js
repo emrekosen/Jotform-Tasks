@@ -29,6 +29,9 @@ class Task extends Component {
       deleteTask,
       toggleDoneTask
     } = this.props;
+    let isOutdated =
+      moment(moment(dueDate).format("L")).valueOf() -
+      moment(moment().format("L")).valueOf();
     return (
       <li
         key={taskID}
@@ -51,8 +54,15 @@ class Task extends Component {
           {task}
         </div>
 
-        <div className="d-flex align-items-center">
-          {moment(dueDate).format("MMM Do")}
+        <div
+          className="d-flex align-items-center"
+          style={isOutdated ? { color: "#E80C17" } : null}
+        >
+          <div>
+            {isOutdated ? "! " : null}
+            {moment(dueDate).format("MMM Do")}{" "}
+          </div>
+
           <img
             className="ml-2"
             id="assigneeAvatar"

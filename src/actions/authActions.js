@@ -4,7 +4,8 @@ import {
   LOGIN_ERROR,
   SET_USER,
   USERS_FORM,
-  API_KEY
+  API_KEY,
+  LOGOUT
 } from "../constants";
 import history from "../utils/history";
 
@@ -64,6 +65,14 @@ export const loginHandler = data => (dispatch, getState) => {
                       avatarUrl: content.avatarUrl
                     }
                   });
+                  localStorage.setItem(
+                    "user",
+                    JSON.stringify({
+                      username: content.username,
+                      email: content.email,
+                      avatarUrl: content.avatarUrl
+                    })
+                  );
                   history.push("/teams");
                 }
               });
@@ -81,6 +90,14 @@ export const loginHandler = data => (dispatch, getState) => {
                 avatarUrl: content.avatarUrl
               }
             });
+            localStorage.setItem(
+              "user",
+              JSON.stringify({
+                username: content.username,
+                email: content.email,
+                avatarUrl: content.avatarUrl
+              })
+            );
             history.push("/teams");
           });
       } else if (data.responseCode === 401) {
@@ -106,4 +123,22 @@ export const loginHandler = data => (dispatch, getState) => {
     .catch(e => {
       console.log(e);
     });
+};
+
+export const logoutHandler = () => (dispatch, getState) => {
+  axios.get("https://api.jotform.com/v1/user/logout").then(response => {
+    if (response.data.responseCode == 200) {
+      localStorage.removeItem("user");
+      history.push("/login");
+    }
+    localStorage.removeItem("user");
+    dispatch({
+      type: LOGOUT,
+      payload: {
+        ...getState().auth,
+        isLoggedIn: false
+      }
+    });
+    history.push("/");
+  });
 };

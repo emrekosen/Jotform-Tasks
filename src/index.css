@@ -184,6 +184,10 @@ a.article:hover {
   margin-bottom: 10px;
 }
 
+#sidebarCollapse {
+  margin-right: 0.5rem;
+}
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */

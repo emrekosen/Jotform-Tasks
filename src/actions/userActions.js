@@ -2,8 +2,9 @@ import axios from "axios";
 import { API_KEY, SET_TEAMS, JOIN_TEAM, TEAMS_FORM } from "../constants";
 
 export const getUserTeams = data => (dispatch, getState) => {
+  const localUser = JSON.parse(localStorage.getItem("user"));
   const state = getState().user;
-  const userEmail = getState().user.email;
+  const userEmail = localUser.email;
   let userTeams = [];
   return axios
     .get(
@@ -38,8 +39,9 @@ export const getUserTeams = data => (dispatch, getState) => {
 };
 
 export const joinTeam = data => (dispatch, getState) => {
-  const userEmail = getState().user.email;
-  const username = getState().user.username;
+  const localUser = JSON.parse(localStorage.getItem("user"));
+  const userEmail = localUser.email;
+  const username = localUser.username;
   let teamSubmissionID;
   let newTeamData;
   let userTeams = getState().user.teams;

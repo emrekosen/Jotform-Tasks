@@ -14,6 +14,7 @@ import uniqid from "uniqid";
 import moment from "moment";
 
 export const createTask = data => (dispatch, getState) => {
+  const localUser = JSON.parse(localStorage.getItem("user"));
   const currentUser = getState().user;
   const currentTasks = getState().task;
   const taskID = uniqid();
@@ -22,7 +23,7 @@ export const createTask = data => (dispatch, getState) => {
     taskGroupID: data.taskGroupID,
     task: data.task,
     assignee: data.assignee,
-    assignedBy: currentUser.username,
+    assignedBy: localUser.username,
     dueDate: data.newDueDate,
     createdAt: moment(Date()).format("L"),
     labels: [],

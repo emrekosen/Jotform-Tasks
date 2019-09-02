@@ -6,6 +6,7 @@ export const TASKS_FORM = "92303489142961";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
+export const LOGOUT = "LOGOUT";
 
 export const GET_USER = "GET_USER";
 export const SET_USER = "SET_USER";

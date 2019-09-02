@@ -14,6 +14,8 @@ import allReducers from "./reducers";
 import history from "./utils/history";
 import Teams from "./components/Teams";
 import Container from "./components/Container";
+import ProtectedRoute from "./components/ProtectedRoute";
+import NoUser from "./components/NoUser";
 
 class App extends React.Component {
   render() {
@@ -33,9 +35,10 @@ class App extends React.Component {
               <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route exact path="/login" component={LoginPage} />
-                <Route exact path="/teams" component={Teams} />
-                <Route path="/:teamID/boards" component={Boards} />
-                <Route path="/:teamID/:boardID" component={Board} />
+                <Route path="/error" component={NoUser} />
+                <ProtectedRoute exact path="/teams" component={Teams} />
+                <ProtectedRoute path="/:teamID/boards" component={Boards} />
+                <ProtectedRoute path="/:teamID/:boardID" component={Board} />
               </Switch>
             </Container>
           </Router>

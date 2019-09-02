@@ -10,7 +10,7 @@ const initalState = {
   isLoaded: false,
   username: null,
   avatarUrl: "",
-  email: "kosenemre@gmail.com",
+  email: "",
   teams: [],
   submissionID: ""
 };

@@ -64,6 +64,7 @@ export const getAllTeams = () => (dispatch, getState) => {
 };
 
 export const createTeam = data => (dispatch, getState) => {
+  const localUser = JSON.parse(localStorage.getItem("user"));
   const userState = getState().user;
   const userEmail = userState.email;
   const newTeamID = uniqid();
@@ -75,7 +76,7 @@ export const createTeam = data => (dispatch, getState) => {
     },
     data: `submission[5]=${newTeamID}&submission[6]=${JSON.stringify({
       teamName: data,
-      users: [{ email: userEmail, username: userState.username }]
+      users: [{ email: userEmail, username: localUser.username }]
     })}`
   }).then(response => {
     dispatch({
@@ -84,7 +85,7 @@ export const createTeam = data => (dispatch, getState) => {
         ...getState().team,
         teamID: newTeamID,
         teamName: data,
-        users: [{ email: userEmail, username: userState.username }],
+        users: [{ email: userEmail, username: localUser.username }],
         boards: [],
         isLoaded: true
       }

@@ -10,22 +10,36 @@ import { toggleHandler } from "../actions/sidebarActions";
 //set links and redirects
 
 class Sidebar extends Component {
+  state = {
+    localUser: {
+      username: "",
+      email: "",
+      avatarUrl: ""
+    }
+  };
+
+  componentDidMount() {
+    const localUser = JSON.parse(localStorage.getItem("user"));
+    if (localUser !== null) {
+      this.setState({
+        localUser: localUser
+      });
+    }
+  }
+
   render() {
     const { user, team, toggleSidebar } = this.props;
+    const { localUser } = this.state;
     return (
       <nav id="sidebar">
-        <div className="sidebar-header">
-          <h3>Jotform Tasks</h3>
-        </div>
-
         <ul className="list-unstyled components">
           <img
             id="avatar"
-            src={user.avatarUrl}
+            src={localUser.avatarUrl}
             className="mx-auto d-block"
             alt=""
           />
-          <p className="text-center">Welcome {user.username}</p>
+          <p className="text-center">Welcome {localUser.username}</p>
           <li>
             <a
               href="#homeSubmenu"

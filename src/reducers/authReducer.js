@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_ERROR } from "../constants/index";
+import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from "../constants/index";
 
 const initalState = {
   isLoggedIn: true,
@@ -10,6 +10,8 @@ export default function authReducer(state = initalState, action) {
     case LOGIN_SUCCESS:
       return action.payload || false;
     case LOGIN_ERROR:
+      return action.payload || false;
+    case LOGOUT:
       return action.payload || false;
     default:
       return state;
