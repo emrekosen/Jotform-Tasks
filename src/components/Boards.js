@@ -5,6 +5,7 @@ import { getUserTeams } from "../actions/userActions";
 import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
 import Container from "./Container";
+import Avatar from "react-avatar";
 
 class Boards extends Component {
   constructor(props) {
@@ -70,12 +71,17 @@ class Boards extends Component {
               </button>
             </div>
 
-            <div className="mt-5">
+            <div className="custom-container">
               {team.boards.map(board => {
                 return (
-                  <div key={board.boardID}>
+                  <div key={board.boardID} className="custom-column">
                     <Link to={`/${team.teamID}/${board.boardID}`}>
-                      {board.boardName}
+                      <Avatar
+                        className="team-icon"
+                        round="1rem"
+                        name={`${board.boardName}`}
+                      />
+                      <h3>{board.boardName}</h3>
                     </Link>
                   </div>
                 );
