@@ -29,7 +29,7 @@ class Task extends Component {
       deleteTask,
       toggleDoneTask
     } = this.props;
-    let isOutdated =
+    const dateDiff =
       moment(moment(dueDate).format("L")).valueOf() -
       moment(moment().format("L")).valueOf();
     return (
@@ -54,12 +54,15 @@ class Task extends Component {
           {task}
         </div>
 
-        <div
-          className="d-flex align-items-center"
-          style={isOutdated ? { color: "#E80C17" } : null}
-        >
-          <div>
-            {isOutdated ? "! " : null}
+        <div className="d-flex align-items-center">
+          <div
+            id="dueDate"
+            style={
+              dateDiff < 0
+                ? { backgroundColor: "#FA5F58", color: "white" }
+                : { backgroundColor: "#63FA89", color: "white" }
+            }
+          >
             {moment(dueDate).format("MMM Do")}{" "}
           </div>
 

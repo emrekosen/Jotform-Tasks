@@ -8,7 +8,6 @@ class Container extends React.Component {
   render() {
     const { auth } = this.props;
     const localUser = JSON.parse(localStorage.getItem("user"));
-    console.log("Container render", localUser);
     return (
       <div>
         <Navbar />

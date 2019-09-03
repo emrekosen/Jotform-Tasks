@@ -78,9 +78,14 @@ class CreateTask extends Component {
         </div>
         <div className="card-body">
           <form>
-            <div className="form-group">
-              <label htmlFor="task">Task</label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="fas fa-clipboard-check fa-lg"></i>
+                </span>
+              </div>
               <input
+                placeholder="Task"
                 id="task"
                 type="text"
                 className="form-control"
@@ -88,8 +93,12 @@ class CreateTask extends Component {
                 value={this.state.task}
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="assignee">Assignee</label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="fas fa-user fa-lg"></i>
+                </span>
+              </div>
               <select
                 id="assignee"
                 className="form-control"
@@ -107,7 +116,12 @@ class CreateTask extends Component {
                 })}
               </select>
             </div>
-            <div>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="far fa-calendar-check fa-lg"></i>
+                </span>
+              </div>
               {/* <label htmlFor="datePicker">Due Date</label> */}
               <DatePicker
                 id="datePicker"

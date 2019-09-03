@@ -292,7 +292,7 @@ a.article:hover {
 
 #doneIconS {
   margin-right: 0.5rem;
-  color: grey;
+  color: #cccccc;
 }
 
 /* #doneIconS:hover {
@@ -325,4 +325,27 @@ a.article:hover {
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
+}
+
+.input-group-text {
+  background-color: transparent;
+  border: none;
+}
+
+.input-group {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#task {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+#dueDate {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  border-radius: 5rem;
 }

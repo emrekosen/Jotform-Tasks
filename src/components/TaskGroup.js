@@ -12,9 +12,15 @@ class TaskGroup extends Component {
         <div className="card mt-5 mb-5">
           <div
             className="card-header d-flex align-items-center justify-content-between"
-            style={{ backgroundColor: "#BAC1DD" }}
+            style={{ backgroundColor: "#7386d5" }}
           >
-            <h5 style={{ marginTop: "0.25rem", marginBottom: "0.25rem" }}>
+            <h5
+              style={{
+                marginTop: "0.25rem",
+                marginBottom: "0.25rem",
+                color: "white"
+              }}
+            >
               {name}
             </h5>
             <button
