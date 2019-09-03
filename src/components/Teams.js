@@ -5,6 +5,7 @@ import { getTeamBoards } from "../actions/boardActions";
 import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
 import Container from "./Container";
+import Avatar from "react-avatar";
 
 class Teams extends Component {
   state = {
@@ -36,13 +37,20 @@ class Teams extends Component {
     }
     return (
       <Container>
-        <div>
-          <h1>Teams</h1>
+        <h1>Teams</h1>
+        <div className="custom-container">
           {teams.map(team => {
             return (
-              <h3 key={team.teamID}>
-                <Link to={`/${team.teamID}/boards`}>{team.teamName}</Link>
-              </h3>
+              <div key={team.teamID} className="custom-column">
+                <Link to={`/${team.teamID}/boards`}>
+                  <Avatar
+                    className="team-icon"
+                    round="1rem"
+                    name={`${team.teamName} ${team.teamName.substr(2)}`}
+                  />
+                  <h3>{team.teamName}</h3>
+                </Link>
+              </div>
             );
           })}
         </div>

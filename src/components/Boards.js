@@ -70,13 +70,10 @@ class Boards extends Component {
               </button>
             </div>
 
-            <div
-              className="mt-5"
-              style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}
-            >
+            <div className="mt-5">
               {team.boards.map(board => {
                 return (
-                  <div key={board.boardID} style={{ textAlign: "center" }}>
+                  <div key={board.boardID}>
                     <Link to={`/${team.teamID}/${board.boardID}`}>
                       {board.boardName}
                     </Link>

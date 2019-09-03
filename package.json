@@ -9,6 +9,7 @@
     "history": "^4.9.0",
     "moment": "^2.24.0",
     "react": "^16.9.0",
+    "react-avatar": "^3.6.0",
     "react-bootstrap": "^1.0.0-beta.11",
     "react-bootstrap-date-picker": "^5.1.0",
     "react-cookie": "^4.0.1",
@@ -28,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "css": "node-sass --include-path scss src/assets/css/main.scss src/assets/css/main.css --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -44,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "node-sass": "^4.12.0"
   }
 }

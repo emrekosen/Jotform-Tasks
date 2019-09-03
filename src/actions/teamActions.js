@@ -66,7 +66,7 @@ export const getAllTeams = () => (dispatch, getState) => {
 export const createTeam = data => (dispatch, getState) => {
   const localUser = JSON.parse(localStorage.getItem("user"));
   const userState = getState().user;
-  const userEmail = userState.email;
+  const userEmail = localUser.email;
   const newTeamID = uniqid();
   return axios({
     url: `https://api.jotform.com/form/${TEAMS_FORM}/submissions?apiKey=${API_KEY}`,

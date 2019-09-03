@@ -51,7 +51,7 @@ class Task extends Component {
               onClick={toggleDoneTask.bind(this, taskID)}
             ></i>
           )}
-          {task}
+          <input defaultValue={task} />
         </div>
 
         <div className="d-flex align-items-center">
@@ -60,7 +60,7 @@ class Task extends Component {
             style={
               dateDiff < 0
                 ? { backgroundColor: "#FA5F58", color: "white" }
-                : { backgroundColor: "#63FA89", color: "white" }
+                : { backgroundColor: "#44E344", color: "white" }
             }
           >
             {moment(dueDate).format("MMM Do")}{" "}
@@ -85,15 +85,15 @@ class Task extends Component {
               aria-labelledby="dropdownMenuButton"
             >
               {true ? (
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={deleteTask.bind(this, submissionID)}
-                >
+                <a className="dropdown-item">
                   <i id="trashIcon" className="fas fa-trash-alt mr-2"></i>Delete
                 </a>
               ) : null}
-              <a className="dropdown-item" href="#">
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={e => e.preventDefault()}
+              >
                 <i className="fas fa-exchange-alt mr-2"></i>Change task group
               </a>
             </div>

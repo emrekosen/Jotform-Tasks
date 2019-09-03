@@ -1,0 +1,415 @@
+/*
+    DEMO STYLE
+*/
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fafafa;
+}
+
+#navbarAvatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 5rem;
+}
+
+#user {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
+  line-height: 1.7em;
+  color: #999;
+}
+
+a,
+a:hover,
+a:focus {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.navbar {
+  padding: 15px 10px;
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 40px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+  box-shadow: none;
+  outline: none !important;
+  border: none;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #ddd;
+  margin: 40px 0;
+}
+
+.navbar button {
+  background-color: #6d7fcc;
+  color: white;
+}
+
+#brandLogo {
+  border-radius: 5rem;
+  margin-right: 0.5rem;
+}
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
+#avatar {
+  border-radius: 3rem;
+}
+
+#sidebar {
+  margin-top: 70px;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  height: 100vh;
+  z-index: 999;
+  background: #7386d5;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+#sidebar.active {
+  margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: #6d7fcc;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+  border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+
+#sidebar ul li p {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+
+#sidebar ul li a:hover {
+  color: #7386d5;
+  background: #fff;
+}
+
+#sidebar ul li.active > a,
+a[aria-expanded="true"] {
+  color: #fff;
+  background: #6d7fcc;
+}
+
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+  background: #6d7fcc;
+}
+
+ul.CTAs {
+  padding: 20px;
+}
+
+ul.CTAs a {
+  text-align: center;
+  font-size: 0.9em !important;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+a.download {
+  background: #fff;
+  color: #7386d5;
+}
+
+a.article,
+a.article:hover {
+  background: #6d7fcc !important;
+  color: #fff !important;
+}
+
+#user {
+  background-color: #f8f9fa !important;
+}
+
+#logout {
+  background-color: white;
+  color: black;
+}
+
+.createTeamGroup {
+  margin-bottom: 10px;
+}
+
+#sidebarCollapse {
+  margin-right: 0.5rem;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+  margin-top: 70px;
+  min-height: 100vh;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  padding: 15px;
+}
+
+#sidebar {
+  margin-top: 67px;
+  margin-left: -250px;
+}
+#sidebar.active {
+  margin-left: 0px;
+}
+
+#content-wrapper {
+  text-align: center;
+  min-height: 100vh;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#loginForm {
+  width: 100% !important;
+}
+
+/* #content.active {
+  width: calc(100% - 250px);
+} */
+
+#sidebarCollapse span {
+  display: none;
+}
+
+/* ---------------------------------------------------
+TASKGROUPS
+----------------------------------------------------- */
+
+/* ---------------------------------------------------
+TASKS
+----------------------------------------------------- */
+
+#trashIcon {
+  color: black;
+}
+
+#trashIcon:hover {
+  color: #7386d5;
+}
+
+#doneIconS {
+  margin-right: 0.5rem;
+  color: #cccccc;
+}
+
+/* #doneIconS:hover {
+  color: green;
+} */
+
+#doneIconSDone {
+  margin-right: 0.5rem;
+  color: #44e344;
+}
+
+/* #doneIconS:hover {
+  color: grey;
+} */
+
+#addTaskIcon {
+  margin-right: 0.5rem;
+}
+
+#dropdownMenuButton {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+#assigneeAvatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+}
+
+.input-group-text {
+  background-color: transparent;
+  border: none;
+}
+
+.input-group {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#task {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+#dueDate {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  border-radius: 5rem;
+}
+
+/* ---------------------------------------------------
+TEAMS
+----------------------------------------------------- */
+
+.team-icon {
+  transition: all 0.2s ease-in-out;
+}
+
+.team-icon:hover {
+  /* border: 5px solid black; */
+  box-shadow: 0 0px 15px rgb(115, 134, 213, 0.5);
+}
+
+/* ---------------------------------------------------
+POSITIONING
+----------------------------------------------------- */
+
+.custom-container {
+  /* min-height: 100vh; */
+  display: flex;
+
+  flex-wrap: wrap;
+}
+
+.custom-column {
+  text-align: center;
+  width: 50%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 576px) {
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  #content {
+    width: 100%;
+    padding: 40px;
+  }
+
+  #content.active {
+    width: calc(100% - 250px);
+  }
+
+  #content-wrapper {
+    margin-left: 15rem;
+    margin-right: 15rem;
+  }
+
+  .custom-column {
+    width: 33%;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .custom-column {
+    width: 25%;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}
+
+@media (max-width: 1440px) {
+  #content-wrapper {
+    min-height: 100vh;
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+}
+@media (min-width: 1440px) and (max-width: 2000px) {
+  #content-wrapper {
+    min-height: 100vh;
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+}
+
+/* ---------------------------------------------------
+    CUSTOMIZATIONS
+----------------------------------------------------- */
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+  background-color: #7386d5 !important;
+  border-color: #7386d5 !important;
+}
