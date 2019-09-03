@@ -31,16 +31,14 @@ class App extends React.Component {
       <CookiesProvider>
         <Provider store={store}>
           <Router history={history}>
-            <Container>
-              <Switch>
-                <Route exact path="/" component={HomePage} />
-                <Route exact path="/login" component={LoginPage} />
-                <Route path="/error" component={NoUser} />
-                <ProtectedRoute exact path="/teams" component={Teams} />
-                <ProtectedRoute path="/:teamID/boards" component={Boards} />
-                <ProtectedRoute path="/:teamID/:boardID" component={Board} />
-              </Switch>
-            </Container>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/login" component={LoginPage} />
+              <Route path="/error" component={NoUser} />
+              <ProtectedRoute exact path="/teams" component={Teams} />
+              <ProtectedRoute path="/:teamID/boards" component={Boards} />
+              <ProtectedRoute path="/:teamID/:boardID" component={Board} />
+            </Switch>
           </Router>
         </Provider>
       </CookiesProvider>

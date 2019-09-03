@@ -4,6 +4,7 @@ import { getUserTeams } from "../actions/userActions";
 import { getTeamBoards } from "../actions/boardActions";
 import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
+import Container from "./Container";
 
 class Teams extends Component {
   state = {
@@ -34,16 +35,18 @@ class Teams extends Component {
       );
     }
     return (
-      <div>
-        <h1>Teams</h1>
-        {teams.map(team => {
-          return (
-            <h3 key={team.teamID}>
-              <Link to={`/${team.teamID}/boards`}>{team.teamName}</Link>
-            </h3>
-          );
-        })}
-      </div>
+      <Container>
+        <div>
+          <h1>Teams</h1>
+          {teams.map(team => {
+            return (
+              <h3 key={team.teamID}>
+                <Link to={`/${team.teamID}/boards`}>{team.teamName}</Link>
+              </h3>
+            );
+          })}
+        </div>
+      </Container>
     );
   }
 }

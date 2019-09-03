@@ -4,6 +4,7 @@ import { getTeam, deleteTeam } from "../actions/teamActions";
 import { getUserTeams } from "../actions/userActions";
 import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
+import Container from "./Container";
 
 class Boards extends Component {
   constructor(props) {
@@ -43,43 +44,48 @@ class Boards extends Component {
   render() {
     const { isLoaded } = this.state;
     const { team, deleteTeam } = this.props;
+
     if (!isLoaded) {
       return (
-        <div className="text-center">
-          <Spinner
-            style={{ width: "5rem", height: "5rem", color: "#7386d5" }}
-            type="grow"
-          />
-        </div>
+        <Container>
+          <div className="text-center">
+            <Spinner
+              style={{ width: "5rem", height: "5rem", color: "#7386d5" }}
+              type="grow"
+            />
+          </div>
+        </Container>
       );
     } else {
       return (
-        <div>
-          <div className="d-flex justify-content-between align-items-center">
-            <h1>{`${team.teamName}'s Boards`}</h1>
-            <button
-              className="btn btn-primary ml-2"
-              onClick={deleteTeam.bind(this, team.teamID)}
-            >
-              <i className="fas fa-cog"></i>
-            </button>
-          </div>
+        <Container>
+          <div>
+            <div className="d-flex justify-content-between align-items-center">
+              <h1>{`${team.teamName}'s Boards`}</h1>
+              <button
+                className="btn btn-primary ml-2"
+                onClick={deleteTeam.bind(this, team.teamID)}
+              >
+                <i className="fas fa-cog"></i>
+              </button>
+            </div>
 
-          <div
-            className="mt-5"
-            style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}
-          >
-            {team.boards.map(board => {
-              return (
-                <div key={board.boardID} style={{ textAlign: "center" }}>
-                  <Link to={`/${team.teamID}/${board.boardID}`}>
-                    {board.boardName}
-                  </Link>
-                </div>
-              );
-            })}
+            <div
+              className="mt-5"
+              style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}
+            >
+              {team.boards.map(board => {
+                return (
+                  <div key={board.boardID} style={{ textAlign: "center" }}>
+                    <Link to={`/${team.teamID}/${board.boardID}`}>
+                      {board.boardName}
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </Container>
       );
     }
   }

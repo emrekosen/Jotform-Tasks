@@ -7,7 +7,7 @@ import TaskGroup from "./TaskGroup";
 import history from "../utils/history";
 import { getTeam } from "../actions/teamActions";
 import { getUserTeams } from "../actions/userActions";
-
+import Container from "./Container";
 class Board extends Component {
   state = {
     isLoading: true,
@@ -76,48 +76,57 @@ class Board extends Component {
     const { board, deleteBoard } = this.props;
     const { isLoading, isAdding } = this.state;
     if (isLoading) {
-      return <h1>Loading...</h1>;
+      return (
+        <Container>
+          <h1>Loading...</h1>
+        </Container>
+      );
     }
     return (
-      <div>
-        <div className="d-flex justify-content-end align-items-end mb-5">
-          {isAdding ? (
-            <CreateTaskGroup toggleBar={this.toggleTaskGroupAddBar} />
-          ) : (
-            <div>
-              {/* <h4>Add Task Group</h4> */}
-              <button
-                id="addTaskGroup"
-                className="btn btn-primary"
-                onClick={this.toggleTaskGroupAddBar}
-              >
-                Create Task Group
-              </button>
-            </div>
-          )}
-          <button className="btn btn-primary ml-2" onClick={this.onDeleteBoard}>
-            <i className="fas fa-cog"></i>
-          </button>
-        </div>
-        {board.taskGroups.length === 0 ? (
-          <div className="text-center">
-            <h4>
-              There is no task group for this board. You can create with "Create
-              Task Group" button.
-            </h4>
+      <Container>
+        <div>
+          <div className="d-flex justify-content-end align-items-end mb-5">
+            {isAdding ? (
+              <CreateTaskGroup toggleBar={this.toggleTaskGroupAddBar} />
+            ) : (
+              <div>
+                {/* <h4>Add Task Group</h4> */}
+                <button
+                  id="addTaskGroup"
+                  className="btn btn-primary"
+                  onClick={this.toggleTaskGroupAddBar}
+                >
+                  Create Task Group
+                </button>
+              </div>
+            )}
+            <button
+              className="btn btn-primary ml-2"
+              onClick={this.onDeleteBoard}
+            >
+              <i className="fas fa-cog"></i>
+            </button>
           </div>
-        ) : (
-          board.taskGroups.map(taskGroup => {
-            return (
-              <TaskGroup
-                key={taskGroup.taskGroupID}
-                name={taskGroup.taskGroupName}
-                id={taskGroup.taskGroupID}
-              />
-            );
-          })
-        )}
-      </div>
+          {board.taskGroups.length === 0 ? (
+            <div className="text-center">
+              <h4>
+                There is no task group for this board. You can create with
+                "Create Task Group" button.
+              </h4>
+            </div>
+          ) : (
+            board.taskGroups.map(taskGroup => {
+              return (
+                <TaskGroup
+                  key={taskGroup.taskGroupID}
+                  name={taskGroup.taskGroupName}
+                  id={taskGroup.taskGroupID}
+                />
+              );
+            })
+          )}
+        </div>
+      </Container>
     );
   }
 }

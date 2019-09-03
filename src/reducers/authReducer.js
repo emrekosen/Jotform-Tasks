@@ -1,7 +1,7 @@
 import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from "../constants/index";
 
 const initalState = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   authError: null
 };
 

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import history from "../utils/history";
+import Container from "./Container";
 class HomePage extends React.Component {
   componentDidMount() {
     const localUser = localStorage.getItem("user");
@@ -20,9 +21,11 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <h1 className="h1">HomePage</h1>
-      </div>
+      <Container>
+        <div className="container">
+          <h1 className="h1">HomePage</h1>
+        </div>
+      </Container>
     );
   }
 }

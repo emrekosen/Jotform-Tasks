@@ -61,6 +61,11 @@ a:focus {
   background-color: #6d7fcc;
   color: white;
 }
+
+#brandLogo {
+  border-radius: 5rem;
+  margin-right: 0.5rem;
+}
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

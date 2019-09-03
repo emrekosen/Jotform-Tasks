@@ -8,6 +8,7 @@ import {
   LOGOUT
 } from "../constants";
 import history from "../utils/history";
+import { toggleHandler } from "./sidebarActions";
 
 export const loginHandler = data => (dispatch, getState) => {
   let isExist = false;
@@ -118,6 +119,15 @@ export const loginHandler = data => (dispatch, getState) => {
             authError: "Too many requests please try again later"
           }
         });
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            username: "ekosen",
+            email: "kosenemre@gmail.com",
+            avatarUrl: "https://www.jotform.com/images/avatars/avatar-59.png"
+          })
+        );
+        history.push("/teams");
       }
     })
     .catch(e => {

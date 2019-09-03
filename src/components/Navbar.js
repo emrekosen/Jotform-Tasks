@@ -28,12 +28,13 @@ class Navbar extends Component {
               <span />
             </button>
           ) : null}
-          <a class="navbar-brand" href="#">
+          <a className="navbar-brand" href="#">
             <img
+              id="brandLogo"
               src="https://www.jotform.com/resources/assets/svg/jotform-icon-dark.svg"
               width="30"
               height="30"
-              class="d-inline-block align-top"
+              className="d-inline-block align-top"
               alt=""
             ></img>
             Tasks
