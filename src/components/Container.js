@@ -11,7 +11,6 @@ class Container extends React.Component {
     return (
       <div>
         <Navbar />
-
         <div className="wrapper">
           {localUser !== null ? <Sidebar /> : null}
           <div id="content" className={localUser == null ? "active" : ""}>

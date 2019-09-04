@@ -27,6 +27,11 @@ p {
   color: #999;
 }
 
+h5 {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
 a,
 a:hover,
 a:focus {
@@ -239,9 +244,22 @@ a.article:hover {
 TASKGROUPS
 ----------------------------------------------------- */
 
+.card-header {
+  padding: 0.5rem 1rem;
+}
+
+#add-task {
+  font-size: 13px;
+  text-align: start;
+}
+
 /* ---------------------------------------------------
 TASKS
 ----------------------------------------------------- */
+
+#add-task-card {
+  border: none;
+}
 
 #trashIcon {
   color: black;
@@ -273,19 +291,19 @@ TASKS
   margin-right: 0.5rem;
 }
 
-#dropdownMenuButton {
+.list-group-item {
+  border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+#dropdown-menu-button {
   border: solid black;
   border-width: 0 3px 3px 0;
   display: block;
   padding: 3px;
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
-}
-
-#assigneeAvatar {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 1rem;
+  outline: none;
+  background-color: white;
 }
 
 .input-group-text {
@@ -293,30 +311,99 @@ TASKS
   border: none;
 }
 
-.input-group {
+.custom-input-group {
+  margin-bottom: 1rem;
+}
+
+.fa-lg {
+  font-size: 1rem;
+}
+
+.done-task-group {
+  flex: 1;
+}
+
+.task-group {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-#task {
+#task-input {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  font-size: 13px;
+}
+
+#assignee {
+  font-size: 13px;
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
 
-#dueDate {
+#date-picker,
+.btn,
+.dropdown-item,
+.input-box,
+.list-group li {
+  font-size: 12px;
+}
+
+.task {
+  border: none;
+  outline: none;
+  font-size: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#task-detail {
+  display: none;
+}
+
+#mobile-detail {
+  display: flex;
+}
+
+#due-date {
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   padding-left: 0.6rem;
   padding-right: 0.6rem;
   border-radius: 5rem;
+  size: 12px;
 }
 
+#select-team {
+  font-size: 13px;
+}
+
+#assignee-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+}
+
+#mobile-due-date {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  border-radius: 5rem;
+  size: 12px;
+}
+
+#mobile-assignee-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+}
 /* ---------------------------------------------------
 TEAMS
 ----------------------------------------------------- */
 
 .team-icon {
   transition: all 0.2s ease-in-out;
+  margin-bottom: 0.75rem;
 }
 
 .team-icon:hover {
@@ -348,10 +435,64 @@ POSITIONING
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 576px) {
+  .task,
+  #dute-date,
+  #task-input,
+  #assignee,
+  #date-picker,
+  #add-task,
+  .btn,
+  .dropdown-item,
+  .input-box,
+  .list-group li {
+    font-size: 13px;
+  }
+
+  #select-team {
+    font-size: 14px;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .task,
+  #due-date,
+  #task-input,
+  #assignee,
+  #date-picker,
+  #add-task,
+  .btn,
+  .dropdown-item,
+  .input-box,
+  .list-group li {
+    font-size: 14.5px;
+  }
+
+  #select-team {
+    font-size: 15px;
+  }
+
+  h5 {
+    font-size: 1.25rem;
+  }
+
+  .task-group {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .custom-input-group {
+    margin-top: 1rem;
+  }
+
+  .card-header {
+    padding: 0.75rem 1.25rem;
+  }
+
+  .fa-lg {
+    font-size: 1.33rem;
+  }
+
   #content {
     width: 100%;
     padding: 40px;
@@ -371,6 +512,18 @@ POSITIONING
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
   }
+
+  #task-detail {
+    display: flex;
+  }
+
+  #mobile-detail {
+    display: none;
+  }
+
+  #mobile-detail-li {
+    display: none !important;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -379,6 +532,28 @@ POSITIONING
     width: 25%;
     margin-top: 3rem;
     margin-bottom: 3rem;
+  }
+
+  .task-group {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .task,
+  #due-date,
+  #task-input,
+  #assignee,
+  #date-picker,
+  #add-task,
+  .btn,
+  .dropdown-item,
+  .input-box,
+  .list-group li {
+    font-size: 16px;
+  }
+
+  #select-team {
+    font-size: 16px;
   }
 }
 

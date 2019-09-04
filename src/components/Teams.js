@@ -48,7 +48,7 @@ class Teams extends Component {
                     round="1rem"
                     name={`${team.teamName} ${team.teamName.substr(2)}`}
                   />
-                  <h3>{team.teamName}</h3>
+                  <h4>{team.teamName}</h4>
                 </Link>
               </div>
             );

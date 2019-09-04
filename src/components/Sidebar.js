@@ -39,7 +39,12 @@ class Sidebar extends Component {
             className="mx-auto d-block"
             alt=""
           />
-          <p className="text-center">Welcome {localUser.username}</p>
+          <p style={{ paddingBottom: 0 }} className="text-center">
+            Welcome {localUser.username}
+          </p>
+          <p style={{ marginTop: 0, paddingTop: 0 }} className="text-center">
+            {team.teamName}
+          </p>
           <li>
             <a
               href="#homeSubmenu"

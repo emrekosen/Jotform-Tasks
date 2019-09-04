@@ -84,13 +84,14 @@ class JoinTeamModal extends Component {
           <ModalHeader toggle={this.toggle}>Join/Create a Team</ModalHeader>
 
           <ModalBody>
-            <h5>Create Team</h5>
+            <h5 style={{ marginBottom: ".5rem" }}>Create Team</h5>
             <InputGroup
               style={{
                 marginBottom: "5%"
               }}
             >
               <Input
+                className="input-box"
                 placeholder="Team Name"
                 name="createTeamName"
                 onChange={this.handleChange}
@@ -107,7 +108,7 @@ class JoinTeamModal extends Component {
               </InputGroupAddon>
             </InputGroup>
             <h5>Join Team</h5>
-            <p>Select team to join</p>
+            <p id="select-team">Select team to join</p>
             {!isLoaded ? (
               <div className="text-center">
                 <Spinner

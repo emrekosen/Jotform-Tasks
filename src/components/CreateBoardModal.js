@@ -71,6 +71,7 @@ class CreateBoardModal extends Component {
           <ModalBody>
             <InputGroup>
               <Input
+                className="input-box"
                 placeholder="Board Name"
                 name="createBoardName"
                 onChange={this.handleChange}

@@ -62,7 +62,9 @@ class Boards extends Component {
         <Container>
           <div>
             <div className="d-flex justify-content-between align-items-center">
-              <h1>{`${team.teamName}'s Boards`}</h1>
+              <h2
+                style={{ flex: 1, marginBottom: 0 }}
+              >{`${team.teamName}'s Boards`}</h2>
               <button
                 className="btn btn-primary ml-2"
                 onClick={deleteTeam.bind(this, team.teamID)}
@@ -81,7 +83,7 @@ class Boards extends Component {
                         round="1rem"
                         name={`${board.boardName}`}
                       />
-                      <h3>{board.boardName}</h3>
+                      <h4>{board.boardName}</h4>
                     </Link>
                   </div>
                 );

@@ -8,6 +8,8 @@ import history from "../utils/history";
 import { getTeam } from "../actions/teamActions";
 import { getUserTeams } from "../actions/userActions";
 import Container from "./Container";
+import { Spinner } from "reactstrap";
+
 class Board extends Component {
   state = {
     isLoading: true,
@@ -78,14 +80,19 @@ class Board extends Component {
     if (isLoading) {
       return (
         <Container>
-          <h1>Loading...</h1>
+          <div className="text-center">
+            <Spinner
+              style={{ width: "5rem", height: "5rem", color: "#7386d5" }}
+              type="grow"
+            />
+          </div>
         </Container>
       );
     }
     return (
       <Container>
         <div>
-          <div className="d-flex justify-content-end align-items-end mb-5">
+          <div className="d-flex justify-content-end align-items-end">
             {isAdding ? (
               <CreateTaskGroup toggleBar={this.toggleTaskGroupAddBar} />
             ) : (
@@ -108,7 +115,7 @@ class Board extends Component {
             </button>
           </div>
           {board.taskGroups.length === 0 ? (
-            <div className="text-center">
+            <div className="text-center mt-5">
               <h4>
                 There is no task group for this board. You can create with
                 "Create Task Group" button.

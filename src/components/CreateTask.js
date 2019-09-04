@@ -65,7 +65,7 @@ class CreateTask extends Component {
     const { isAdding } = this.state;
     const { team, taskGroupID } = this.props;
     return isAdding ? (
-      <li className="card">
+      <li id="add-task-card" className="card">
         <div className="card-header d-flex justify-content-between align-items-center">
           <h5>New Task</h5>
           <button
@@ -78,7 +78,8 @@ class CreateTask extends Component {
         </div>
         <div className="card-body">
           <form>
-            <div className="input-group">
+            {/* ------------------------- */}
+            <div className="input-group custom-input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text">
                   <i className="fas fa-clipboard-check fa-lg"></i>
@@ -86,14 +87,15 @@ class CreateTask extends Component {
               </div>
               <input
                 placeholder="Task"
-                id="task"
+                id="task-input"
                 type="text"
                 className="form-control"
                 onChange={this.handleTask}
                 value={this.state.task}
               />
+              {/* ------------------------- */}
             </div>
-            <div className="input-group">
+            <div className="input-group custom-input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text">
                   <i className="fas fa-user fa-lg"></i>
@@ -116,7 +118,8 @@ class CreateTask extends Component {
                 })}
               </select>
             </div>
-            <div className="input-group">
+            {/* ------------------------- */}
+            <div className="input-group custom-input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text">
                   <i className="far fa-calendar-check fa-lg"></i>
@@ -124,7 +127,7 @@ class CreateTask extends Component {
               </div>
               {/* <label htmlFor="datePicker">Due Date</label> */}
               <DatePicker
-                id="datePicker"
+                id="date-picker"
                 className="form-control"
                 selected={this.state.dueDate}
                 onChange={this.handleChange}
@@ -133,6 +136,7 @@ class CreateTask extends Component {
               />
             </div>
           </form>
+          {/* ------------------------- */}
           <div className="d-flex justify-content-end">
             <button onClick={this.onAddTask} className="btn btn-primary">
               Add Task
@@ -141,7 +145,11 @@ class CreateTask extends Component {
         </div>
       </li>
     ) : (
-      <li onClick={this.toggleAddTaskBar} className="list-group-item ">
+      <li
+        onClick={this.toggleAddTaskBar}
+        className="list-group-item"
+        id="add-task"
+      >
         <i id="addTaskIcon" className="fas fa-plus-circle fa-lg" />
         Add Task
       </li>

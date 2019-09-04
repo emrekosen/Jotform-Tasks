@@ -248,3 +248,32 @@ export const moveTask = data => (dispatch, getState) => {
     }
   });
 };
+
+export const changeTask = data => (dispatch, getState) => {
+  const tasksState = getState().task;
+  const tasksList = tasksState.tasks;
+  const task = tasksState.tasks.find(task => task.taskID === data.taskID);
+
+  return axios({
+    url: `https://api.jotform.com/submission/${task.submissionID}?apiKey=${API_KEY}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: `submission[4]=${JSON.stringify({
+      taskID: task.taskID,
+      taskGroupID: task.taskGroupID,
+      task: data.newTask,
+      assignee: task.assignee,
+      assignedBy: task.assignedBy,
+      dueDate: task.dueDate,
+      createdAt: task.createdAt,
+      labels: task.labels,
+      isDone: task.isDone
+    })}`
+  }).then(response => {
+    const data = response.data;
+    if (data.responseCode === 200) {
+    }
+  });
+};
