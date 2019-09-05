@@ -6,6 +6,7 @@ import uniqid from "uniqid";
 import JoinTeamModal from "./JoinTeamModal";
 import CreateBoardModal from "./CreateBoardModal";
 import { toggleHandler } from "../actions/sidebarActions";
+import TeamInfo from "./TeamInfo";
 
 //set links and redirects
 
@@ -63,8 +64,14 @@ class Sidebar extends Component {
               </li>
               {user.teams.map(team => {
                 return (
-                  <li key={uniqid()}>
-                    <Link to={`/${team.teamID}/boards`}>{team.teamName}</Link>
+                  <li
+                    key={uniqid()}
+                    className="d-flex justify-content-between align-items-strech"
+                  >
+                    <Link style={{ flex: 1 }} to={`/${team.teamID}/boards`}>
+                      {team.teamName}
+                    </Link>
+                    <TeamInfo teamName={team.teamName} />
                   </li>
                 );
               })}

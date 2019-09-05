@@ -47,7 +47,11 @@ class Teams extends Component {
                   <Avatar
                     className="team-icon"
                     round="1rem"
-                    name={`${team.teamName} ${team.teamName.substr(2)}`}
+                    name={
+                      team.teamName.split(" ").length < 2
+                        ? `${team.teamName} ${team.teamName.substr(2)}`
+                        : `${team.teamName}`
+                    }
                   />
                   <h4>{team.teamName}</h4>
                 </Link>

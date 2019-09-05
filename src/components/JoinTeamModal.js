@@ -80,12 +80,7 @@ class JoinTeamModal extends Component {
           </a>
         ) : (
           <div onClick={this.toggle}>
-            <Avatar
-              color="grey"
-              className="team-icon"
-              round="1rem"
-              name="Join Create Team"
-            />
+            <Avatar color="" className="team-icon" round="1rem" name="+" />
             <h4>Join/Create Team</h4>
           </div>
         )}

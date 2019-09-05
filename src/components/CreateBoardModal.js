@@ -66,13 +66,8 @@ class CreateBoardModal extends Component {
           </a>
         ) : (
           <div onClick={this.toggle}>
-            <Avatar
-              color=""
-              className="team-icon"
-              round="1rem"
-              name="Create Board"
-            />
-            <h4>Join/Create Team</h4>
+            <Avatar color="" className="team-icon" round="1rem" name="+" />
+            <h4>Create Board</h4>
           </div>
         )}
         <Modal
