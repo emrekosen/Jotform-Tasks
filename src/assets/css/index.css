@@ -19,6 +19,29 @@ body {
   padding-bottom: 0;
 }
 
+.date-picker {
+  border: none;
+  outline: none;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  border-radius: 5rem;
+  font-size: 12px;
+  width: 9rem;
+  text-align: center;
+  color: transparent;
+  text-shadow: 0 0 0 white;
+}
+.date-picker-red {
+  background-color: rgb(250, 95, 88);
+}
+.date-picker-green {
+  background-color: rgb(68, 227, 68);
+}
+
+.date-picker:focus {
+  outline: none;
+}
+
 p {
   font-family: "Poppins", sans-serif;
   font-size: 1.1em;
@@ -444,7 +467,8 @@ POSITIONING
   .btn,
   .dropdown-item,
   .input-box,
-  .list-group li {
+  .list-group li,
+  .date-picker {
     font-size: 13px;
   }
 
@@ -464,7 +488,8 @@ POSITIONING
   .btn,
   .dropdown-item,
   .input-box,
-  .list-group li {
+  .list-group li,
+  .date-picker {
     font-size: 14.5px;
   }
 
@@ -548,7 +573,8 @@ POSITIONING
   .btn,
   .dropdown-item,
   .input-box,
-  .list-group li {
+  .list-group li,
+  .date-picker {
     font-size: 16px;
   }
 

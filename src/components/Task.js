@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import DatePicker from "react-datepicker";
 import {
   deleteTask,
   toggleDoneTask,
@@ -12,14 +13,8 @@ class Task extends Component {
   state = {
     assigneeAvatar: null,
     task: this.props.task,
+    dueDate: this.props.dueDate,
     mobileDetail: false
-  };
-
-  handleChange = e => {
-    this.setState({
-      ...this.state,
-      task: e.target.value
-    });
   };
 
   componentDidMount() {
@@ -31,19 +26,42 @@ class Task extends Component {
     });
   }
 
+  changeTaskHandler = (dueDate, e) => {
+    const { changeTask, taskID } = this.props;
+    changeTask({
+      taskID,
+      newTask: this.state.task,
+      newDueDate: dueDate
+    });
+  };
+
+  handleChange = e => {
+    this.setState({
+      ...this.state,
+      task: e.target.value
+    });
+  };
+
+  handleDueDate = date => {
+    this.setState({
+      ...this.state,
+      dueDate: date
+    });
+    this.changeTaskHandler(date);
+  };
+
   render() {
     const {
       taskID,
       assignedBy,
       user,
       submissionID,
-      dueDate,
       isDone,
       deleteTask,
       toggleDoneTask,
       changeTask
     } = this.props;
-    const { task, mobileDetail } = this.state;
+    const { task, dueDate, mobileDetail } = this.state;
     const dateDiff =
       moment(moment(dueDate).format("L")).valueOf() -
       moment(moment().format("L")).valueOf();
@@ -68,22 +86,22 @@ class Task extends Component {
               className="task"
               defaultValue={task}
               onChange={this.handleChange}
-              onBlur={changeTask.bind(this, { taskID, newTask: task })}
+              onBlur={this.changeTaskHandler.bind(this, dueDate)}
             />
           </div>
-
+          {/* TASK DETAIL */}
           <div id="task-detail" className="align-items-center">
-            <div
-              id="due-date"
-              style={
+            <DatePicker
+              className={
                 dateDiff < 0
-                  ? { backgroundColor: "#FA5F58", color: "white" }
-                  : { backgroundColor: "#44E344", color: "white" }
+                  ? "date-picker date-picker-red"
+                  : "date-picker date-picker-green"
               }
-            >
-              {moment(dueDate).format("MMM Do")}{" "}
-            </div>
-
+              selected={moment(dueDate).toDate()}
+              onChange={this.handleDueDate}
+              minDate={new Date()}
+              dateFormat="MMMM d"
+            />
             <img
               className="ml-2"
               id="assignee-avatar"
@@ -137,22 +155,23 @@ class Task extends Component {
         {/* MOBILE DETAIL PART */}
         <li
           id="mobile-detail-li"
-          className="list-group-item align-items-center"
+          className="list-group-item align-items-center justify-content-between "
           style={{
             display: mobileDetail ? "flex" : "none"
           }}
         >
-          <div className="d-flex align-items-center">
-            <div
-              id="mobile-due-date"
-              style={
+          <div>
+            <DatePicker
+              className={
                 dateDiff < 0
-                  ? { backgroundColor: "#FA5F58", color: "white" }
-                  : { backgroundColor: "#44E344", color: "white" }
+                  ? "date-picker date-picker-red"
+                  : "date-picker date-picker-green"
               }
-            >
-              {moment(dueDate).format("MMM Do")}{" "}
-            </div>
+              selected={moment(dueDate).toDate()}
+              onChange={this.handleDueDate}
+              minDate={new Date()}
+              dateFormat="MMMM d"
+            />
 
             <img
               className="ml-2"
@@ -160,6 +179,19 @@ class Task extends Component {
               src={this.state.assigneeAvatar}
               alt=""
             />
+          </div>
+          <div>
+            {true ? (
+              <button
+                className="btn btn-primary mr-2"
+                onClick={deleteTask.bind(this, submissionID)}
+              >
+                <i className="fas fa-trash-alt"></i>
+              </button>
+            ) : null}
+            <button className="btn btn-primary">
+              <i className="fas fa-exchange-alt"></i>
+            </button>
           </div>
         </li>
       </div>

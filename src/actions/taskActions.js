@@ -266,7 +266,7 @@ export const changeTask = data => (dispatch, getState) => {
       task: data.newTask,
       assignee: task.assignee,
       assignedBy: task.assignedBy,
-      dueDate: task.dueDate,
+      dueDate: data.newDueDate,
       createdAt: task.createdAt,
       labels: task.labels,
       isDone: task.isDone
