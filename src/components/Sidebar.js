@@ -56,7 +56,10 @@ class Sidebar extends Component {
             </a>
             <ul className="collapse list-unstyled show" id="homeSubmenu">
               <li>
-                <JoinTeamModal buttonLabel="Join/Create a Team" />
+                <JoinTeamModal
+                  buttonLabel="Join/Create a Team"
+                  isSidebar="true"
+                />
               </li>
               {user.teams.map(team => {
                 return (
@@ -78,7 +81,10 @@ class Sidebar extends Component {
             </a>
             <ul className="collapse list-unstyled" id="pageSubmenu">
               <li>
-                <CreateBoardModal buttonLabel="Create a Board" />
+                <CreateBoardModal
+                  buttonLabel="Create a Board"
+                  isSidebar="true"
+                />
               </li>
               {team.boards.map(board => {
                 return (

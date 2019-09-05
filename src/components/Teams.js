@@ -6,6 +6,7 @@ import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
 import Container from "./Container";
 import Avatar from "react-avatar";
+import JoinTeamModal from "./JoinTeamModal";
 
 class Teams extends Component {
   state = {
@@ -53,6 +54,7 @@ class Teams extends Component {
               </div>
             );
           })}
+          <JoinTeamModal />
         </div>
       </Container>
     );

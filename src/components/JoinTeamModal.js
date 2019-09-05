@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import { getAllTeams, createTeam } from "../actions/teamActions";
 import { joinTeam } from "../actions/userActions";
 import history from "../utils/history";
+import Avatar from "react-avatar";
 
 class JoinTeamModal extends Component {
   // componentDidMount() {
@@ -59,7 +60,7 @@ class JoinTeamModal extends Component {
 
   render() {
     const { modal, isLoaded, teams, createTeamName } = this.state;
-    const { getAllTeams, joinTeam, user } = this.props;
+    const { getAllTeams, joinTeam, user, isSidebar } = this.props;
 
     if (modal && !isLoaded) {
       getAllTeams().then(allTeams => {
@@ -71,11 +72,23 @@ class JoinTeamModal extends Component {
       });
     }
     return (
-      <div>
-        <a href="#" onClick={this.toggle}>
-          <i className="fas fa-user-plus" />
-          {this.props.buttonLabel}
-        </a>
+      <div className={isSidebar ? "" : "custom-column"}>
+        {isSidebar ? (
+          <a href="#" onClick={this.toggle}>
+            <i className="fas fa-user-plus" />
+            {this.props.buttonLabel}
+          </a>
+        ) : (
+          <div onClick={this.toggle}>
+            <Avatar
+              color="grey"
+              className="team-icon"
+              round="1rem"
+              name="Join Create Team"
+            />
+            <h4>Join/Create Team</h4>
+          </div>
+        )}
         <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}

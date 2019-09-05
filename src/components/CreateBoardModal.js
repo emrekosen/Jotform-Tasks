@@ -11,6 +11,7 @@ import {
 import { connect } from "react-redux";
 import history from "../utils/history";
 import { createBoard } from "../actions/boardActions";
+import Avatar from "react-avatar";
 
 class CreateBoardModal extends Component {
   // componentDidMount() {
@@ -55,12 +56,25 @@ class CreateBoardModal extends Component {
 
   render() {
     const { createBoardName } = this.state;
+    const { isSidebar } = this.props;
     return (
-      <div>
-        <a href="#" onClick={this.toggle}>
-          <i className="fas fa-user-plus" />
-          {this.props.buttonLabel}
-        </a>
+      <div className={isSidebar ? "" : "custom-column"}>
+        {isSidebar ? (
+          <a href="#" onClick={this.toggle}>
+            <i className="fas fa-user-plus" />
+            {this.props.buttonLabel}
+          </a>
+        ) : (
+          <div onClick={this.toggle}>
+            <Avatar
+              color=""
+              className="team-icon"
+              round="1rem"
+              name="Create Board"
+            />
+            <h4>Join/Create Team</h4>
+          </div>
+        )}
         <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}

@@ -6,6 +6,7 @@ import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
 import Container from "./Container";
 import Avatar from "react-avatar";
+import CreateBoardModal from "./CreateBoardModal";
 
 class Boards extends Component {
   constructor(props) {
@@ -88,6 +89,7 @@ class Boards extends Component {
                   </div>
                 );
               })}
+              <CreateBoardModal />
             </div>
           </div>
         </Container>
