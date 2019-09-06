@@ -4,8 +4,13 @@
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-  font-family: "Poppins", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
   background: #fafafa;
+}
+
+.create-task-datepicker {
+  flex: 1;
+  height: 2.71428571em;
 }
 
 #navbarAvatar {
@@ -24,7 +29,8 @@ body {
   outline: none;
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
-  border-radius: 5rem;
+  margin-right: 0.2rem;
+  border-radius: 0.25rem;
   font-size: 12px;
   width: 9rem;
   text-align: center;
@@ -32,10 +38,10 @@ body {
   text-shadow: 0 0 0 white;
 }
 .date-picker-red {
-  background-color: rgb(250, 95, 88);
+  background-color: #db2828;
 }
 .date-picker-green {
-  background-color: rgb(68, 227, 68);
+  background-color: #21ba45;
 }
 
 .date-picker:focus {
@@ -388,10 +394,10 @@ TASKS
 }
 
 #due-date {
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
-  padding-left: 0.6rem;
-  padding-right: 0.6rem;
+  /* padding-top: 0.3rem;
+  padding-bottom: 0.3rem; */
+  /* padding-left: 0.6rem;
+  padding-right: 0.6rem; */
   border-radius: 5rem;
   size: 12px;
 }

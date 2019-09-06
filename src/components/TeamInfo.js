@@ -1,11 +1,23 @@
 import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import { connect } from "react-redux";
-
+import { Spinner } from "reactstrap";
+import { getTeamDetails } from "../actions/teamActions";
 class TeamInfo extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    isLoaded: false
   };
+
+  // componentDidMount() {
+  //   const { teamID, getTeamDetails } = this.props;
+  //   getTeamDetails(teamID).then(response => {
+  //     this.setState({
+  //       ...this.state,
+  //       isLoaded: true
+  //     });
+  //   });
+  // }
 
   toggle = () => {
     this.setState(prevState => ({
@@ -15,6 +27,7 @@ class TeamInfo extends Component {
 
   render() {
     const { teamName } = this.props;
+    const { isLoaded } = this.state;
     return (
       <div
         className="d-flex align-items-center"
@@ -32,10 +45,25 @@ class TeamInfo extends Component {
         >
           <ModalHeader toggle={this.toggle}>{teamName} Information</ModalHeader>
           <ModalBody></ModalBody>
+          {!isLoaded ? (
+            <div className="text-center">
+              <Spinner
+                style={{ width: "5rem", height: "5rem", color: "#7386d5" }}
+                type="grow"
+              />
+            </div>
+          ) : null}
         </Modal>
       </div>
     );
   }
 }
 
-export default TeamInfo;
+const mapDispatchToProps = {
+  getTeamDetails: getTeamDetails
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(TeamInfo);

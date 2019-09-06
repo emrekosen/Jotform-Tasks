@@ -24,6 +24,7 @@ export const loginHandler = data => (dispatch, getState) => {
       let data = response.data;
 
       let content = data.content;
+      console.log(data);
       if (data.responseCode === 200) {
         axios
           .get(
@@ -38,9 +39,10 @@ export const loginHandler = data => (dispatch, getState) => {
                 break;
               }
             }
+            console.log("isExist check", isExist);
             if (!isExist) {
               return axios({
-                url: `https://api.jotform.com/submission/form/${USERS_FORM}/submissions?apiKey=${API_KEY}`,
+                url: `https://api.jotform.com/form/${USERS_FORM}/submissions?apiKey=${API_KEY}`,
                 method: "POST",
                 headers: {
                   "Content-Type": "application/x-www-form-urlencoded"
@@ -48,6 +50,7 @@ export const loginHandler = data => (dispatch, getState) => {
                 data: `submission[5]${content.email}=&submission[9]=${content.username}&submission[10]=${content.avatarUrl}`
               }).then(response => {
                 const data = response.data;
+                console.log("database register", data);
                 if (data.responseCode === 200) {
                   dispatch({
                     type: LOGIN_SUCCESS,

@@ -42,6 +42,7 @@ export const joinTeam = data => (dispatch, getState) => {
   const localUser = JSON.parse(localStorage.getItem("user"));
   const userEmail = localUser.email;
   const username = localUser.username;
+  const userAvatar = localUser.avatarUrl;
   let teamSubmissionID;
   let newTeamData;
   let userTeams = getState().user.teams;
@@ -64,7 +65,11 @@ export const joinTeam = data => (dispatch, getState) => {
         }
       }
 
-      newTeamData.users.push({ email: userEmail, username: username });
+      newTeamData.users.push({
+        email: userEmail,
+        username: username,
+        avatarUrl: userAvatar
+      });
 
       return axios({
         url: `https://api.jotform.com/submission/${teamSubmissionID}?apiKey=${API_KEY}`,

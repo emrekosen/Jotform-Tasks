@@ -71,7 +71,7 @@ class Sidebar extends Component {
                     <Link style={{ flex: 1 }} to={`/${team.teamID}/boards`}>
                       {team.teamName}
                     </Link>
-                    <TeamInfo teamName={team.teamName} />
+                    <TeamInfo teamName={team.teamName} teamID={team.teamID} />
                   </li>
                 );
               })}

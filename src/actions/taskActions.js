@@ -194,7 +194,7 @@ export const getAvatar = assignee => (dispatch, getState) => {
     )
     .then(response => {
       const content = response.data.content;
-
+      console.log(content);
       for (let index = 0; index < content.length; index++) {
         const submission = content[index];
         if (submission.answers[9].answer === assignee) {

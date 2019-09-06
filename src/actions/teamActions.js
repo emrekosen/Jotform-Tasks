@@ -5,7 +5,8 @@ import {
   CREATE_TEAM,
   JOIN_TEAM,
   DELETE_TEAM,
-  UPDATE_USER_TEAMS
+  UPDATE_USER_TEAMS,
+  BOARDS_FORM
 } from "../constants";
 import axios from "axios";
 import uniqid from "uniqid";
@@ -136,5 +137,33 @@ export const deleteTeam = teamID => (dispatch, getState) => {
         });
         history.push(`/teams`);
       }
+    });
+};
+
+export const getTeamDetails = teamID => (dispatch, getState) => {
+  console.log(teamID);
+  let boards = [];
+  let taskGroups = [];
+  return axios
+    .get(
+      `https://api.jotform.com/form/${BOARDS_FORM}/submissions?apiKey=${API_KEY}`
+    )
+    .then(response => {
+      const content = response.data.content;
+
+      for (let index = 0; index < content.length; index++) {
+        const answers = content[index].answers;
+        if (answers[7].answer === teamID) {
+          const boardID = answers[3].answer;
+          const boardName = answers[4].answer;
+          const taskGroupsJSON = JSON.parse(answers[5].answer).taskGroups;
+          const teamID = answers[7].answer;
+          boards.push({
+            boardName,
+            taskGroups: taskGroupsJSON
+          });
+        }
+      }
+      console.log(boards);
     });
 };
