@@ -6,7 +6,8 @@ import {
   CREATE_BOARD,
   DELETE_BOARD,
   UPDATE_TEAM_BOARDS,
-  DELETE_TASK_GROUP
+  DELETE_TASK_GROUP,
+  CREATE_TAG
 } from "../constants";
 import uniqid from "uniqid";
 import { deleteTask } from "./taskActions";
@@ -25,7 +26,8 @@ export const getBoard = boardID => (dispatch, getState) => {
         if (answers[3].answer === boardID) {
           const boardID = answers[3].answer;
           const boardName = answers[4].answer;
-          const taskGroupsJSON = JSON.parse(answers[5].answer);
+          const boardDetail = JSON.parse(answers[5].answer);
+          console.log(boardDetail);
           const teamID = answers[7].answer;
           dispatch({
             type: GET_BOARD,
@@ -34,7 +36,8 @@ export const getBoard = boardID => (dispatch, getState) => {
               teamID: teamID,
               boardID: boardID,
               boardName: boardName,
-              taskGroups: taskGroupsJSON.taskGroups,
+              taskGroups: boardDetail.taskGroups,
+              tags: boardDetail.tags,
               isLoaded: true
             }
           });
@@ -55,7 +58,8 @@ export const createBoard = boardName => (dispatch, getState) => {
     },
     data: `submission[3]=${boardID}&submission[4]=${boardName}&submission[5]=${JSON.stringify(
       {
-        taskGroups: []
+        taskGroups: [],
+        tags: []
       }
     )}&submission[7]=${teamState.teamID}`
   }).then(response => {
@@ -74,7 +78,8 @@ export const createBoard = boardName => (dispatch, getState) => {
           teamID: teamState.teamID,
           boardID: boardID,
           boardName: boardName,
-          taskGroups: []
+          taskGroups: [],
+          tags: []
         }
       });
       dispatch({
@@ -164,6 +169,7 @@ export const deleteBoard = boardID => (dispatch, getState) => {
             boardID: null,
             boardName: null,
             taskGroups: [],
+            tags: [],
             teamID: boardState.teamID
           }
         });
@@ -176,4 +182,34 @@ export const deleteBoard = boardID => (dispatch, getState) => {
         });
       }
     });
+};
+
+export const createTag = newTag => (dispatch, getState) => {
+  console.log(newTag);
+  const boardState = getState().board;
+  let tags = boardState.tags;
+  tags.push(newTag);
+  return axios({
+    url: `https://api.jotform.com/submission/${boardState.submissionID}?apiKey=${API_KEY}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: `submission[5]=${JSON.stringify({
+      taskGroups: boardState.taskGroups,
+      tags: tags
+    })}`
+  }).then(response => {
+    console.log(response.data);
+    const rData = response.data;
+    if (rData.responseCode === 200) {
+      dispatch({
+        type: CREATE_TAG,
+        payload: {
+          ...boardState,
+          tags: tags
+        }
+      });
+    }
+  });
 };

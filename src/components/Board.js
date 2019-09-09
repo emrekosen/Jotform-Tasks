@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getBoard, deleteBoard } from "../actions/boardActions";
+import { getBoard, deleteBoard, createTag } from "../actions/boardActions";
 import { getTasks } from "../actions/taskActions";
 import CreateTaskGroup from "./CreateTaskGroup";
 import TaskGroup from "./TaskGroup";
@@ -8,12 +8,64 @@ import history from "../utils/history";
 import { getTeam } from "../actions/teamActions";
 import { getUserTeams } from "../actions/userActions";
 import Container from "./Container";
-import { Spinner } from "reactstrap";
+import {
+  Spinner,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
+} from "reactstrap";
+import { Dropdown, Form, Button } from "semantic-ui-react";
+
+const colors = [
+  "red",
+  "orange",
+  "yellow",
+  "olive",
+  "green",
+  "teal",
+  "blue",
+  "violet",
+  "purple",
+  "pink",
+  "brown",
+  "grey",
+  "black"
+];
+
+const settingsTrigger = (
+  <button className="btn btn-primary ml-2">
+    <i className="fas fa-cog"></i>
+  </button>
+);
 
 class Board extends Component {
   state = {
     isLoading: true,
-    isAdding: false
+    isAdding: false,
+    modal: false,
+    color: "",
+    tag: ""
+  };
+
+  toggleModal = () =>
+    this.setState({
+      ...this.state,
+      modal: !this.state.modal
+    });
+
+  handleTag = e => {
+    this.setState({
+      ...this.state,
+      tag: e.target.value
+    });
+  };
+
+  handleColor = (e, { value }) => {
+    this.setState({
+      ...this.state,
+      color: value
+    });
   };
 
   componentDidUpdate(prevProps) {
@@ -74,9 +126,24 @@ class Board extends Component {
     });
   };
 
+  onCreateTag = e => {
+    const { createTag } = this.props;
+    const { tag, color } = this.state;
+    createTag({ name: tag, color: color }).then(response => {
+      this.toggleModal();
+    });
+  };
   render() {
-    const { board, deleteBoard } = this.props;
+    const { board } = this.props;
     const { isLoading, isAdding } = this.state;
+    const colorsList = colors.map(color => {
+      return {
+        key: color,
+        text: color.charAt(0).toUpperCase() + color.slice(1),
+        value: color,
+        label: { color: color, empty: true, circular: true }
+      };
+    });
     if (isLoading) {
       return (
         <Container>
@@ -107,12 +174,49 @@ class Board extends Component {
                 </button>
               </div>
             )}
-            <button
-              className="btn btn-primary ml-2"
-              onClick={this.onDeleteBoard}
+            <Dropdown
+              trigger={settingsTrigger}
+              pointing="top"
+              direction="left"
+              icon={null}
             >
-              <i className="fas fa-cog"></i>
-            </button>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  text="Create a new tag"
+                  icon="tag"
+                  onClick={this.toggleModal}
+                />
+                <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
+                  <ModalHeader toggle={this.toggleModal}>
+                    Create a Tag
+                  </ModalHeader>
+                  <ModalBody>
+                    <Form>
+                      <Form.Group widths="equal">
+                        <Form.Input
+                          placeholder="Tag name"
+                          value={this.state.tag}
+                          onChange={this.handleTag}
+                        ></Form.Input>
+                        <Form.Select
+                          placeholder="Select a color"
+                          fluid
+                          onChange={this.handleColor}
+                          selection
+                          options={colorsList}
+                        ></Form.Select>
+                      </Form.Group>
+                      <Button onClick={this.onCreateTag}>Create Tag</Button>
+                    </Form>
+                  </ModalBody>
+                </Modal>
+                <Dropdown.Item
+                  text="Delete board"
+                  icon="trash"
+                  onClick={this.onDeleteBoard}
+                />
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
           {board.taskGroups.length === 0 ? (
             <div className="text-center mt-5">
@@ -143,7 +247,8 @@ const mapDispatchToProps = {
   getTasks: getTasks,
   deleteBoard: deleteBoard,
   getTeam: getTeam,
-  getUserTeams: getUserTeams
+  getUserTeams: getUserTeams,
+  createTag: createTag
 };
 
 const mapStateToProps = ({ user, board }) => {

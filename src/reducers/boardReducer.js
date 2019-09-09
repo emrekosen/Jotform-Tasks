@@ -4,7 +4,8 @@ import {
   CREATE_BOARD,
   DELETE_TASK_GROUP,
   ADD_TASK_GROUP,
-  DELETE_BOARD
+  DELETE_BOARD,
+  CREATE_TAG
 } from "../constants/index";
 
 const initalState = {
@@ -12,7 +13,8 @@ const initalState = {
   submissionID: "",
   boardID: "",
   boardName: "",
-  taskGroups: []
+  taskGroups: [],
+  tags: []
 };
 
 export default function boardReducer(state = initalState, action) {
@@ -28,6 +30,8 @@ export default function boardReducer(state = initalState, action) {
     case DELETE_TASK_GROUP:
       return action.payload || false;
     case DELETE_BOARD:
+      return action.payload || false;
+    case CREATE_TAG:
       return action.payload || false;
     default:
       return state;

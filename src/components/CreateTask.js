@@ -64,13 +64,21 @@ class CreateTask extends Component {
 
   render() {
     const { isAdding } = this.state;
-    const { team, taskGroupID } = this.props;
+    const { team, taskGroupID, board } = this.props;
     const assignees = team.users.map(user => {
       return {
         key: user.email,
         text: user.username,
         value: user.username,
         image: { avatar: true, src: user.avatarUrl }
+      };
+    });
+    const tags = board.tags.map(tag => {
+      return {
+        key: tag.name,
+        text: tag.name,
+        value: tag.name,
+        label: { color: tag.color, empty: true, circular: true }
       };
     });
     console.log(assignees);
@@ -98,6 +106,13 @@ class CreateTask extends Component {
               minDate={new Date()}
               placeholderText="Select a due date"
             />
+            <Form.Select
+              placeholder="Select a tag"
+              fluid
+              onChange={this.xd}
+              selection
+              options={tags}
+            ></Form.Select>
           </Form.Group>
           <Button onClick={this.onAddTask}>Add Task</Button>
         </Form>
@@ -198,9 +213,10 @@ class CreateTask extends Component {
   }
 }
 
-const mapStateToProps = ({ team }) => {
+const mapStateToProps = ({ team, board }) => {
   return {
-    team
+    team,
+    board
   };
 };
 

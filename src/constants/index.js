@@ -1,4 +1,4 @@
-export const API_KEY = "945accfff2c513bc225ea32433a2a47a";
+export const API_KEY = "3728b61d479b0e3cb8410631c602897d  ";
 export const USERS_FORM = "92301193991963";
 export const TEAMS_FORM = "92265854469976";
 export const BOARDS_FORM = "92303271578963";
@@ -27,6 +27,7 @@ export const CREATE_BOARD = "CREATE_BOARD";
 export const UPDATE_BOARD = "UPDATE_BOARD";
 export const DELETE_BOARD = "DELETE_BOARD";
 export const DELETE_TASK_GROUP = "DELETE_TASK_GROUP";
+export const CREATE_TAG = "CREATE_TAG";
 
 export const ADD_TASK_GROUP = "ADD_TASK_GROUP";
 

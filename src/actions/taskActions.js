@@ -26,7 +26,7 @@ export const createTask = data => (dispatch, getState) => {
     assignedBy: localUser.username,
     dueDate: data.newDueDate,
     createdAt: moment(Date()).format("L"),
-    labels: [],
+    label: data.label,
     isDone: false
   };
   return axios({
@@ -162,7 +162,7 @@ export const toggleDoneTask = taskID => (dispatch, getState) => {
       assignedBy: task.assignedBy,
       dueDate: task.dueDate,
       createdAt: task.createdAt,
-      labels: task.labels,
+      label: task.label,
       isDone: !task.isDone
     })}`
   }).then(response => {
@@ -194,7 +194,7 @@ export const getAvatar = assignee => (dispatch, getState) => {
     )
     .then(response => {
       const content = response.data.content;
-      console.log(content);
+
       for (let index = 0; index < content.length; index++) {
         const submission = content[index];
         if (submission.answers[9].answer === assignee) {

@@ -94,6 +94,10 @@ class Task extends Component {
             </div>
             {/* TASK DETAIL */}
             <div id="task-detail" className="align-items-center">
+              <Label size="large" image>
+                <img src={this.state.assigneeAvatar} />
+                {assignee}
+              </Label>
               <DatePicker
                 className={
                   dateDiff < 0
@@ -105,10 +109,7 @@ class Task extends Component {
                 minDate={new Date()}
                 dateFormat="MMMM d"
               />
-              <Label size="large" image>
-                <img src={this.state.assigneeAvatar} />
-                {assignee}
-              </Label>
+              <div class="ui red large label"> Acil</div>
 
               <Dropdown>
                 <Dropdown.Menu className="left">
