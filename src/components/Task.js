@@ -5,7 +5,8 @@ import {
   deleteTask,
   toggleDoneTask,
   getAvatar,
-  changeTask
+  changeTask,
+  changeTaskTag
 } from "../actions/taskActions";
 import moment from "moment";
 import { Label, Dropdown, Segment } from "semantic-ui-react";
@@ -15,6 +16,7 @@ class Task extends Component {
     assigneeAvatar: null,
     task: this.props.task,
     dueDate: this.props.dueDate,
+    tag: this.props.tag,
     mobileDetail: false
   };
 
@@ -27,13 +29,18 @@ class Task extends Component {
     });
   }
 
-  changeTaskHandler = (dueDate, e) => {
+  changeTaskHandler = dueDate => {
     const { changeTask, taskID } = this.props;
     changeTask({
       taskID,
       newTask: this.state.task,
       newDueDate: dueDate
     });
+  };
+
+  changeTagHandler = data => {
+    const { changeTaskTag, taskID } = this.props;
+    changeTaskTag({ taskID, tag: data });
   };
 
   handleChange = e => {
@@ -51,8 +58,18 @@ class Task extends Component {
     this.changeTaskHandler(date);
   };
 
+  handleTag = (e, { value }) => {
+    const values = value.split("-");
+    this.setState({
+      ...this.state,
+      tag: { name: values[0], color: values[1] }
+    });
+    this.changeTagHandler({ name: values[0], color: values[1] });
+  };
+
   render() {
     const {
+      board,
       taskID,
       assignedBy,
       assignee,
@@ -63,10 +80,21 @@ class Task extends Component {
       toggleDoneTask,
       changeTask
     } = this.props;
-    const { task, dueDate, mobileDetail } = this.state;
+    const { task, dueDate, tag, mobileDetail } = this.state;
     const dateDiff =
       moment(moment(dueDate).format("L")).valueOf() -
       moment(moment().format("L")).valueOf();
+    const tagDropdown = (
+      <div className={"ui " + tag.color + " large label"}> {tag.name}</div>
+    );
+    const tags = board.tags.map(tag => {
+      return {
+        key: tag.color,
+        text: tag.name,
+        value: tag.name + "-" + tag.color,
+        label: { color: tag.color, empty: true, circular: true }
+      };
+    });
     return (
       <Segment>
         <div key={taskID}>
@@ -109,8 +137,14 @@ class Task extends Component {
                 minDate={new Date()}
                 dateFormat="MMMM d"
               />
-              <div class="ui red large label"> Acil</div>
-
+              <Dropdown
+                trigger={tagDropdown}
+                pointing="top"
+                direction="left"
+                icon={null}
+                options={tags}
+                onChange={this.handleTag}
+              />
               <Dropdown>
                 <Dropdown.Menu className="left">
                   <Dropdown.Item
@@ -249,9 +283,10 @@ class Task extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = ({ user, board }) => {
   return {
-    user
+    user,
+    board
   };
 };
 
@@ -259,7 +294,8 @@ const mapDispatchToProps = {
   deleteTask: deleteTask,
   toggleDoneTask: toggleDoneTask,
   getAvatar: getAvatar,
-  changeTask: changeTask
+  changeTask: changeTask,
+  changeTaskTag: changeTaskTag
 };
 
 export default connect(

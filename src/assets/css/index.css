@@ -251,7 +251,6 @@ a.article:hover {
 }
 
 #content-wrapper {
-  text-align: center;
   min-height: 100vh;
   margin-left: 0;
   margin-right: 0;
@@ -278,7 +277,6 @@ TASKGROUPS
 }
 
 #add-task {
-  font-size: 13px;
   text-align: start;
 }
 
@@ -360,11 +358,9 @@ TASKS
 #task-input {
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
-  font-size: 13px;
 }
 
 #assignee {
-  font-size: 13px;
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
@@ -574,13 +570,11 @@ POSITIONING
   #due-date,
   #task-input,
   #assignee,
-  #date-picker,
   #add-task,
   .btn,
   .dropdown-item,
   .input-box,
-  .list-group li,
-  .date-picker {
+  .list-group li {
     font-size: 16px;
   }
 

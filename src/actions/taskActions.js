@@ -8,12 +8,14 @@ import {
   DELETE_TASK,
   TOGGLE_TASK_DONE,
   CHANGE_TASK_GROUP,
-  USERS_FORM
+  USERS_FORM,
+  CHANGE_TASK_TAG
 } from "../constants";
 import uniqid from "uniqid";
 import moment from "moment";
 
 export const createTask = data => (dispatch, getState) => {
+  console.log(data);
   const localUser = JSON.parse(localStorage.getItem("user"));
   const currentUser = getState().user;
   const currentTasks = getState().task;
@@ -26,7 +28,7 @@ export const createTask = data => (dispatch, getState) => {
     assignedBy: localUser.username,
     dueDate: data.newDueDate,
     createdAt: moment(Date()).format("L"),
-    label: data.label,
+    tag: data.tag,
     isDone: false
   };
   return axios({
@@ -90,14 +92,18 @@ export const getTasks = taskGroups => (dispatch, getState) => {
   });
 };
 
-export const addTaskGroup = newTaskGroupName => (dispatch, getState) => {
+export const addTaskGroup = data => (dispatch, getState) => {
+  console.log(data.newTaskGroupName, data.color);
   const board = getState().board;
   const boardSubmission = board.submissionID;
   const newTaskGroupID = uniqid();
-  const newTaskGroups = [
-    ...board.taskGroups,
-    { taskGroupID: newTaskGroupID, taskGroupName: newTaskGroupName }
-  ];
+  const newTaskGroup = {
+    taskGroupID: newTaskGroupID,
+    taskGroupName: data.newTaskGroupName,
+    color: data.color
+  };
+  console.log(newTaskGroup);
+  const newTaskGroups = [...board.taskGroups, newTaskGroup];
   return axios({
     url: `https://api.jotform.com/submission/${boardSubmission}?apiKey=${API_KEY}`,
     method: "POST",
@@ -105,7 +111,8 @@ export const addTaskGroup = newTaskGroupName => (dispatch, getState) => {
       "Content-Type": "application/x-www-form-urlencoded"
     },
     data: `submission[5]=${JSON.stringify({
-      taskGroups: newTaskGroups
+      taskGroups: newTaskGroups,
+      tags: board.tags
     })}`
   }).then(response => {
     const data = response.data;
@@ -114,10 +121,7 @@ export const addTaskGroup = newTaskGroupName => (dispatch, getState) => {
         type: ADD_TASK_GROUP,
         payload: {
           ...board,
-          taskGroups: [
-            ...board.taskGroups,
-            { taskGroupName: newTaskGroupName, taskGroupID: newTaskGroupID }
-          ]
+          taskGroups: [...board.taskGroups, newTaskGroup]
         }
       });
     }
@@ -268,12 +272,54 @@ export const changeTask = data => (dispatch, getState) => {
       assignedBy: task.assignedBy,
       dueDate: data.newDueDate,
       createdAt: task.createdAt,
-      labels: task.labels,
+      tag: task.tag,
       isDone: task.isDone
     })}`
   }).then(response => {
     const data = response.data;
     if (data.responseCode === 200) {
+    }
+  });
+};
+
+export const changeTaskTag = data => (dispatch, getState) => {
+  const tasksState = getState().task;
+  let tasksList = tasksState.tasks;
+  const task = tasksState.tasks.find(task => task.taskID === data.taskID);
+
+  return axios({
+    url: `https://api.jotform.com/submission/${task.submissionID}?apiKey=${API_KEY}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: `submission[4]=${JSON.stringify({
+      taskID: task.taskID,
+      taskGroupID: task.taskGroupID,
+      task: task.task,
+      assignee: task.assignee,
+      assignedBy: task.assignedBy,
+      dueDate: task.dueDate,
+      createdAt: task.createdAt,
+      tag: data.tag,
+      isDone: task.isDone
+    })}`
+  }).then(response => {
+    const data = response.data;
+    if (data.responseCode === 200) {
+      for (let i = 0; i < tasksList.length; i++) {
+        const element = tasksList[i];
+        if (element.taskID === data.taskID) {
+          element.tag = data.tag;
+        }
+      }
+      dispatch({
+        type: CHANGE_TASK_TAG,
+        payload: {
+          tasksState,
+          tasks: tasksList
+        }
+      });
     }
   });
 };

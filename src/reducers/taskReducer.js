@@ -2,7 +2,8 @@ import {
   GET_TASKS,
   CREATE_TASK,
   DELETE_TASK,
-  TOGGLE_TASK_DONE
+  TOGGLE_TASK_DONE,
+  CHANGE_TASK_TAG
 } from "../constants/index";
 
 const initalState = {
@@ -18,6 +19,8 @@ export default function teamReducer(state = initalState, action) {
     case DELETE_TASK:
       return action.payload || false;
     case TOGGLE_TASK_DONE:
+      return action.payload || false;
+    case CHANGE_TASK_TAG:
       return action.payload || false;
     default:
       return state;

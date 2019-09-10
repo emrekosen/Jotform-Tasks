@@ -12,7 +12,8 @@ class CreateTask extends Component {
     isAdding: false,
     dueDate: new Date(),
     assignee: "",
-    task: ""
+    task: "",
+    tag: {}
   };
 
   handleChange = date => {
@@ -36,6 +37,14 @@ class CreateTask extends Component {
     });
   };
 
+  handleTag = (e, { value }) => {
+    const values = value.split("-");
+    this.setState({
+      ...this.state,
+      tag: { name: values[0], color: values[1] }
+    });
+  };
+
   toggleAddTaskBar = () => {
     this.setState({
       isAdding: !this.state.isAdding
@@ -44,13 +53,14 @@ class CreateTask extends Component {
 
   onAddTask = () => {
     const { createTask, taskGroupID } = this.props;
-    const { dueDate, assignee, task } = this.state;
+    const { dueDate, assignee, task, tag } = this.state;
     const newDueDate = moment(dueDate).format("L");
     createTask({
       task,
       assignee,
       newDueDate,
-      taskGroupID
+      taskGroupID,
+      tag
     }).then(task => {
       this.setState({
         isAdding: false,
@@ -75,13 +85,12 @@ class CreateTask extends Component {
     });
     const tags = board.tags.map(tag => {
       return {
-        key: tag.name,
+        key: tag.color,
         text: tag.name,
-        value: tag.name,
+        value: tag.name + "-" + tag.color,
         label: { color: tag.color, empty: true, circular: true }
       };
     });
-    console.log(assignees);
     return isAdding ? (
       <Segment>
         <Form>
@@ -109,7 +118,7 @@ class CreateTask extends Component {
             <Form.Select
               placeholder="Select a tag"
               fluid
-              onChange={this.xd}
+              onChange={this.handleTag}
               selection
               options={tags}
             ></Form.Select>

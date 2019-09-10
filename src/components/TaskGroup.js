@@ -7,10 +7,10 @@ import { Segment, Header } from "semantic-ui-react";
 
 class TaskGroup extends Component {
   render() {
-    const { id, name, task, deleteTaskGroup } = this.props;
+    const { id, name, task, color, deleteTaskGroup } = this.props;
     return (
       <Segment.Group>
-        <Segment attached="top" color="purple" inverted>
+        <Segment attached="top" color={color} secondary>
           <h4>{name}</h4>
         </Segment>
         <CreateTask taskGroupID={id} />
@@ -26,6 +26,7 @@ class TaskGroup extends Component {
                 isDone={task.isDone}
                 assignee={task.assignee}
                 dueDate={task.dueDate}
+                tag={task.tag}
               />
             );
           }

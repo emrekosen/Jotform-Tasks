@@ -130,7 +130,12 @@ class Board extends Component {
     const { createTag } = this.props;
     const { tag, color } = this.state;
     createTag({ name: tag, color: color }).then(response => {
-      this.toggleModal();
+      this.setState({
+        ...this.state,
+        modal: false,
+        color: "",
+        tag: ""
+      });
     });
   };
   render() {
@@ -160,20 +165,7 @@ class Board extends Component {
       <Container>
         <div>
           <div className="d-flex justify-content-end align-items-end">
-            {isAdding ? (
-              <CreateTaskGroup toggleBar={this.toggleTaskGroupAddBar} />
-            ) : (
-              <div>
-                {/* <h4>Add Task Group</h4> */}
-                <button
-                  id="addTaskGroup"
-                  className="btn btn-primary"
-                  onClick={this.toggleTaskGroupAddBar}
-                >
-                  Create Task Group
-                </button>
-              </div>
-            )}
+            <CreateTaskGroup />
             <Dropdown
               trigger={settingsTrigger}
               pointing="top"
@@ -232,6 +224,7 @@ class Board extends Component {
                   key={taskGroup.taskGroupID}
                   name={taskGroup.taskGroupName}
                   id={taskGroup.taskGroupID}
+                  color={taskGroup.color}
                 />
               );
             })

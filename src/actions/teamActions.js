@@ -77,7 +77,13 @@ export const createTeam = data => (dispatch, getState) => {
     },
     data: `submission[5]=${newTeamID}&submission[6]=${JSON.stringify({
       teamName: data,
-      users: [{ email: userEmail, username: localUser.username }]
+      users: [
+        {
+          email: userEmail,
+          username: localUser.username,
+          avatarUrl: localUser.avatarUrl
+        }
+      ]
     })}`
   }).then(response => {
     dispatch({
@@ -86,7 +92,13 @@ export const createTeam = data => (dispatch, getState) => {
         ...getState().team,
         teamID: newTeamID,
         teamName: data,
-        users: [{ email: userEmail, username: localUser.username }],
+        users: [
+          {
+            email: userEmail,
+            username: localUser.username,
+            avatarUrl: localUser.avatarUrl
+          }
+        ],
         boards: [],
         isLoaded: true
       }
@@ -141,7 +153,6 @@ export const deleteTeam = teamID => (dispatch, getState) => {
 };
 
 export const getTeamDetails = teamID => (dispatch, getState) => {
-  console.log(teamID);
   let boards = [];
   let taskGroups = [];
   return axios
@@ -164,6 +175,5 @@ export const getTeamDetails = teamID => (dispatch, getState) => {
           });
         }
       }
-      console.log(boards);
     });
 };

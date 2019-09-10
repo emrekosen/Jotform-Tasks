@@ -27,7 +27,7 @@ export const getBoard = boardID => (dispatch, getState) => {
           const boardID = answers[3].answer;
           const boardName = answers[4].answer;
           const boardDetail = JSON.parse(answers[5].answer);
-          console.log(boardDetail);
+
           const teamID = answers[7].answer;
           dispatch({
             type: GET_BOARD,
@@ -185,7 +185,6 @@ export const deleteBoard = boardID => (dispatch, getState) => {
 };
 
 export const createTag = newTag => (dispatch, getState) => {
-  console.log(newTag);
   const boardState = getState().board;
   let tags = boardState.tags;
   tags.push(newTag);
@@ -200,7 +199,6 @@ export const createTag = newTag => (dispatch, getState) => {
       tags: tags
     })}`
   }).then(response => {
-    console.log(response.data);
     const rData = response.data;
     if (rData.responseCode === 200) {
       dispatch({

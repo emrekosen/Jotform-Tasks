@@ -36,3 +36,4 @@ export const CREATE_TASK = "CREATE_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 export const TOGGLE_TASK_DONE = "TOGGLE_TASK_DONE";
 export const CHANGE_TASK_GROUP = "CHANGE_TASK_GROUP";
+export const CHANGE_TASK_TAG = "CHANGE_TASK_TAG";
