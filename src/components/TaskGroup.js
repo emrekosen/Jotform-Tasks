@@ -7,15 +7,34 @@ import { Segment, Header } from "semantic-ui-react";
 
 class TaskGroup extends Component {
   render() {
-    const { id, name, task, color, deleteTaskGroup } = this.props;
+    const { id, name, task, color, deleteTaskGroup, hideDones } = this.props;
     return (
-      <Segment.Group>
+      <Segment.Group style={{ marginTop: "3rem" }}>
         <Segment attached="top" color={color} secondary>
           <h4>{name}</h4>
         </Segment>
         <CreateTask taskGroupID={id} />
         {task.tasks.map(task => {
           if (id === task.taskGroupID) {
+            if (hideDones) {
+              if (!task.isDone) {
+                return (
+                  <Task
+                    key={task.taskID}
+                    task={task.task}
+                    assignedBy={task.assignedBy}
+                    submissionID={task.submissionID}
+                    taskID={task.taskID}
+                    isDone={task.isDone}
+                    assignee={task.assignee}
+                    dueDate={task.dueDate}
+                    tag={task.tag}
+                  />
+                );
+              } else {
+                return null;
+              }
+            }
             return (
               <Task
                 key={task.taskID}

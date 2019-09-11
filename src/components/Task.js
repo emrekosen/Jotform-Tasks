@@ -6,10 +6,11 @@ import {
   toggleDoneTask,
   getAvatar,
   changeTask,
-  changeTaskTag
+  changeTaskTag,
+  moveTask
 } from "../actions/taskActions";
 import moment from "moment";
-import { Label, Dropdown, Segment } from "semantic-ui-react";
+import { Label, Dropdown, Segment, Popup } from "semantic-ui-react";
 
 class Task extends Component {
   state = {
@@ -78,7 +79,8 @@ class Task extends Component {
       isDone,
       deleteTask,
       toggleDoneTask,
-      changeTask
+      changeTask,
+      moveTask
     } = this.props;
     const { task, dueDate, tag, mobileDetail } = this.state;
     const dateDiff =
@@ -122,10 +124,27 @@ class Task extends Component {
             </div>
             {/* TASK DETAIL */}
             <div id="task-detail" className="align-items-center">
-              <Label size="large" image>
-                <img src={this.state.assigneeAvatar} />
-                {assignee}
-              </Label>
+              <div
+                style={{
+                  width: "300px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginRight: ".50rem"
+                }}
+              >
+                <Dropdown
+                  trigger={tagDropdown}
+                  pointing="top"
+                  direction="left"
+                  icon={null}
+                  options={tags}
+                  onChange={this.handleTag}
+                />
+                <Label size="large" image>
+                  <img src={this.state.assigneeAvatar} />
+                  {assignee}
+                </Label>
+              </div>
               <DatePicker
                 className={
                   dateDiff < 0
@@ -137,14 +156,6 @@ class Task extends Component {
                 minDate={new Date()}
                 dateFormat="MMMM d"
               />
-              <Dropdown
-                trigger={tagDropdown}
-                pointing="top"
-                direction="left"
-                icon={null}
-                options={tags}
-                onChange={this.handleTag}
-              />
               <Dropdown>
                 <Dropdown.Menu className="left">
                   <Dropdown.Item
@@ -152,7 +163,40 @@ class Task extends Component {
                     text="Delete task"
                     onClick={deleteTask.bind(this, submissionID)}
                   />
-                  <Dropdown.Item icon="exchange" text="Move task" />
+                  <Popup
+                    trigger={<Dropdown.Item icon="exchange" text="Move task" />}
+                    position="left center"
+                    flowing
+                    hoverable
+                  >
+                    {board.taskGroups.map(taskGroup => {
+                      return (
+                        <div
+                          key={taskGroup.taskGroupID}
+                          onClick={moveTask.bind(this, {
+                            taskGroupID: taskGroup.taskGroupID,
+                            taskID: taskID
+                          })}
+                          style={{
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            color: "black",
+                            marginTop: ".75rem",
+                            marginBottom: ".75rem"
+                          }}
+                        >
+                          <Label
+                            style={{ marginRight: ".25rem" }}
+                            circular
+                            color={taskGroup.color}
+                            empty
+                            key={taskGroup.color}
+                          />
+                          {taskGroup.taskGroupName}
+                        </div>
+                      );
+                    })}
+                  </Popup>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
@@ -295,7 +339,8 @@ const mapDispatchToProps = {
   toggleDoneTask: toggleDoneTask,
   getAvatar: getAvatar,
   changeTask: changeTask,
-  changeTaskTag: changeTaskTag
+  changeTaskTag: changeTaskTag,
+  moveTask: moveTask
 };
 
 export default connect(

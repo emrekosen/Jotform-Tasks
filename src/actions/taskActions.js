@@ -15,7 +15,6 @@ import uniqid from "uniqid";
 import moment from "moment";
 
 export const createTask = data => (dispatch, getState) => {
-  console.log(data);
   const localUser = JSON.parse(localStorage.getItem("user"));
   const currentUser = getState().user;
   const currentTasks = getState().task;
@@ -93,7 +92,6 @@ export const getTasks = taskGroups => (dispatch, getState) => {
 };
 
 export const addTaskGroup = data => (dispatch, getState) => {
-  console.log(data.newTaskGroupName, data.color);
   const board = getState().board;
   const boardSubmission = board.submissionID;
   const newTaskGroupID = uniqid();
@@ -102,7 +100,6 @@ export const addTaskGroup = data => (dispatch, getState) => {
     taskGroupName: data.newTaskGroupName,
     color: data.color
   };
-  console.log(newTaskGroup);
   const newTaskGroups = [...board.taskGroups, newTaskGroup];
   return axios({
     url: `https://api.jotform.com/submission/${boardSubmission}?apiKey=${API_KEY}`,
@@ -166,7 +163,7 @@ export const toggleDoneTask = taskID => (dispatch, getState) => {
       assignedBy: task.assignedBy,
       dueDate: task.dueDate,
       createdAt: task.createdAt,
-      label: task.label,
+      tag: task.tag,
       isDone: !task.isDone
     })}`
   }).then(response => {
@@ -229,12 +226,12 @@ export const moveTask = data => (dispatch, getState) => {
       assignedBy: task.assignedBy,
       dueDate: task.dueDate,
       createdAt: task.createdAt,
-      labels: task.labels,
+      tag: task.tag,
       isDone: task.isDone
     })}`
   }).then(response => {
-    const data = response.data;
-    if (data.responseCode === 200) {
+    const resData = response.data;
+    if (resData.responseCode === 200) {
       for (let i = 0; i < tasksList.length; i++) {
         const element = tasksList[i];
         if (element.taskID === data.taskID) {
@@ -245,7 +242,7 @@ export const moveTask = data => (dispatch, getState) => {
       dispatch({
         type: CHANGE_TASK_GROUP,
         payload: {
-          ...tasksState,
+          ...getState().task,
           tasks: tasksList
         }
       });
@@ -305,18 +302,18 @@ export const changeTaskTag = data => (dispatch, getState) => {
       isDone: task.isDone
     })}`
   }).then(response => {
-    const data = response.data;
-    if (data.responseCode === 200) {
+    const resData = response.data;
+    if (resData.responseCode === 200) {
       for (let i = 0; i < tasksList.length; i++) {
         const element = tasksList[i];
         if (element.taskID === data.taskID) {
-          element.tag = data.tag;
+          tasksList[i].tag = data.tag;
         }
       }
       dispatch({
         type: CHANGE_TASK_TAG,
         payload: {
-          tasksState,
+          ...getState().task,
           tasks: tasksList
         }
       });

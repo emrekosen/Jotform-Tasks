@@ -8,6 +8,10 @@ body {
   background: #fafafa;
 }
 
+li {
+  cursor: pointer;
+}
+
 .create-task-datepicker {
   flex: 1;
   height: 2.71428571em;
@@ -49,7 +53,6 @@ body {
 }
 
 p {
-  font-family: "Poppins", sans-serif;
   font-size: 1.1em;
   font-weight: 300;
   line-height: 1.7em;
@@ -110,7 +113,7 @@ a:focus {
 }
 
 #avatar {
-  border-radius: 3rem;
+  border-radius: 5rem;
 }
 
 #sidebar {
@@ -182,7 +185,7 @@ a[data-toggle="collapse"] {
 }
 
 ul ul a {
-  font-size: 0.9em !important;
+  font-size: 1rem !important;
   padding-left: 30px !important;
   background: #6d7fcc;
 }

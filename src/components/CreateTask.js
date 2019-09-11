@@ -123,7 +123,15 @@ class CreateTask extends Component {
               options={tags}
             ></Form.Select>
           </Form.Group>
-          <Button onClick={this.onAddTask}>Add Task</Button>
+          <Button
+            style={{ backgroundColor: "#7386d5", color: "white" }}
+            onClick={this.onAddTask}
+          >
+            Add Task
+          </Button>
+          <Button style={{ color: "#7386d5" }} onClick={this.toggleAddTaskBar}>
+            Cancel
+          </Button>
         </Form>
       </Segment>
     ) : (

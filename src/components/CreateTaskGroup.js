@@ -80,7 +80,7 @@ class CreateTaskGroup extends Component {
         </button>
         <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>
-            Create new Task Group
+            Create New Task Group
           </ModalHeader>
           <ModalBody>
             <Form>

@@ -45,7 +45,8 @@ class Board extends Component {
     isAdding: false,
     modal: false,
     color: "",
-    tag: ""
+    tag: "",
+    hideDones: false
   };
 
   toggleModal = () =>
@@ -198,7 +199,12 @@ class Board extends Component {
                           options={colorsList}
                         ></Form.Select>
                       </Form.Group>
-                      <Button onClick={this.onCreateTag}>Create Tag</Button>
+                      <Button
+                        style={{ backgroundColor: "#7386d5", color: "white" }}
+                        onClick={this.onCreateTag}
+                      >
+                        Create Tag
+                      </Button>
                     </Form>
                   </ModalBody>
                 </Modal>
@@ -206,6 +212,20 @@ class Board extends Component {
                   text="Delete board"
                   icon="trash"
                   onClick={this.onDeleteBoard}
+                />
+                <Dropdown.Item
+                  text={
+                    this.state.hideDones
+                      ? "Show completed tasks"
+                      : "Hide completed tasks"
+                  }
+                  icon={this.state.hideDones ? "eye" : "eye slash"}
+                  onClick={() => {
+                    this.setState({
+                      ...this.state,
+                      hideDones: !this.state.hideDones
+                    });
+                  }}
                 />
               </Dropdown.Menu>
             </Dropdown>
@@ -225,6 +245,7 @@ class Board extends Component {
                   name={taskGroup.taskGroupName}
                   id={taskGroup.taskGroupID}
                   color={taskGroup.color}
+                  hideDones={this.state.hideDones}
                 />
               );
             })
