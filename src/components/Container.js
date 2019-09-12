@@ -8,12 +8,13 @@ class Container extends React.Component {
   render() {
     const { auth } = this.props;
     const localUser = JSON.parse(localStorage.getItem("user"));
+    console.log(localUser);
     return (
       <div>
         <Navbar />
         <div className="wrapper">
           {localUser !== null ? <Sidebar /> : null}
-          <div id="content" className={localUser == null ? "active" : ""}>
+          <div id="content" className={localUser === null ? "active" : ""}>
             <div id="content-wrapper">{this.props.children}</div>
           </div>
         </div>

@@ -9,7 +9,8 @@ import {
   TOGGLE_TASK_DONE,
   CHANGE_TASK_GROUP,
   USERS_FORM,
-  CHANGE_TASK_TAG
+  CHANGE_TASK_TAG,
+  CHANGE_TASK_ASSIGNEE
 } from "../constants";
 import uniqid from "uniqid";
 import moment from "moment";
@@ -312,6 +313,50 @@ export const changeTaskTag = data => (dispatch, getState) => {
       }
       dispatch({
         type: CHANGE_TASK_TAG,
+        payload: {
+          ...getState().task,
+          tasks: tasksList
+        }
+      });
+    }
+  });
+};
+
+export const changeAssignee = data => (dispatch, getState) => {
+  console.log(data);
+  const tasksState = getState().task;
+  let tasksList = tasksState.tasks;
+  const task = tasksState.tasks.find(task => task.taskID === data.taskID);
+
+  return axios({
+    url: `https://api.jotform.com/submission/${task.submissionID}?apiKey=${API_KEY}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    data: `submission[4]=${JSON.stringify({
+      taskID: task.taskID,
+      taskGroupID: task.taskGroupID,
+      task: task.task,
+      assignee: data.newAssignee,
+      assignedBy: task.assignedBy,
+      dueDate: task.dueDate,
+      createdAt: task.createdAt,
+      tag: task.tag,
+      isDone: task.isDone
+    })}`
+  }).then(response => {
+    const resData = response.data;
+    console.log(resData);
+    if (resData.responseCode === 200) {
+      for (let i = 0; i < tasksList.length; i++) {
+        const element = tasksList[i];
+        if (element.taskID === data.taskID) {
+          tasksList[i].assignee = data.newAssignee;
+        }
+      }
+      dispatch({
+        type: CHANGE_TASK_ASSIGNEE,
         payload: {
           ...getState().task,
           tasks: tasksList

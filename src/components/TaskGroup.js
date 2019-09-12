@@ -3,14 +3,25 @@ import { connect } from "react-redux";
 import Task from "./Task";
 import CreateTask from "./CreateTask";
 import { deleteTaskGroup } from "../actions/boardActions";
-import { Segment, Header } from "semantic-ui-react";
+import { Segment, Header, Grid, Button, Icon } from "semantic-ui-react";
 
 class TaskGroup extends Component {
   render() {
     const { id, name, task, color, deleteTaskGroup, hideDones } = this.props;
     return (
-      <Segment.Group style={{ marginTop: "3rem" }}>
-        <Segment attached="top" color={color} secondary>
+      <Segment.Group
+        style={{
+          marginTop: "3rem"
+        }}
+      >
+        <Segment
+          attached="top"
+          color={color}
+          style={{
+            cursor: "default"
+          }}
+          secondary
+        >
           <h4>{name}</h4>
         </Segment>
         <CreateTask taskGroupID={id} />

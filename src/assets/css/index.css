@@ -40,6 +40,7 @@ li {
   text-align: center;
   color: transparent;
   text-shadow: 0 0 0 white;
+  cursor: pointer;
 }
 .date-picker-red {
   background-color: #db2828;

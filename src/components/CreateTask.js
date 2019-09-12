@@ -214,7 +214,7 @@ class CreateTask extends Component {
       //     </div>
       //   </div>
       // </li>
-      <Segment onClick={this.toggleAddTaskBar}>
+      <Segment onClick={this.toggleAddTaskBar} style={{ cursor: "pointer" }}>
         <i id="addTaskIcon" className="fas fa-plus-circle fa-lg" />
         Add Task
       </Segment>
