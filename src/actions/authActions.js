@@ -150,6 +150,6 @@ export const logoutHandler = () => (dispatch, getState) => {
         isLoggedIn: false
       }
     });
-    history.push("/");
+    history.push("/login");
   });
 };
