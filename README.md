@@ -1,9 +1,10 @@
 ## Used technologies
 
--React
--Redux
--Semantic UI
--Bootstrap
+-React<br>
+-Redux<br>
+-Redux Thunk<br>
+-Semantic UI<br>
+-Bootstrap<br>
 
 In the project directory, you can run:
 
