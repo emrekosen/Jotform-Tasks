@@ -6,6 +6,7 @@ import uniqid from "uniqid";
 import JoinTeamModal from "./JoinTeamModal";
 import CreateBoardModal from "./CreateBoardModal";
 import { toggleHandler } from "../actions/sidebarActions";
+import { Image } from "semantic-ui-react";
 
 //set links and redirects
 
@@ -31,9 +32,11 @@ class Sidebar extends Component {
     const { user, team, toggleSidebar } = this.props;
     const { localUser } = this.state;
     return (
-      <nav id="sidebar">
+      <nav id="sidebar" className="active">
         <ul className="list-unstyled components">
           <img
+            height="128em"
+            width="128em"
             id="avatar"
             src={localUser.avatarUrl}
             className="mx-auto d-block"

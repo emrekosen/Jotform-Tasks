@@ -22,7 +22,13 @@ class TaskGroup extends Component {
           }}
           secondary
         >
-          <h4>{name}</h4>
+          <div
+            style={{ height: 25 }}
+            className="d-flex justify-content-between align-items-center"
+          >
+            <h4 style={{ marginBottom: 0 }}>{name}</h4>
+            <Icon name="close" onClick={deleteTaskGroup.bind(this, id)} />
+          </div>
         </Segment>
         <CreateTask taskGroupID={id} />
         {task.tasks.map(task => {

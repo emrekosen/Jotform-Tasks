@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Container from "./Container";
 import Avatar from "react-avatar";
 import CreateBoardModal from "./CreateBoardModal";
+import { Dropdown } from "semantic-ui-react";
 
 class Boards extends Component {
   constructor(props) {
@@ -66,12 +67,24 @@ class Boards extends Component {
               <h2
                 style={{ flex: 1, marginBottom: 0 }}
               >{`${team.teamName}'s Boards`}</h2>
-              <button
-                className="btn btn-primary ml-2"
-                onClick={deleteTeam.bind(this, team.teamID)}
+              <Dropdown
+                trigger={
+                  <button className="btn btn-primary ml-2">
+                    <i className="fas fa-cog"></i>
+                  </button>
+                }
+                pointing="top"
+                direction="left"
+                icon={null}
               >
-                <i className="fas fa-cog"></i>
-              </button>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    text="Delete team"
+                    icon="trash"
+                    onClick={deleteTeam.bind(this, team.teamID)}
+                  />
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
 
             <div className="custom-container">

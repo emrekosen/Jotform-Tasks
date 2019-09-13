@@ -59,7 +59,11 @@ export const createBoard = boardName => (dispatch, getState) => {
     data: `submission[3]=${boardID}&submission[4]=${boardName}&submission[5]=${JSON.stringify(
       {
         taskGroups: [],
-        tags: []
+        tags: [
+          { name: "Urgent", color: "red" },
+          { name: "Not started", color: "teal" },
+          { name: "In progress", color: "yellow" }
+        ]
       }
     )}&submission[7]=${teamState.teamID}`
   }).then(response => {
@@ -79,7 +83,11 @@ export const createBoard = boardName => (dispatch, getState) => {
           boardID: boardID,
           boardName: boardName,
           taskGroups: [],
-          tags: []
+          tags: [
+            { name: "Urgent", color: "red" },
+            { name: "Not started", color: "teal" },
+            { name: "In progress", color: "yellow" }
+          ]
         }
       });
       dispatch({
@@ -132,7 +140,10 @@ export const deleteTaskGroup = taskGroupID => (dispatch, getState) => {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    data: `submission[5]=${JSON.stringify({ taskGroups: newTaskGroups })}`
+    data: `submission[5]=${JSON.stringify({
+      taskGroups: newTaskGroups,
+      tags: boardState.tags
+    })}`
   }).then(response => {
     const rData = response.data;
     if (rData.responseCode === 200) {

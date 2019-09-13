@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import validateLogin from "../utils/LoginValidate";
 import { loginHandler } from "../actions/authActions";
+import { Image } from "semantic-ui-react";
 
 class LoginForm extends Component {
   state = {
@@ -36,7 +37,14 @@ class LoginForm extends Component {
         id="loginForm"
         noValidate
       >
-        <h1 className="h1 mb-4 font-weight-normal">Please sign in</h1>
+        <div className="text-center mb-5">
+          <Image
+            src="https://www.jotform.com/resources/assets/logo/jotform-icon-transparent-560x560.png"
+            size="small"
+            centered
+          />
+          <h1>Tasks</h1>
+        </div>
         {authError === null ? null : (
           <div className="alert alert-danger" role="alert">
             {authError}
@@ -71,7 +79,7 @@ class LoginForm extends Component {
           <div className="invalid-feedback">Please enter a valid password</div>
         </div>
         <button type="submit" className="btn btn-primary float-right">
-          Submit
+          Login
         </button>
       </form>
     );
