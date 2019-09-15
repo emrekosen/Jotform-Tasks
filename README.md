@@ -5,6 +5,7 @@
 -Redux Thunk<br>
 -Semantic UI<br>
 -Bootstrap<br>
+-Axios<br>
 
 In the project directory, you can run:
 
