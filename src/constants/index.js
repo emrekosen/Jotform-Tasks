@@ -1,4 +1,4 @@
-export const API_KEY = "3728b61d479b0e3cb8410631c602897d  ";
+export const API_KEY = "xd";
 export const USERS_FORM = "92301193991963";
 export const TEAMS_FORM = "92265854469976";
 export const BOARDS_FORM = "92303271578963";
